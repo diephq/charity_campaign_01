@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('link/verification/{id}/{tokenRegister?}',[
+    'as' => 'verification' ,
+    'uses' => 'Auth\VerifyController@index',
+]);

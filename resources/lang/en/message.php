@@ -10,6 +10,8 @@ return [
     'register' => 'Register',
     'logout' => 'Logout',
     'not_found' => 'Not found',
-    'footer' => 'Footer'
+    'footer' => 'Footer',
+    'create_error' => 'Create error',
+    'delete_error' => 'Delete error',
 
 ];

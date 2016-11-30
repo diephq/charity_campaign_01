@@ -19,7 +19,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
+        'is_active',
+        'token_verification'
     ];
 
     /**
@@ -38,4 +41,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Set the user's password.
+     *
+     * @param  string  $password
+     * @return void
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    public static function boot()
+    {
+        static::creating(function ($user) {
+            $user->is_active = config('constants.NOT_ACTIVE');
+            $user->token_verification = str_random(20);
+        });
+    }
 }
