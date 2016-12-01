@@ -29,6 +29,21 @@ Route::post('register',[
     'uses' => 'Auth\UserRegisterController@postRegister',
 ]);
 
+Route::get('login',[
+    'as' => 'get_login' ,
+    'uses' => 'Auth\UserLoginController@getLogin',
+]);
+
+Route::post('login',[
+    'as' => 'post_login' ,
+    'uses' => 'Auth\UserLoginController@postLogin',
+]);
+
+Route::get('logout',[
+    'as' => 'logout' ,
+    'uses' => 'Auth\UserLoginController@logout',
+]);
+
 Route::get('link/verification/{id}/{tokenRegister?}',[
     'as' => 'verification' ,
     'uses' => 'Auth\VerifyController@index',
