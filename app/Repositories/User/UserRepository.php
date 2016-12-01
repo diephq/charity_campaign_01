@@ -8,14 +8,18 @@ use Input;
 use App\Repositories\BaseRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Mail;
+use Laravel\Socialite\Contracts\User as ProviderUser;
+use App\Models\SocialAccount;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     protected $user;
+    protected $socialAccount;
 
-    public function __construct(User $user)
+    public function __construct(User $user, SocialAccount $socialAccount)
     {
         $this->user = $user;
+        $this->socialAccount = $socialAccount;
     }
 
     public function register($data = [])
@@ -68,4 +72,40 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $this->user->where('email', $params['email'])->first();
     }
+
+    public function createOrGetUser(ProviderUser $providerUser, $providerName)
+    {
+
+        $params = [
+            'provider' => $providerName,
+            'provider_user_id' => $providerUser->getId(),
+        ];
+
+        $account = $this->socialAccount->getUserSocialAccount($params);
+
+        if (!empty($account)) {
+            return $account->user;
+        } else {
+            $account = new $this->socialAccount($params);
+
+            if (!empty($providerUser->getEmail())) {
+                $user = $this->user->whereEmail($providerUser->getEmail())->first();
+            }
+
+            if (empty($user)) {
+                $user = $this->user->create([
+                    'name' => $providerUser->getName(),
+                    'email' => $providerUser->getEmail(),
+                    'avatar' => $providerUser->getAvatar(),
+                    'is_active' => config('constants.ACTIVATED'),
+                ]);
+            }
+
+            $account->user()->associate($user);
+            $account->save();
+
+            return $user;
+        }
+    }
+
 }

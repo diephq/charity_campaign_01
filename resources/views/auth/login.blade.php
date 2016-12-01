@@ -60,8 +60,29 @@
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 {!! Form::submit(trans('user.login'), ['class' => 'btn btn-primary']) !!}
-
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">{{ trans('user.forgot_password') }}</a>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <a href="{{ url('/redirect/facebook') }}" class="btn btn-block btn-social btn-facebook col-lg-2">
+                                            <span class="fa fa-twitter"></span>
+                                            {{ trans('user.login_facebook') }}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ url('/redirect/twitter') }}" class="btn btn-block btn-social btn-twitter col-lg-2">
+                                            <span class="fa fa-twitter"></span>
+                                            {{ trans('user.login_twitter') }}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ url('/redirect/google') }}" class="btn btn-block btn-social btn-google col-lg-2">
+                                            <span class="fa fa-twitter"></span>
+                                            {{ trans('user.login_google') }}
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {!! Form::close() !!}

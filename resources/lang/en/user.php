@@ -18,5 +18,8 @@ return [
     'forgot_password' => 'Forgot Your Password?',
     'reset_password' => 'Reset Password',
     'link_reset_password' => 'Send Password Reset Link',
+    'login_twitter' => 'Twitter',
+    'login_facebook' => 'Facebook',
+    'login_google' => 'Google',
 
 ];
