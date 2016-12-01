@@ -43,6 +43,15 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
     /**
+     * @var array
+     */
+    public $rules = [
+        'name' => 'required|max:255',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|min:6|confirmed',
+    ];
+
+    /**
      * Set the user's password.
      *
      * @param  string  $password
