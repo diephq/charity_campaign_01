@@ -19,13 +19,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ url('/logout') }}"
-                                   onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">{{ trans('message.logout') }}</a>
-
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" hidden>
-                                    {{ csrf_field() }}
-                                </form>
+                                <a href="{{ url('/logout') }}">{{ trans('message.logout') }}</a>
                             </li>
                         </ul>
                     </li>

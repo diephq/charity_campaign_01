@@ -60,4 +60,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function getUserLogin($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        return $this->user->where('email', $params['email'])->first();
+    }
 }
