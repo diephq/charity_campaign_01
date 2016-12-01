@@ -48,3 +48,6 @@ Route::get('link/verification/{id}/{tokenRegister?}',[
     'as' => 'verification' ,
     'uses' => 'Auth\VerifyController@index',
 ]);
+
+Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');
+Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');

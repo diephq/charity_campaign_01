@@ -10,6 +10,7 @@
 
     @section('css')
         {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
+        {{ Html::style('bower_components/bootstrap-social/bootstrap-social.css') }}
         {{ Html::style('assets/css/common.css') }}
     @show
 
