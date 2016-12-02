@@ -124,4 +124,17 @@ abstract class BaseRepository
         return $data;
     }
 
+    public function uploadImage($image, $path)
+    {
+        if (empty($path) || empty($image)) {
+            return false;
+        }
+
+        $imageName = time() . $image->getClientOriginalName();
+        $path = public_path() . $path;
+        $image->move($path, $imageName);
+
+        return $imageName;
+    }
+
 }

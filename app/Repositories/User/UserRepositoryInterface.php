@@ -10,4 +10,5 @@ interface UserRepositoryInterface
     public function verifyUser($id);
     public function getUserLogin($params = []);
     public function createOrGetUser(ProviderUser $providerUser, $providerName);
+    public function updateProfile($inputs, $id);
 }

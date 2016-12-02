@@ -56,6 +56,18 @@ class User extends Authenticatable
         'password' => 'required|min:6',
     ];
 
+    public function updateRules($id)
+    {
+        return [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'avatar' => ['mimes:jpg,jpeg,JPEG,png,gif', 'max:2024'],
+            'password' => 'required|min:6|max:30|confirmed',
+            'password_confirmation' => 'required'
+        ];
+    }
+
+
     /**
      * Set the user's password.
      *
@@ -67,11 +79,23 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+    public function getAvatarAttribute($value)
+    {
+        if (empty($value)) {
+            return config('path.to_avatar_default');
+        }
+
+        return config('path.to_avatar') . $value;
+    }
+
     public static function boot()
     {
+        parent::boot();
+
         static::creating(function ($user) {
             $user->is_active = config('constants.NOT_ACTIVE');
             $user->token_verification = str_random(20);
         });
     }
+
 }

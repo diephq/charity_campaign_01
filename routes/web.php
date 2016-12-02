@@ -51,3 +51,18 @@ Route::get('link/verification/{id}/{tokenRegister?}',[
 
 Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/user/{id}', [
+        'as' => 'profile',
+        'uses' => 'UserController@edit'
+    ]);
+
+    Route::post('/user/{id}', [
+        'as' => 'update_profile',
+        'uses' => 'UserController@update'
+    ]);
+
+});
