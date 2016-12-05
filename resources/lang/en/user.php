@@ -21,5 +21,10 @@ return [
     'login_twitter' => 'Twitter',
     'login_facebook' => 'Facebook',
     'login_google' => 'Google',
+    'profile' => 'User profile',
+    'edit_profile' => 'Edit profile',
+    'upload_avatar' => 'Upload a different photo...',
+    'update_success' => 'User update successful',
+    'update_error' => 'User update error',
 
 ];

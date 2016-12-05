@@ -13,5 +13,7 @@ return [
     'footer' => 'Footer',
     'create_error' => 'Create error',
     'delete_error' => 'Delete error',
+    'save_changes' => 'Save Change',
+    'cancel' => 'Cancel',
 
 ];

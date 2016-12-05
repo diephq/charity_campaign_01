@@ -10,6 +10,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Mail;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 use App\Models\SocialAccount;
+use DB;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -105,6 +106,32 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $account->save();
 
             return $user;
+        }
+    }
+
+    public function updateProfile($inputs, $id)
+    {
+        if (empty($id) || empty($inputs)) {
+            return false;
+        }
+
+        if (empty($inputs['avatar'])) {
+            unset($inputs['avatar']);
+        } else {
+            $avatar = $this->uploadImage($inputs['avatar'], config('path.to_avatar'));
+            $inputs['avatar'] = $avatar;
+        }
+
+        DB::beginTransaction();
+        try {
+            $user = $this->user->where('id', $id)->update($inputs);
+            DB::commit();
+
+            return $user;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return false;
         }
     }
 
