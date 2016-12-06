@@ -18,7 +18,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('profile', [Auth::user()->id]) }}" ><span class="glyphicon glyphicon-edit"></span> {{ trans('user.edit_profile') }}</a></li>
+                            <li><a href="{{ action('UserController@show', ['id' => Auth::user()->id]) }}" ><span class="glyphicon glyphicon-user"></span> {{ trans('user.your_profile') }}</a></li>
                             <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> {{ trans('message.logout') }}</a></li>
                         </ul>
                     </li>
