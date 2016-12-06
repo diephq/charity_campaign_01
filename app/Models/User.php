@@ -86,6 +86,13 @@ class User extends Authenticatable
             return config('path.to_avatar_default');
         }
 
+        $pattern = "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i";
+        preg_match($pattern, $value, $matches);
+
+        if (!empty($matches)) {
+            return $value;
+        }
+
         return config('path.to_avatar') . $value;
     }
 
