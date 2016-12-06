@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\User\UserRepository;
+use App\Repositories\Campaign\CampaignRepositoryInterface;
+use App\Repositories\Campaign\CampaignRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         App::bind(UserRepositoryInterface::class, UserRepository::class);
+        App::bind(CampaignRepositoryInterface::class, CampaignRepository::class);
     }
 }

@@ -15,5 +15,7 @@ return [
     'delete_error' => 'Delete error',
     'save_changes' => 'Save Change',
     'cancel' => 'Cancel',
-
+    'exceptions' => [
+        'not-instance' => 'Class :Model must be an instance of Illuminate\\Database\\Eloquent\\Model',
+    ],
 ];

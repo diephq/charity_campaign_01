@@ -49,7 +49,7 @@ class UserController extends Controller
             return abort(404);
         }
 
-        if ($user->isCurrent()) {
+        if (!$user->isCurrent()) {
             return redirect(action('UserController@show', ['id' => $user->id]));
         }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
             return abort(404);
         }
 
-        if ($user->isCurrent()) {
+        if (!$user->isCurrent()) {
             return redirect(action('UserController@show', ['id' => $user->id]));
         }
 

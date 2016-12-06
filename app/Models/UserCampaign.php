@@ -16,4 +16,11 @@ class UserCampaign extends Model
         'campaign_id',
         'is_owner',
     ];
+
+    protected $table = 'users_campaigns';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

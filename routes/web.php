@@ -56,5 +56,6 @@ Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('user', 'UserController');
+    Route::resource('campaign', 'CampaignController');
 
 });

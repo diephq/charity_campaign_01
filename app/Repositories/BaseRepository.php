@@ -8,11 +8,33 @@ use Exception;
 use DB;
 use Auth;
 use Input;
+use Illuminate\Container\Container;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
 {
     protected $model;
+    protected $container;
+
+    public function __construct(Container $container)
+    {
+        $this->app = $container;
+        $this->makeModel();
+    }
+
+    abstract public function model();
+
+    public function makeModel()
+    {
+        $model = $this->app->make($this->model());
+
+        if (!$model instanceof Model) {
+            throw new Exception(trans('message.exceptions.not-instance', ['model' => $this->model()]));
+        }
+
+        return $this->model = $model;
+    }
 
     public function getCurrentUser()
     {
