@@ -55,14 +55,6 @@ Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/user/{id}', [
-        'as' => 'profile',
-        'uses' => 'UserController@edit'
-    ]);
-
-    Route::post('/user/{id}', [
-        'as' => 'update_profile',
-        'uses' => 'UserController@update'
-    ]);
+    Route::resource('user', 'UserController');
 
 });

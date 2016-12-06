@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
+use Auth;
 
 class UserController extends Controller
 {
@@ -18,37 +19,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -56,7 +26,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $user = $this->user->findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
+
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -71,6 +47,10 @@ class UserController extends Controller
             $user = $this->user->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return abort(404);
+        }
+
+        if ($user->isCurrent()) {
+            return redirect(action('UserController@show', ['id' => $user->id]));
         }
 
         return view('user.detail', compact('user'));
@@ -89,6 +69,10 @@ class UserController extends Controller
             $user = $this->user->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return abort(404);
+        }
+
+        if ($user->isCurrent()) {
+            return redirect(action('UserController@show', ['id' => $user->id]));
         }
 
         $this->validate($request, $this->user->updateRules($id));
@@ -115,14 +99,4 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

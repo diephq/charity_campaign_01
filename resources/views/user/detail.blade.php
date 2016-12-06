@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container category">
-        <div class="col-md-12">
+        <div class="col-md-12 user-profile">
             <div class="col-md-10 col-md-offset-1">
                 <h1 class="page-header title">{{ trans('user.edit_profile') }}</h1>
             </div>
