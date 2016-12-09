@@ -16,7 +16,6 @@ class Campaign extends Model
      */
     protected $fillable = [
         'name',
-        'image_id',
         'description',
         'address',
         'start_time',
@@ -30,4 +29,23 @@ class Campaign extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public $rules = [
+        'name' => 'required|max:255',
+        'start_date' => 'required|date|date_format:"Y/m/d',
+        'end_date' => 'required|date|date_format:"Y/m/d',
+        'image' => ['required', 'mimes:jpg,jpeg,JPEG,png,gif', 'max:2024'],
+        'address' => 'required',
+        'description' => 'required',
+    ];
+
+    public function image()
+    {
+        return $this->hasOne(Image::class);
+    }
+
+    public function owner()
+    {
+        return $this->hasOne(UserCampaign::class);
+    }
 }

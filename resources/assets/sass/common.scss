@@ -1,112 +1,159 @@
 body {
-  background: #F1F3FA;
+    background: #F1F3FA;
 
-  .image_size {
-    width: 150px;
-    height: 150px;
-  }
-
-  .user-profile {
-    background: #fff;
-  }
-  .profile {
-    margin: 20px 0;
-
-    .profile-sidebar {
-      padding: 20px 0 10px 0;
-      background: #fff;
-
-      .profile-userpic img {
-        float: none;
-        margin: 0 auto;
-        width: 50%;
-        height: 50%;
-        -webkit-border-radius: 50% !important;
-        -moz-border-radius: 50% !important;
-        border-radius: 50% !important;
-      }
-
-      .profile-usertitle {
-        text-align: center;
-        margin-top: 20px;
-
-        .profile-usertitle-name {
-          color: #5a7391;
-          font-size: 16px;
-          font-weight: 600;
-          margin-bottom: 7px;
-        }
-
-        .profile-usertitle-email {
-          color: #5b9bd1;
-          font-size: 12px;
-          font-weight: 600;
-          margin-bottom: 15px;
-        }
-      }
-
-      .profile-userbuttons {
-        text-align: center;
-        margin-top: 10px;
-
-        .btn {
-          text-transform: uppercase;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 6px 15px;
-          margin-right: 5px;
-        }
-
-        .btn:last-child {
-          margin-right: 0px;
-        }
-      }
-
-      .profile-usermenu {
-        margin-top: 30px;
-
-        ul {
-          li {
-            border-bottom: 1px solid #f0f4f7;
-
-            a {
-              color: #93a3b5;
-              font-size: 14px;
-              font-weight: 400;
-
-              i {
-                margin-right: 8px;
-                font-size: 14px;
-              }
-            }
-            &:a {
-              background-color: #fafcfd;
-              color: #5b9bd1;
-            }
-          }
-
-          li:last-child {
-            border-bottom: none;
-          }
-
-          li.active {
-            border-bottom: none;
-
-            a {
-              color: #5b9bd1;
-              background-color: #f6f9fb;
-              border-left: 2px solid #5b9bd1;
-              margin-left: -2px;
-            }
-          }
-        }
-      }
+    .image_size {
+        width: 150px;
+        height: 150px;
     }
 
-    .profile-content {
-      padding: 20px;
-      background: #fff;
-      min-height: 460px;
+    .user-profile {
+        background: #fff;
     }
-  }
+    .profile {
+        margin: 20px 0;
+
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+
+            .profile-userpic img {
+                float: none;
+                margin: 0 auto;
+                width: 50%;
+                height: 50%;
+                -webkit-border-radius: 50% !important;
+                -moz-border-radius: 50% !important;
+                border-radius: 50% !important;
+            }
+
+            .profile-usertitle {
+                text-align: center;
+                margin-top: 20px;
+
+                .profile-usertitle-name {
+                    color: #5a7391;
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin-bottom: 7px;
+                }
+
+                .profile-usertitle-email {
+                    color: #5b9bd1;
+                    font-size: 12px;
+                    font-weight: 600;
+                    margin-bottom: 15px;
+                }
+            }
+
+            .profile-userbuttons {
+                text-align: center;
+                margin-top: 10px;
+
+                .btn {
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 6px 15px;
+                    margin-right: 5px;
+                }
+
+                .btn:last-child {
+                    margin-right: 0px;
+                }
+            }
+
+            .profile-usermenu {
+                margin-top: 30px;
+
+                ul {
+                    li {
+                        border-bottom: 1px solid #f0f4f7;
+
+                        a {
+                            color: #93a3b5;
+                            font-size: 14px;
+                            font-weight: 400;
+
+                            i {
+                                margin-right: 8px;
+                                font-size: 14px;
+                            }
+                        }
+                        &:a {
+                            background-color: #fafcfd;
+                            color: #5b9bd1;
+                        }
+                    }
+
+                    li:last-child {
+                        border-bottom: none;
+                    }
+
+                    li.active {
+                        border-bottom: none;
+
+                        a {
+                            color: #5b9bd1;
+                            background-color: #f6f9fb;
+                            border-left: 2px solid #5b9bd1;
+                            margin-left: -2px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+    }
+
+    .image-campaign {
+        width: 246px;
+        margin-bottom: 0px;
+        height: 235px;
+        float: left;
+
+        .image_campaign {
+            width: 200px;
+            height: 200px;
+        }
+    }
+    .title_campaign {
+        font-size: 18px;
+        line-height: 23px
+    }
+    .desc_miles {
+        a {
+            color: #000000;
+            outline: none;
+        }
+        .title_auth {
+            font-size: 12px;
+        }
+        .date-campaign {
+            color: #949494;
+        }
+        .description {
+            color: #000000;
+            line-height: 22px;
+
+            span {
+                font-weight: bold;
+            }
+            .text {
+                display: block;
+                text-overflow: ellipsis;
+                width: 600px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+
+    }
+    .pagination {
+        float: right;
+    }
 }
