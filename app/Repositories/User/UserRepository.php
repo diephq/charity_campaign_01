@@ -11,16 +11,23 @@ use Mail;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 use App\Models\SocialAccount;
 use DB;
+use Illuminate\Container\Container;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    protected $user;
+
+    protected $container;
     protected $socialAccount;
 
-    public function __construct(User $user, SocialAccount $socialAccount)
+    public function __construct(Container $container, SocialAccount $socialAccount)
     {
-        $this->user = $user;
+        parent::__construct($container);
         $this->socialAccount = $socialAccount;
+    }
+
+    function model()
+    {
+        return User::class;
     }
 
     public function register($data = [])
@@ -33,7 +40,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'password' => $data['password'],
         ];
 
-        $user = $this->user->create($params);
+        $user = $this->model->create($params);
 
         if (empty($user)) {
             return false;
@@ -51,12 +58,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getUserByToken($id, $token)
     {
-        return $this->user->where(['id' => $id, 'token_verification' => $token])->first();
+        return $this->model->where(['id' => $id, 'token_verification' => $token])->first();
     }
 
     public function verifyUser($id)
     {
-        $user = $this->user->find($id);
+        $user = $this->model->find($id);
 
         $user->is_active = config('constants.ACTIVATED');
         $user->token_verification = '';
@@ -71,7 +78,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             return false;
         }
 
-        return $this->user->where('email', $params['email'])->first();
+        return $this->model->where('email', $params['email'])->first();
     }
 
     public function createOrGetUser(ProviderUser $providerUser, $providerName)
@@ -90,11 +97,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $account = new $this->socialAccount($params);
 
             if (!empty($providerUser->getEmail())) {
-                $user = $this->user->whereEmail($providerUser->getEmail())->first();
+                $user = $this->model->whereEmail($providerUser->getEmail())->first();
             }
 
             if (empty($user)) {
-                $user = $this->user->create([
+                $user = $this->model->create([
                     'name' => $providerUser->getName(),
                     'email' => $providerUser->getEmail(),
                     'avatar' => $providerUser->getAvatar(),
@@ -124,7 +131,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         DB::beginTransaction();
         try {
-            $user = $this->user->where('id', $id)->update($inputs);
+            $user = $this->model->where('id', $id)->update($inputs);
             DB::commit();
 
             return $user;
@@ -134,5 +141,4 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             return false;
         }
     }
-
 }
