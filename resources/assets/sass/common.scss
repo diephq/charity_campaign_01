@@ -1,5 +1,29 @@
 body {
+    font-family: Georgia,serif;
     background: #F1F3FA;
+
+    .header {
+        position: relative;
+        background-color: #fff;
+        border-top: 1px solid #e4e4e4;
+        -webkit-box-shadow: 0 1px 5px #dcdddd;
+        box-shadow: 0 1px 5px #dcdddd;
+    }
+    .push-down-45 {
+        margin-bottom: 45px;
+        .container {
+            .logo {
+                margin-right: 15px;
+            }
+            .pull-left {
+                float: left!important;
+                img {
+                    width: 176px;
+                    height: 70px;
+                }
+            }
+        }
+    }
 
     .image_size {
         width: 150px;
@@ -156,4 +180,114 @@ body {
     .pagination {
         float: right;
     }
+
+    .boxed {
+        background-color: #fff;
+        border: 1px solid #e4e4e4;
+        border-radius: 6px;
+        .meta {
+            position: relative;
+            .wp-post-image {
+                width: 100%;
+                height: auto;
+                border-top-right-radius: 6px;
+                border-top-left-radius: 6px;
+            }
+            .meta__container {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.6)));
+                background: -webkit-linear-gradient(top,transparent 0,rgba(0,0,0,.6) 100%);
+                background: linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 100%);
+                color: #e4e4e4;
+                padding: 65px 30px 0 20px;
+                line-height: 30px;
+                text-align: left;
+                font-family: Lato,sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+        }
+        .sticky__box {
+            border-bottom: 1px dashed #e4e4e4;
+            padding: 12px 0;
+            background-color: #fff;
+            height: 45px;
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: center;
+            .sticky__circle {
+                display: inline-block;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                background: #ebeded;
+                -webkit-box-shadow: 0 1px 3px #c4c5c5 inset;
+                box-shadow: 0 1px 3px #c4c5c5 inset;
+                margin: 0 8%;
+            }
+        }
+        .post-content--front-page {
+            margin-bottom: 30px;
+            h3 {
+                font-size: 24px;
+                font-weight: 300;
+                color: #999;
+                letter-spacing: -.75px;
+                line-height: 1.25;
+            }
+            p {
+                font-size: 18px;
+            }
+        }
+        .row {
+            .post-comments {
+                text-align: left;
+                margin-bottom: 60px;
+            }
+            .social-network {
+                float: right;
+                margin-bottom: 60px;
+
+                .btn-default {
+                    border-color: #ededed;
+                }
+
+                .fa {
+                    color: #4483DC;
+                }
+
+                .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+                    background-color: #f8f8f8;
+                    border-color: #ededed;
+                }
+            }
+        }
+    }
+
+    .widget-author {
+        .contribution {
+            padding-bottom: 15px;
+        }
+    }
+
+    .modal {
+        .modal-content {
+            .category {
+                padding-right: 0px;
+            }
+        }
+    }
+    .profile_thumb {
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
 }

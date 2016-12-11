@@ -11,15 +11,15 @@
                 @foreach ($campaigns as $campaign)
                 <div class="row">
                     <div class="image-campaign">
-                        <img src="{{ $campaign->images->image }}" class="image_campaign" alt="">
+                        <img src="{{ $campaign->image->image }}" class="image_campaign" alt="">
                     </div>
 
                     <div class="desc_miles">
                         <div class="row">
-                            <a href="#" target="_blank">
+                            <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">
                                 <div class="title_campaign"><p>{{ $campaign->name }}</p></div>
                             </a>
-                            <a href="#" target="_blank">
+                            <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">
                                 <div class="description"><p class="text">{{ $campaign->description }}</p></div>
                             </a>
                             <br>
@@ -35,5 +35,5 @@
                 {{ $campaigns->links() }}
             </div>
         </div>
-    </div>}
+    </div>
 @stop

@@ -10,4 +10,11 @@ return [
     'address' => 'Address',
     'description' => 'Description',
     'by' => 'By',
+    'contribute' => 'Contribute',
+    'create_contribute' => 'Create contribute',
+    'category' => 'Category',
+    'choose_one' => 'Please choose one category',
+    'amount' => 'Amount',
+    'contributors' => 'Contributors',
+
 ];

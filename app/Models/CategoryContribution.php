@@ -14,5 +14,13 @@ class CategoryContribution extends Model
     protected $fillable = [
         'category_id',
         'contribution_id',
+        'amount',
     ];
+
+    protected $table = 'categories_contributions';
+
+    public function contribution()
+    {
+        return $this->belongsTo(Contribution::class);
+    }
 }
