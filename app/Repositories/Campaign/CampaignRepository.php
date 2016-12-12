@@ -74,4 +74,13 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return false;
         }
     }
+
+    public function getDetail($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        return $this->model->with(['image', 'owner.user'])->find($id);
+    }
 }

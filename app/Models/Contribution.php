@@ -20,4 +20,24 @@ class Contribution extends Model
         'description',
         'status',
     ];
+
+    public $rules = [
+        'name' => 'max:255',
+        'email' => 'email|max:255|unique:users',
+        'campaign_id' => 'required|numeric|exists:campaigns,id',
+    ];
+
+    public function categoryContribution()
+    {
+        return $this->hasMany(CategoryContribution::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($contribution) {
+            $contribution->status = config('constants.NOT_ACTIVE');
+        });
+    }
 }

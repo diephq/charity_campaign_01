@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Models\Campaign;
 
 class CampaignController extends Controller
@@ -11,11 +12,14 @@ class CampaignController extends Controller
 
     protected $campaignRepository;
     protected $campaign;
+    protected $categoryRepository;
 
-    public function __construct(CampaignRepositoryInterface $campaignRepository, Campaign $campaign)
+    public function __construct(CampaignRepositoryInterface $campaignRepository, Campaign $campaign,
+                                CategoryRepositoryInterface $categoryRepository)
     {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -78,7 +82,15 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $campaign = $this->campaignRepository->getDetail($id);
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
+
+        $categories = $this->categoryRepository->all();
+
+        return view('campaign.show', compact('campaign', 'categories'));
     }
 
     /**
