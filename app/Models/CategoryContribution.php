@@ -23,4 +23,9 @@ class CategoryContribution extends Model
     {
         return $this->belongsTo(Contribution::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

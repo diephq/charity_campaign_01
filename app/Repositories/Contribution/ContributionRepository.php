@@ -56,4 +56,11 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
             return false;
         }
     }
+
+    public function getContributions($id)
+    {
+        return $this->model->where('status', config('constants.ACTIVATED'))
+            ->where('campaign_id', $id)
+            ->with(['user','categoryCampaigns.category']);
+    }
 }
