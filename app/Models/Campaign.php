@@ -48,4 +48,9 @@ class Campaign extends Model
     {
         return $this->hasOne(UserCampaign::class);
     }
+
+    public function contributions()
+    {
+        return $this->hasMany(Contribution::class);
+    }
 }
