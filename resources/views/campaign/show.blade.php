@@ -61,14 +61,29 @@
                                     <h2>{{ trans('campaign.contributors') }}</h2>
                                 </div>
                                 <ul class="list-unstyled top_profiles scroll-view">
+                                    @foreach ($campaign->contributions as $contribution)
                                     <li class="media event">
-                                        <a class="pull-left border-aero profile_thumb">
-                                            <img src="" class="img-circle" alt="" >
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#"></a>
-                                        </div>
+                                        @if ($contribution->user)
+                                            <a class="pull-left border-aero profile_thumb">
+                                                <img src="{{ $contribution->user->avatar }}" class="img-circle" alt="" >
+                                            </a>
+                                            <div class="media-body">
+                                                <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id    ]) }}">{{ $contribution->user->name }}</a>
+                                                <p>{{ $contribution->user->email }}</p>
+                                                <small>{{ $contribution->created_at }}</small>
+                                            </div>
+                                        @else
+                                            <a class="pull-left border-aero profile_thumb">
+                                                <img src="{{ config('path.to_avatar_default') }}" class="img-circle" alt="" >
+                                            </a>
+                                            <div class="media-body">
+                                                <p>{{ $contribution->name }}</p>
+                                                <p>{{ $contribution->email }}</p>
+                                                <small>{{ $contribution->created_at }}</small>
+                                            </div>
+                                        @endif
                                     </li>
+                                    @endforeach
                                 </ul>
                                 <div class="contribution">
                                     {{ Form::button('Contribute', [

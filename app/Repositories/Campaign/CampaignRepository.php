@@ -81,6 +81,10 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return false;
         }
 
-        return $this->model->with(['image', 'owner.user'])->find($id);
+        return $this->model->with(['image', 'owner.user'])
+            ->with(['contributions.user', 'contributions' => function($query) {
+                $query->where('status', config('constants.ACTIVATED'));
+            }])
+            ->find($id);
     }
 }
