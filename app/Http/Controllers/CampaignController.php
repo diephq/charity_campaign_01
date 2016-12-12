@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Models\Campaign;
+use App\Repositories\Contribution\ContributionRepositoryInterface;
 
 class CampaignController extends Controller
 {
@@ -13,13 +14,16 @@ class CampaignController extends Controller
     protected $campaignRepository;
     protected $campaign;
     protected $categoryRepository;
+    protected $contributionRepository;
 
     public function __construct(CampaignRepositoryInterface $campaignRepository, Campaign $campaign,
-                                CategoryRepositoryInterface $categoryRepository)
+                                CategoryRepositoryInterface $categoryRepository,
+                                ContributionRepositoryInterface $contributionRepository)
     {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
         $this->categoryRepository = $categoryRepository;
+        $this->contributionRepository = $contributionRepository;
     }
 
     /**
@@ -90,7 +94,10 @@ class CampaignController extends Controller
 
         $categories = $this->categoryRepository->all();
 
-        return view('campaign.show', compact('campaign', 'categories'));
+        // get list contributions
+        $contributions = $this->contributionRepository->getContributions($id)->get();
+
+        return view('campaign.show', compact('campaign', 'categories', 'contributions'));
     }
 
     /**

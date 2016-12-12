@@ -37,6 +37,11 @@ class Contribution extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function categoryCampaigns()
+    {
+        return $this->hasMany(CategoryContribution::class);
+    }
+
     public static function boot()
     {
         parent::boot();

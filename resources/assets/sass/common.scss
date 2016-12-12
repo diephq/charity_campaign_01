@@ -290,4 +290,21 @@ body {
         }
     }
 
+    .list_contribute {
+        .modal-content {
+            .modal-body {
+                table {
+                    tbody {
+                        td {
+                            img {
+                                width: 50px;
+                                height: 50px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

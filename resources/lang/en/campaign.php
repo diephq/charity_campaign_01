@@ -16,5 +16,16 @@ return [
     'choose_one' => 'Please choose one category',
     'amount' => 'Amount',
     'contributors' => 'Contributors',
+    'show_more' => 'Show more',
+    'list_contribution' => 'Contributions',
+    'contribution' => [
+        'index' => '#',
+        'avatar' => 'Avatar',
+        'name' => 'Name',
+        'email' => 'Email',
+        'category' => 'Category',
+        'amount' => 'Amount',
+        'description' => 'Description',
+    ]
 
 ];
