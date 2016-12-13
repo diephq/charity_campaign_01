@@ -53,4 +53,9 @@ class Campaign extends Model
     {
         return $this->hasMany(Contribution::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

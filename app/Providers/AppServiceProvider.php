@@ -12,6 +12,8 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Contribution\ContributionRepository;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
+use App\Repositories\Comment\CommentRepository;
+use App\Repositories\Comment\CommentRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,6 @@ class AppServiceProvider extends ServiceProvider
         App::bind(CampaignRepositoryInterface::class, CampaignRepository::class);
         App::bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         App::bind(ContributionRepositoryInterface::class, ContributionRepository::class);
+        App::bind(CommentRepositoryInterface::class, CommentRepository::class);
     }
 }

@@ -24,14 +24,14 @@
 
 </head>
 <body>
-        @include('layouts.header')
 
-        @include('layouts.alert')
+    @include('layouts.header')
 
-        @yield('content')
+    @include('layouts.alert')
 
-        @include('layouts.footer')
+    @yield('content')
 
+    @include('layouts.footer')
 
 </body>
 </html>

@@ -267,6 +267,65 @@ body {
                     border-color: #ededed;
                 }
             }
+            .comment {
+                padding: 10px 0 45px;
+
+                form {
+                    input {
+                        width: 100%;
+                        padding: 9px 12px;
+                        border: 1px solid #e0e0e0;
+                        border-radius: 6px;
+                        background: #f8f9fa;
+                        margin-bottom: 30px;
+                    }
+                    textarea {
+                        width: 100%;
+                        padding: 9px 12px;
+                        border: 1px solid #e0e0e0;
+                        border-radius: 6px;
+                        background: #f8f9fa;
+                        margin-bottom: 15px;
+                    }
+                }
+                .media-list {
+                    .media {
+                        .pull-left {
+                            .media-object {
+                                width: 60px;
+                                height: 60px;
+                            }
+                        }
+
+                        .media-body {
+                            position: relative;
+
+                            .well-lg {
+                                padding: 10px;
+                                border-radius: 6px;
+
+                                .media-date {
+                                    position: absolute;
+                                    right: 25px;
+                                    top: 25px;
+                                }
+
+                                .reviews {
+                                    color: #555;
+                                    font-weight: bold;
+                                    margin: 10px auto 20px;
+                                }
+                                .list-inline {
+                                    padding-left: 0;
+                                    margin-left: -5px;
+                                    list-style: none;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
         }
     }
 
@@ -306,5 +365,6 @@ body {
             }
         }
     }
+
 
 }

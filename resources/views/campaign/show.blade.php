@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('js')
+    @parent
+    {{ Html::script('js/comment.js') }}
+@stop
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -50,6 +55,10 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+
+                        @include('campaign.comment')
+
                     </div>
                 </div>
 
