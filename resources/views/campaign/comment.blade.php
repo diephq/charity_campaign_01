@@ -28,7 +28,7 @@
                 @endif
 
                 <div class="col-xs-12">
-                    {!! Form::text('text', old('text'), ['class' => 'form-control', 'id' => 'text', 'placeholder' => trans('campaign.your_message')]) !!}
+                    {!! Form::textarea('text', old('text'), ['rows' => '4', 'class' => 'form-control', 'id' => 'text', 'placeholder' => trans('campaign.your_message')]) !!}
 
                     @if ($errors->has('text'))
                         <span class="help-block">
@@ -58,12 +58,12 @@
                         <div class="well well-lg">
                             @if ($comment->user)
                                 <a href="{{ action('UserController@show', ['id' => $comment->user->id]) }}">
-                                    <h4 class="media-heading text-uppercase reviews">{{ $comment->user->name }}</h4>
+                                    <h4 class="media-heading reviews">{{ $comment->user->name }}</h4>
                                 </a>
                             @else
-                                <h4 class="media-heading text-uppercase reviews">{{ $comment->name }}</h4>
+                                <h4 class="media-heading reviews">{{ $comment->name }}</h4>
                             @endif
-                            <p class="media-date text-uppercase reviews list-inline">{{ $comment->created_at }}</p>
+                            <p class="media-date reviews list-inline">{{ $comment->created_at }}</p>
                             <p class="media-comment">{{ $comment->text }}</p>
                         </div>
                     </div>

@@ -34,7 +34,7 @@
                             @endif
 
                             <td>
-                                @foreach ($contribution->categoryCampaigns as $value)
+                                @foreach ($contribution->categoryContributions as $value)
                                     <p>{{ $value->category->name }} : <small>{{ $value->amount }}</small></p>
                                 @endforeach
                             </td>

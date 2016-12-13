@@ -17,10 +17,10 @@
                                 <div class="row">
                                     <div class="col-xs-12  col-sm-8">
                                         <div class="meta__info">
-                                                <span class="meta__author">
-                                                    <img src="{{ $campaign->owner->user->avatar }}" class="img-circle">
-                                                    <a href="#">{{ $campaign->owner->user->name }}</a>
-                                                </span>
+                                            <span class="meta__author">
+                                                <img src="{{ $campaign->owner->user->avatar }}" class="img-circle">
+                                                <a href="#">{{ $campaign->owner->user->name }}</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -56,9 +56,32 @@
                             </div>
                         </div>
                         <hr>
-
                         @include('campaign.comment')
+                    </div>
+                </div>
 
+                <div class="col-xs-12  col-md-4 total">
+                    <div class="widget-author  boxed  push-down-30">
+                        <div class="row">
+                            <div class="col-xs-10  col-xs-offset-1">
+                                <div class="x_title">
+                                    <h2>{{ trans('campaign.value') }}</h2>
+                                    <hr>
+                                </div>
+                                <ul class="list-unstyled top_profiles scroll-view">
+                                    @foreach ($results as $key => $result)
+                                        <li class="media event">
+                                            <div class="pull-left">
+                                                <span>
+                                                    <strong>{{ $result->category->name }}</strong> :
+                                                    <strong>{{ $result->amount }}</strong>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -68,6 +91,7 @@
                             <div class="col-xs-10  col-xs-offset-1">
                                 <div class="x_title">
                                     <h2>{{ trans('campaign.contributors') }}</h2>
+                                    <hr>
                                 </div>
                                 <ul class="list-unstyled top_profiles scroll-view">
                                     @foreach ($campaign->contributions as $contribution)
@@ -100,22 +124,17 @@
                                         'data-toggle'=>'modal',
                                         'data-target'=>'.contribute'
                                     ]) }}
-
-                                    {{ Form::button(trans('campaign.show_more'), [
-                                        'class' => 'btn btn-success',
-                                        'data-toggle'=>'modal',
-                                        'data-target'=>'.list_contribute'
-                                    ]) }}
+                                    <a href=".list_contribute" data-toggle="modal" data-target=".list_contribute">{{ trans('campaign.show_more') }}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     @include('campaign.create_contribution')
     @include('campaign.list_contribution')
-
 @stop

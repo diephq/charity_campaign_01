@@ -1,12 +1,14 @@
 <?php
 namespace App\Repositories\Contribution;
 
+use App\Models\Category;
 use Auth;
 use App\Models\Contribution;
 use App\Repositories\BaseRepository;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use DB;
 use Illuminate\Container\Container;
+use App\Models\CategoryContribution;
 
 class ContributionRepository extends BaseRepository implements ContributionRepositoryInterface
 {
@@ -45,7 +47,7 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
                 'name' => isset($params['name']) ? $params['name'] : null,
                 'email' => isset($params['email']) ? $params['email'] : null,
                 'description' => $params['description'],
-            ])->categoryContribution()->createMany($inputs);
+            ])->categoryContributions()->createMany($inputs);
 
             DB::commit();
 
@@ -59,8 +61,30 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
 
     public function getContributions($id)
     {
+        if (!$id) {
+            return false;
+        }
+
         return $this->model->where('status', config('constants.ACTIVATED'))
             ->where('campaign_id', $id)
-            ->with(['user','categoryCampaigns.category']);
+            ->with(['user', 'categoryContributions.category']);
+    }
+
+    public function getValueContribution($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        $results = CategoryContribution::whereHas('contribution', function($query) use ($id) {
+            $query->where('campaign_id', $id)
+                ->where('status', config('constants.ACTIVATED'));
+            })
+            ->with('category')
+            ->selectRaw('category_id, sum(amount) as amount')
+            ->groupBy('category_id')
+            ->get();
+
+        return $results;
     }
 }

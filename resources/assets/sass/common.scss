@@ -189,7 +189,7 @@ body {
             position: relative;
             .wp-post-image {
                 width: 100%;
-                height: auto;
+                height: 300px;
                 border-top-right-radius: 6px;
                 border-top-left-radius: 6px;
             }
@@ -290,6 +290,8 @@ body {
                 }
                 .media-list {
                     .media {
+                        margin-top: 0px;
+
                         .pull-left {
                             .media-object {
                                 width: 60px;
@@ -313,7 +315,6 @@ body {
                                 .reviews {
                                     color: #555;
                                     font-weight: bold;
-                                    margin: 10px auto 20px;
                                 }
                                 .list-inline {
                                     padding-left: 0;
@@ -327,6 +328,10 @@ body {
                 }
             }
         }
+    }
+
+    .total {
+        margin-bottom: 15px;
     }
 
     .widget-author {

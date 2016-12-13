@@ -27,7 +27,7 @@ class Contribution extends Model
         'campaign_id' => 'required|numeric|exists:campaigns,id',
     ];
 
-    public function categoryContribution()
+    public function categoryContributions()
     {
         return $this->hasMany(CategoryContribution::class);
     }
@@ -35,11 +35,6 @@ class Contribution extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function categoryCampaigns()
-    {
-        return $this->hasMany(CategoryContribution::class);
     }
 
     public static function boot()

@@ -6,4 +6,6 @@ interface ContributionRepositoryInterface
     public function createContribution($params = []);
 
     public function getContributions($id);
+
+    public function getValueContribution($id);
 }

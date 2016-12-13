@@ -30,4 +30,5 @@ return [
     'create_comment' => 'Create Comment',
     'your_message' => 'Your message',
     'comments' => 'Comments',
+    'value' => 'Current Contributions',
 ];
