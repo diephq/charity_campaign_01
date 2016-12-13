@@ -60,4 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::resource('campaign', 'CampaignController');
+
 Route::resource('contribution', 'ContributionController');
+
+Route::post('comment/create', 'CommentController@store');

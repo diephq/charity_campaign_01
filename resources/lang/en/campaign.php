@@ -26,6 +26,8 @@ return [
         'category' => 'Category',
         'amount' => 'Amount',
         'description' => 'Description',
-    ]
-
+    ],
+    'create_comment' => 'Create Comment',
+    'your_message' => 'Your message',
+    'comments' => 'Comments',
 ];
