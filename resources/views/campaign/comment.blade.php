@@ -76,7 +76,12 @@
 
 <script type="text/javascript">
     $( document ).ready(function() {
-        var comment = new Comment('{{ action('CommentController@store') }}', '{{ config('path.to_avatar_default') }}');
+        var comment = new Comment('{{ action('CommentController@store') }}',
+                '{{ config('path.to_avatar_default') }}',
+                '{{ action('CampaignController@joinOrLeaveCampaign') }}',
+                '{{ trans('campaign.request_sent') }}',
+                '{{ trans('campaign.request_join') }}'
+        );
         comment.init();
     });
 </script>

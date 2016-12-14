@@ -64,3 +64,5 @@ Route::resource('campaign', 'CampaignController');
 Route::resource('contribution', 'ContributionController');
 
 Route::post('comment/create', 'CommentController@store');
+
+Route::post('request-join', 'CampaignController@joinOrLeaveCampaign');
