@@ -42,7 +42,7 @@ Comment.prototype = {
                             _self.html += '<h4 class="media-heading reviews">' + data.name + '</h4>';
                         }
 
-                        _self.html += '<p class="media-date text-uppercase reviews list-inline">' + data.created_at + '</p>';
+                        _self.html += '<p class="media-date reviews list-inline">' + data.created_at + '</p>';
                         _self.html += '<p class="media-comment">' + data.text + '</p></div>';
                         _self.html += '</div></li>';
 

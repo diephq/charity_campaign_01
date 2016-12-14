@@ -97,7 +97,10 @@ class CampaignController extends Controller
         // get list contributions
         $contributions = $this->contributionRepository->getContributions($id)->get();
 
-        return view('campaign.show', compact('campaign', 'categories', 'contributions'));
+        // get total contributions
+        $results = $this->contributionRepository->getValueContribution($id);
+
+        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results'));
     }
 
     /**
