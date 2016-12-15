@@ -100,7 +100,28 @@ class CampaignController extends Controller
         // get total contributions
         $results = $this->contributionRepository->getValueContribution($id);
 
-        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results'));
+        // check user had join campaign
+        $userCampaign = $this->campaignRepository->checkUserCampaign([
+            'user_id' => auth()->id(),
+            'campaign_id' => $id,
+        ]);
+
+        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign'));
+    }
+
+    public function joinOrLeaveCampaign(Request $request)
+    {
+        if ($request->ajax()){
+            $inputs = $request->only([
+                'campaign_id',
+            ]);
+
+            $inputs['user_id'] = auth()->id();
+
+            $result = $this->campaignRepository->joinOrLeaveCampaign($inputs);
+
+            return response()->json($result);
+        }
     }
 
     /**

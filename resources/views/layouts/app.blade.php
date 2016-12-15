@@ -16,7 +16,6 @@
     @section('css')
         {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('bower_components/bootstrap-social/bootstrap-social.css') }}
-        {{ Html::style('assets/css/common.css') }}
         {{ Html::style('css/common.css') }}
         {{ Html::style('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700%7CLato:700,900&subset=latin,latin') }}
         {{ Html::style('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}

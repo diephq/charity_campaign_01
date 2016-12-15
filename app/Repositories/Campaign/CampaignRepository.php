@@ -87,4 +87,26 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             }])
             ->find($id);
     }
+
+    public function joinOrLeaveCampaign($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        if ($userCampaign = $this->checkUserCampaign($params)) {
+            return $userCampaign->delete();
+        }
+
+        return UserCampaign::create($params);
+    }
+
+    public function checkUserCampaign($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        return UserCampaign::where($params)->first();
+    }
 }

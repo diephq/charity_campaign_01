@@ -15,6 +15,7 @@ class UserCampaign extends Model
         'user_id',
         'campaign_id',
         'is_owner',
+        'status',
     ];
 
     protected $table = 'users_campaigns';

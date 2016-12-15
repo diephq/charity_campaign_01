@@ -36,20 +36,38 @@
 
                         <div class="row">
                             <div class="col-xs-10  col-xs-offset-1">
-
-                                <div class="post-content--front-page">
-                                    <h3>{{ $campaign->name }}</h3>
-                                    <p>{{ $campaign->description }}</p>
+                                <div class="request-join">
+                                    @if (Auth::user())
+                                    {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
+                                    {!! Form::hidden('campaign_id', $campaign->id) !!}
+                                        @if (empty($userCampaign))
+                                            {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                        @elseif (empty($userCampaign->status))
+                                            {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                        @else
+                                            {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                        @endif
+                                    {!! Form::close() !!}
+                                    @else
+                                        <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-success joinOrLeave">{{ trans('campaign.request_join') }}</a>
+                                    @endif
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xs-12  col-sm-6">
+                                <div>
+                                    <div class="post-content--front-page">
+                                        <h3>{{ $campaign->name }}</h3>
+                                        <p>{{ $campaign->description }}</p>
                                     </div>
-                                    <div class="col-xs-12  col-sm-6">
-                                        <div class="btn-group social-network">
-                                            {!! Form::button('', ['class' => 'btn btn-default fa fa-facebook']) !!}
-                                            {!! Form::button('', ['class' => 'btn btn-default fa fa-twitter']) !!}
-                                            {!! Form::button('', ['class' => 'btn btn-default fa fa-envelope']) !!}
+
+                                    <div class="row">
+                                        <div class="col-xs-12  col-sm-6">
+                                        </div>
+                                        <div class="col-xs-12  col-sm-6">
+                                            <div class="btn-group social-network">
+                                                {!! Form::button('', ['class' => 'btn btn-default fa fa-facebook']) !!}
+                                                {!! Form::button('', ['class' => 'btn btn-default fa fa-twitter']) !!}
+                                                {!! Form::button('', ['class' => 'btn btn-default fa fa-envelope']) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,4 +155,5 @@
 
     @include('campaign.create_contribution')
     @include('campaign.list_contribution')
+
 @stop

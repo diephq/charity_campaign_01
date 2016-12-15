@@ -246,6 +246,15 @@ body {
             }
         }
         .row {
+            .request-join {
+                width: 100%;
+                margin-bottom: 40px;
+                .joinOrLeave {
+                    width: 100px;
+                    float: right;
+                }
+            }
+
             .post-comments {
                 text-align: left;
                 margin-bottom: 60px;

@@ -31,4 +31,8 @@ return [
     'your_message' => 'Your message',
     'comments' => 'Comments',
     'value' => 'Current Contributions',
+    'request_join' => 'Join',
+    'request_sent' => 'Request Sent',
+    'leave_campaign' => 'Leave',
+
 ];

@@ -1,12 +1,16 @@
-var Comment = function (url, avatarDefault) {
+var Comment = function (url, avatarDefault, urlRequestJoin, btnRequestSent, btnJoin) {
     this.url = url;
     this.avatarDefault = avatarDefault;
+    this.urlRequestJoin = urlRequestJoin;
+    this.btnRequestSent = btnRequestSent;
+    this.btnJoin = btnJoin;
 };
 
 Comment.prototype = {
     init: function () {
         var _self = this;
         _self.initEvent();
+        _self.joinOrLeaveCampaign();
     },
 
     initEvent: function () {
@@ -48,6 +52,28 @@ Comment.prototype = {
 
                         $('#text').val('');
                         $('.media-list').append(_self.html);
+                    }
+                }
+            });
+        });
+    },
+
+    joinOrLeaveCampaign: function () {
+        var _self = this;
+
+        $(".joinOrLeave").click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: _self.urlRequestJoin,
+                data: $("#formRequest").serialize(),
+                success: function(data)
+                {
+                    if (data.id) {
+                        $('.joinOrLeave').attr('value', _self.btnRequestSent);
+                    } else {
+                        $('.joinOrLeave').attr('value', _self.btnJoin);
                     }
                 }
             });
