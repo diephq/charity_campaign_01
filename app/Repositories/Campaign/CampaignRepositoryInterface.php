@@ -12,4 +12,6 @@ interface CampaignRepositoryInterface
     public function joinOrLeaveCampaign($params = []);
 
     public function checkUserCampaign($params = []);
+
+    public function listCampaignOfUser($userId);
 }

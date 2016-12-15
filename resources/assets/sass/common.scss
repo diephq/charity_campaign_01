@@ -39,12 +39,12 @@ body {
         .profile-sidebar {
             padding: 20px 0 10px 0;
             background: #fff;
+            margin-bottom: 20px;
 
             .profile-userpic img {
                 float: none;
                 margin: 0 auto;
-                width: 50%;
-                height: 50%;
+                width: 30%;
                 -webkit-border-radius: 50% !important;
                 -moz-border-radius: 50% !important;
                 border-radius: 50% !important;
@@ -87,7 +87,7 @@ body {
             }
 
             .profile-usermenu {
-                margin-top: 30px;
+                margin-top: 10px;
 
                 ul {
                     li {
@@ -137,12 +137,11 @@ body {
     .image-campaign {
         width: 246px;
         margin-bottom: 0px;
-        height: 235px;
         float: left;
 
         .image_campaign {
             width: 200px;
-            height: 200px;
+            height: 120px;
         }
     }
     .title_campaign {
@@ -171,6 +170,13 @@ body {
                 display: block;
                 text-overflow: ellipsis;
                 width: 600px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .content {
+                display: block;
+                text-overflow: ellipsis;
+                width: 250px;
                 overflow: hidden;
                 white-space: nowrap;
             }
@@ -250,6 +256,10 @@ body {
                 width: 100%;
                 margin-bottom: 40px;
                 .joinOrLeave {
+                    width: 100px;
+                    float: right;
+                }
+                .join {
                     width: 100px;
                     float: right;
                 }

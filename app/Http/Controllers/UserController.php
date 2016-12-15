@@ -6,16 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use Auth;
+use App\Repositories\Campaign\CampaignRepositoryInterface;
 
 class UserController extends Controller
 {
     protected $user;
     protected $userRepository;
+    protected $campaignRepository;
 
-    public function __construct(User $user, UserRepositoryInterface $userRepository)
+    public function __construct(User $user, UserRepositoryInterface $userRepository,
+                                CampaignRepositoryInterface $campaignRepository)
     {
         $this->user = $user;
         $this->userRepository = $userRepository;
+        $this->campaignRepository = $campaignRepository;
     }
 
     /**
@@ -97,6 +101,20 @@ class UserController extends Controller
         return redirect()->back()
             ->with(['alert-success' => trans('user.update_success')]);
 
+    }
+
+    public function listUserCampaign($id)
+    {
+        try {
+            $user = $this->user->findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
+
+        // get list user's campaign
+        $campaigns = $this->campaignRepository->listCampaignOfUser($id)->paginate(config('constants.PAGINATE'));
+
+        return view('user.campaigns', compact('user', 'campaigns'));
     }
 
 }
