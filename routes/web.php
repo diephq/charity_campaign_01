@@ -57,12 +57,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('user', 'UserController');
 
+    Route::get('campaigns/create', 'CampaignController@create');
+
+    Route::post('campaigns/create', 'CampaignController@create');
+
+    Route::get('user/{userId}/campaigns', 'UserController@listUserCampaign');
+
 });
 
-Route::resource('campaign', 'CampaignController');
+Route::get('campaigns', 'CampaignController@index');
+
+Route::get('campaigns/{id}', 'CampaignController@show');
 
 Route::resource('contribution', 'ContributionController');
 
 Route::post('comment/create', 'CommentController@store');
 
 Route::post('request-join', 'CampaignController@joinOrLeaveCampaign');
+

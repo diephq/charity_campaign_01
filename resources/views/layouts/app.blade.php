@@ -8,11 +8,6 @@
 
     <title>{{ trans('message.project') }}</title>
 
-    @section('js')
-        {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
-        {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
-    @show
-
     @section('css')
         {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('bower_components/bootstrap-social/bootstrap-social.css') }}
@@ -31,6 +26,11 @@
     @yield('content')
 
     @include('layouts.footer')
+
+    @section('js')
+        {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
+        {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
+    @show
 
 </body>
 </html>

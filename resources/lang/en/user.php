@@ -29,5 +29,7 @@ return [
     'setting' => 'Account setting',
     'your_profile' => 'Your Profile',
     'follow' => 'Follow',
+    'your_campaign' => 'Your campaigns',
+    'joined' => 'Joined campaign',
 
 ];

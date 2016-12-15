@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'index' => '#',
     'list' => 'List Campaign',
     'create' => 'Create Campaign',
     'name' => 'Campaign Name',
@@ -9,6 +10,7 @@ return [
     'image' => 'Image',
     'address' => 'Address',
     'description' => 'Description',
+    'status' => 'Status',
     'by' => 'By',
     'contribute' => 'Contribute',
     'create_contribute' => 'Create contribute',

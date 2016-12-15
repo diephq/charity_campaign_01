@@ -9,7 +9,6 @@
 
             <div class="col-md-10 col-md-offset-1">
                 @foreach ($campaigns as $campaign)
-                <div class="row">
                     <div class="image-campaign">
                         <img src="{{ $campaign->image->image }}" class="image_campaign" alt="">
                     </div>
@@ -29,7 +28,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 <hr>
                 @endforeach
                 {{ $campaigns->links() }}

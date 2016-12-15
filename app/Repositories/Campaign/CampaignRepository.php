@@ -82,7 +82,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         }
 
         return $this->model->with(['image', 'owner.user', 'comments.user'])
-            ->with(['contributions.user', 'contributions' => function($query) {
+            ->with(['contributions.user', 'contributions' => function ($query) {
                 $query->where('status', config('constants.ACTIVATED'));
             }])
             ->find($id);
@@ -108,5 +108,17 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         }
 
         return UserCampaign::where($params)->first();
+    }
+
+    public function listCampaignOfUser($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return $this->model->whereHas('owner', function ($query) use ($userId) {
+            $query->where('user_id', $userId)
+                ->where('is_owner', config('constants.OWNER'));
+            });
     }
 }

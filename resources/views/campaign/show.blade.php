@@ -3,6 +3,17 @@
 @section('js')
     @parent
     {{ Html::script('js/comment.js') }}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var comment = new Comment('{{ action('CommentController@store') }}',
+                    '{{ config('path.to_avatar_default') }}',
+                    '{{ action('CampaignController@joinOrLeaveCampaign') }}',
+                    '{{ trans('campaign.request_sent') }}',
+                    '{{ trans('campaign.request_join') }}'
+            );
+            comment.init();
+        });
+    </script>
 @stop
 
 @section('content')
@@ -36,20 +47,21 @@
 
                         <div class="row">
                             <div class="col-xs-10  col-xs-offset-1">
+
                                 <div class="request-join">
                                     @if (Auth::user())
                                     {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
                                     {!! Form::hidden('campaign_id', $campaign->id) !!}
                                         @if (empty($userCampaign))
                                             {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-success joinOrLeave']) !!}
-                                        @elseif (empty($userCampaign->status))
+                                        @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
                                             {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-success joinOrLeave']) !!}
-                                        @else
+                                        @elseif ($userCampaign->status && empty($userCampaign->is_owner))
                                             {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-success joinOrLeave']) !!}
                                         @endif
                                     {!! Form::close() !!}
                                     @else
-                                        <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-success joinOrLeave">{{ trans('campaign.request_join') }}</a>
+                                        <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-success join">{{ trans('campaign.request_join') }}</a>
                                     @endif
                                 </div>
 
