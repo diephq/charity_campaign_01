@@ -121,4 +121,29 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 ->where('is_owner', config('constants.OWNER'));
             });
     }
+
+    public function approveOrRemove($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        $userCampaign = $this->checkUserCampaign($params);
+
+        if (empty($userCampaign)) {
+            return false;
+        }
+
+        if (!$userCampaign->status) {
+            // approve
+            $userCampaign->status = config('constants.ACTIVATED');
+            $userCampaign->save();
+
+            return $userCampaign;
+        }
+
+        // remove
+        return $userCampaign->delete();
+
+    }
 }

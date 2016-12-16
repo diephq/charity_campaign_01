@@ -36,5 +36,8 @@ return [
     'request_join' => 'Join',
     'request_sent' => 'Request Sent',
     'leave_campaign' => 'Leave',
-
+    'approve' => 'Approve',
+    'remove' => 'Remove',
+    'activated' => 'Activated',
+    'not_active' => 'Not active'
 ];
