@@ -138,6 +138,19 @@ class CampaignController extends Controller
         }
     }
 
+    public function activeOrCloseCampaign(Request $request)
+    {
+        if ($request->ajax()){
+            $inputs = $request->only([
+                'campaign_id',
+            ]);
+
+            $result = $this->campaignRepository->activeOrCloseCampaign($inputs);
+
+            return response()->json($result);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

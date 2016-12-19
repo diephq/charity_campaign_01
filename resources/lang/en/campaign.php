@@ -42,4 +42,7 @@ return [
     'activated' => 'Activated',
     'not_active' => 'Not active',
     'confirm' => 'Confirm',
+    'active' => 'Active',
+    'close' => 'Close',
+
 ];

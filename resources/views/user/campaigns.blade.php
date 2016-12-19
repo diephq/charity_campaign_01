@@ -1,5 +1,21 @@
 @extends('layouts.app')
 
+@section('js')
+    @parent
+    {{ Html::script('js/active_campaign.js') }}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+
+            var active = new Active(
+                    '{{ trans('campaign.active') }}',
+                    '{{ trans('campaign.close') }}',
+                    '{{ action('CampaignController@activeOrCloseCampaign') }}'
+            );
+            active.init();
+        });
+    </script>
+@stop
+
 @section('content')
     <div class="container">
         <div class="row profile">
@@ -28,11 +44,13 @@
                                 <td>{{ $campaign->start_time }}</td>
                                 <td>{{ $campaign->end_time }}</td>
                                 <td>
-                                    @if ($campaign->status)
-                                        {{ trans('campaign.activated') }}
+                                    <div data-campaign-id="{{ $campaign->id }}">
+                                    @if (!$campaign->status)
+                                        {!! Form::submit(trans('campaign.active'), ['class' => 'btn btn-success active']) !!}
                                     @else
-                                        {{ trans('campaign.not_active') }}
+                                        {!! Form::submit(trans('campaign.close'), ['class' => 'btn btn-success active']) !!}
                                     @endif
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
