@@ -142,8 +142,9 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return $userCampaign;
         }
 
-        // remove
-        return $userCampaign->delete();
+        $userCampaign->status = config('constants.NOT_ACTIVE');
+        $userCampaign->save();
 
+        return $userCampaign;
     }
 }

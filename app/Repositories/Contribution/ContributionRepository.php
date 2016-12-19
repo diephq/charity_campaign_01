@@ -87,4 +87,33 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
 
         return $results;
     }
+
+    public function getAllCampaignContributions($campaignId)
+    {
+        if (!$campaignId) {
+            return false;
+        }
+
+        return $this->model->where('campaign_id', $campaignId)
+            ->with(['user', 'categoryContributions.category']);
+    }
+
+    public function confirmContribution($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        $contribution = $this->model->find($id);
+
+        if (empty($contribution))
+        {
+            return false;
+        }
+
+        $contribution->status = $contribution->status ? config('constants.NOT_ACTIVE') : config('constants.ACTIVATED');
+        $contribution->save();
+
+        return $contribution;
+    }
 }

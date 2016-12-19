@@ -60,6 +60,17 @@ class ContributionController extends Controller
         return redirect(action('CampaignController@show', ['id' => $input['campaign_id']]));
     }
 
+    public function confirmContribution(Request $request)
+    {
+        if ($request->ajax()){
+            $contributionId = $request->get('contribution_id');
+
+            $result = $this->contributionRepository->confirmContribution($contributionId);
+
+            return response()->json($result);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

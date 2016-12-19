@@ -8,4 +8,8 @@ interface ContributionRepositoryInterface
     public function getContributions($id);
 
     public function getValueContribution($id);
+
+    public function getAllCampaignContributions($campaignId);
+
+    public function confirmContribution($id);
 }

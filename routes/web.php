@@ -59,13 +59,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('campaigns/create', 'CampaignController@create');
 
-    Route::post('campaigns/create', 'CampaignController@create');
+    Route::post('campaigns/create', 'CampaignController@store');
 
     Route::get('user/{userId}/campaigns', 'UserController@listUserCampaign');
 
     Route::get('user/{userId}/campaigns/{campaignId}', 'UserController@manageCampaign');
 
     Route::post('campaigns/approve', 'CampaignController@approveOrRemove');
+
+    Route::post('contribution/confirm', 'ContributionController@confirmContribution');
 
 });
 
