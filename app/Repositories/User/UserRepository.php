@@ -2,6 +2,8 @@
 
 namespace App\Repositories\User;
 
+use App\Models\Campaign;
+use App\Models\UserCampaign;
 use Auth;
 use App\Models\User;
 use Input;
@@ -140,5 +142,27 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
             return false;
         }
+    }
+
+    public function getUsersInCampaign($campaignId)
+    {
+        if (!$campaignId) {
+            return false;
+        }
+
+        $campaign = Campaign::with('userCampaigns')->find($campaignId);
+
+        $userIds = [];
+        foreach ($campaign->userCampaigns as $userCampaign)
+        {
+            if ($userCampaign->is_owner == config('constants.NOT_OWNER')) {
+                $userIds []  = $userCampaign->user_id;
+            }
+        }
+
+        return $this->model->whereIn('id', $userIds)->with(['userCampaign' => function($query) use ($campaignId) {
+                $query->where('campaign_id', $campaignId);
+            }]);
+
     }
 }

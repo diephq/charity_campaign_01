@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use Auth;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
+use App\Models\Campaign;
 
 class UserController extends Controller
 {
@@ -117,4 +118,18 @@ class UserController extends Controller
         return view('user.campaigns', compact('user', 'campaigns'));
     }
 
+    public function manageCampaign($id, $campaignId)
+    {
+        try {
+            $user = $this->user->findOrFail($id);
+            $campaign = Campaign::findOrFail($campaignId);
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
+
+        // Get users joined
+        $campaignUsers = $this->userRepository->getUsersInCampaign($campaignId)->paginate(config('constants.PAGINATE'));
+
+        return view('user.campaign_detail', compact('user', 'campaign', 'campaignUsers'));
+    }
 }

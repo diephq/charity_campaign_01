@@ -31,5 +31,7 @@ return [
     'follow' => 'Follow',
     'your_campaign' => 'Your campaigns',
     'joined' => 'Joined campaign',
+    'avatar' => 'Avatar',
+    'status' => 'Status',
 
 ];

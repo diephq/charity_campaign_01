@@ -63,6 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('user/{userId}/campaigns', 'UserController@listUserCampaign');
 
+    Route::get('user/{userId}/campaigns/{campaignId}', 'UserController@manageCampaign');
+
+    Route::post('campaigns/approve', 'CampaignController@approveOrRemove');
+
 });
 
 Route::get('campaigns', 'CampaignController@index');

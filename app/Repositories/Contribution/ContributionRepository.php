@@ -35,7 +35,7 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
         foreach ($params['amount'] as $key => $amount) {
             $inputs[] = [
                 'category_id' => $key,
-                'amount' => $amount,
+                'amount' => $amount != 0 ? $amount : 0,
             ];
         }
 

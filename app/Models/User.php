@@ -110,4 +110,9 @@ class User extends Authenticatable
     {
         return $this->id == auth()->id();
     }
+
+    public function userCampaign()
+    {
+        return $this->hasOne(UserCampaign::class);
+    }
 }

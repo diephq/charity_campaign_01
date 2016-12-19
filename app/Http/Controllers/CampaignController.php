@@ -124,6 +124,20 @@ class CampaignController extends Controller
         }
     }
 
+    public function approveOrRemove(Request $request)
+    {
+        if ($request->ajax()){
+            $inputs = $request->only([
+                'campaign_id',
+                'user_id',
+            ]);
+
+            $result = $this->campaignRepository->approveOrRemove($inputs);
+
+            return response()->json($result);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

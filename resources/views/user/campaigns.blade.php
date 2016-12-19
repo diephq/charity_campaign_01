@@ -23,11 +23,17 @@
                             @foreach ($campaigns as $key => $campaign)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $campaign->name }}</td>
+                                <td><a href="{{ action('UserController@manageCampaign', ['userId' => $user->id, 'campaignId' => $campaign->id]) }}">{{ $campaign->name }}</a></td>
                                 <td>{{ $campaign->address }}</td>
                                 <td>{{ $campaign->start_time }}</td>
                                 <td>{{ $campaign->end_time }}</td>
-                                <td>{{ $campaign->status }}</td>
+                                <td>
+                                    @if ($campaign->status)
+                                        {{ trans('campaign.activated') }}
+                                    @else
+                                        {{ trans('campaign.not_active') }}
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

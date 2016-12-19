@@ -6,4 +6,5 @@ return [
     'AVATAR' => 'AVATAR',
     'PAGINATE' => 5,
     'OWNER' => 1,
+    'NOT_OWNER' => 0,
 ];
