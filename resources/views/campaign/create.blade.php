@@ -54,6 +54,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="name" class="col-md-4 control-label">{{ trans('campaign.categories') }}</label>
+
+                            <div class="col-md-6">
+                                @foreach ($categories as $category)
+                                    <div class="checkbox">
+                                        {!! Form::checkbox('category_id[]', $category->id ) !!}{{ $category->name }}
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label for="start_date" class="col-md-4 control-label">{{ trans('campaign.start_date') }}</label>
 

@@ -53,6 +53,12 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'address' => $params['address'],
                 'status' => config('constants.NOT_ACTIVE'),
             ]);
+            $inputs = [];
+            foreach ($params['category_id'] as $category) {
+                $inputs[]['category_id'] =  $category;
+            }
+
+            $campaign->categoryCampaign()->createMany($inputs);
 
             $campaign->image()->create([
                 'image' => $image,
@@ -61,6 +67,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             $campaign->owner()->create([
                 'user_id' => Auth::user()->id,
                 'is_owner' => config('constants.OWNER'),
+                'status' => config('constants.ACTIVATED'),
             ]);
 
             $campaign->save();
@@ -85,6 +92,8 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             ->with(['contributions.user', 'contributions' => function ($query) {
                 $query->where('status', config('constants.ACTIVATED'));
             }])
+            ->with('categoryCampaign.category')
+            ->where('status', config('constants.ACTIVATED'))
             ->find($id);
     }
 
