@@ -9,10 +9,13 @@
 
 @section('js')
     @parent
-    {{ Html::script('bower_components/bootstrap-star-rating/js/star-rating.js') }}
     {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js') }}
+    {{ Html::script('bower_components/bootstrap-star-rating/js/star-rating.js') }}
+    {{ Html::script('https://www.gstatic.com/charts/loader.js') }}
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
+    {{ Html::script('js/rating_chart.js') }}
+
 
     <script type="text/javascript">
         $( document ).ready(function() {
@@ -24,8 +27,8 @@
             );
             comment.init();
 
-            $('#input-1').rating('update', '{{ $averageRanking['average'] }}');
-            $('#input-2').rating('update', '{{ $averageRanking['average'] }}');
+            $('#allow-rating').rating('update', '{{ $averageRanking['average'] }}');
+            $('#not-allow-rating').rating('update', '{{ $averageRanking['average'] }}');
 
             var rating = new Rating(
                     '{{ action('RatingController@ratingCampaign') }}',
@@ -34,6 +37,17 @@
                     '{{ trans('campaign.close') }}'
             );
             rating.init();
+
+            var chart = new Chart( {!! $ratingChart !!},
+                    '{{ trans('campaign.star') }}',
+                    '{{ config('constants.ONE_STAR') }}',
+                    '{{ config('constants.TWO_STAR') }}',
+                    '{{ config('constants.THREE_STAR') }}',
+                    '{{ config('constants.FOUR_STAR') }}',
+                    '{{ config('constants.FIVE_STAR') }}',
+                    '{{ trans('campaign.rating') }}'
+            );
+            chart.init();
         });
     </script>
 @stop
@@ -107,19 +121,20 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class="">
                                     @if ($userCampaign && $userCampaign->status)
                                         {!! Form::hidden('campaign_id', $campaign->id, ['id' => 'campaign_id']) !!}
-                                        <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                        <input id="allow-rating" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
                                     @else
-                                        <input id="input-2" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                        <input id="not-allow-rating" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
                                     @endif
                                     <div class="reviews-stats"> {{ trans('campaign.total') }}
                                         <span class="glyphicon glyphicon-user"></span>
                                         <span class="reviews-num">{{ $averageRanking['amount'] }}</span>
                                     </div>
+                                    <hr>
+                                    <div id="top_x_div"></div>
                                 </div>
-
                             </div>
                         </div>
                         <hr>

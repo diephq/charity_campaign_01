@@ -83,4 +83,25 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
             'amount' => count($ratings),
         ];
     }
+
+    public function getRatingChart($campaignId)
+    {
+        if (!$campaignId) {
+            return false;
+        }
+
+        $ratings = $this->model->select('star', DB::raw('count(*) as total'))
+            ->where('target_id', $campaignId)
+            ->where('target_type', config('constants.CAMPAIGN'))
+            ->groupBy('star')
+            ->orderBy('star')
+            ->get();
+
+        $result = [];
+        foreach ($ratings as $key => $rating) {
+            $result[$rating->star] = $rating->total;
+        }
+
+        return json_encode($result);
+    }
 }

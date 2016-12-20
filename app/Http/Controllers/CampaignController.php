@@ -120,7 +120,11 @@ class CampaignController extends Controller
         // get averageRankingCampaign
         $averageRanking = $this->ratingRepository->averageRatingCampaign($campaign->id);
 
-        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign', 'averageRanking'));
+        // get rating chart
+        $ratingChart = $this->ratingRepository->getRatingChart($id);
+
+        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign',
+            'averageRanking', 'ratingChart'));
     }
 
     public function joinOrLeaveCampaign(Request $request)
