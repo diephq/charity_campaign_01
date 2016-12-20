@@ -16,4 +16,6 @@ interface CampaignRepositoryInterface
     public function listCampaignOfUser($userId);
 
     public function approveOrRemove($params = []);
+
+    public function activeOrCloseCampaign($params = []);
 }

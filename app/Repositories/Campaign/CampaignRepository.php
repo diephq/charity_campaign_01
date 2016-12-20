@@ -147,4 +147,22 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
 
         return $userCampaign;
     }
+
+    public function activeOrCloseCampaign($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        $campaign = $this->model->find($params['campaign_id']);
+
+        if (!$campaign) {
+            return false;
+        }
+
+        $campaign->status = $campaign->status ? config('constants.NOT_ACTIVE') : config('constants.ACTIVATED');
+        $campaign->save();
+
+        return $campaign;
+    }
 }

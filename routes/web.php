@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('contribution/confirm', 'ContributionController@confirmContribution');
 
+    Route::post('campaign/active', 'CampaignController@activeOrCloseCampaign');
+
 });
 
 Route::get('campaigns', 'CampaignController@index');
