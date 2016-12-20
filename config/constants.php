@@ -7,4 +7,5 @@ return [
     'PAGINATE' => 5,
     'OWNER' => 1,
     'NOT_OWNER' => 0,
+    'CAMPAIGN' => 1,
 ];
