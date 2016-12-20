@@ -44,5 +44,5 @@ return [
     'confirm' => 'Confirm',
     'active' => 'Active',
     'close' => 'Close',
-
+    'categories' => 'Categories Contribution'
 ];

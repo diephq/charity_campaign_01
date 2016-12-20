@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
@@ -45,7 +46,9 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        return view('campaign.create');
+        $categories = $this->categoryRepository->all();
+
+        return view('campaign.create', compact('categories'));
     }
 
     /**
@@ -65,6 +68,7 @@ class CampaignController extends Controller
             'end_date',
             'address',
             'description',
+            'category_id',
         ]);
 
         $campaign = $this->campaignRepository->createCampaign($input);
@@ -92,7 +96,9 @@ class CampaignController extends Controller
             return abort(404);
         }
 
-        $categories = $this->categoryRepository->all();
+        if (!$campaign) {
+            return abort(404);
+        }
 
         // get list contributions
         $contributions = $this->contributionRepository->getContributions($id)->get();
@@ -106,7 +112,7 @@ class CampaignController extends Controller
             'campaign_id' => $id,
         ]);
 
-        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign'));
+        return view('campaign.show', compact('campaign', 'contributions', 'results', 'userCampaign'));
     }
 
     public function joinOrLeaveCampaign(Request $request)
