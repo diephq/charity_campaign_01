@@ -28,6 +28,7 @@ return [
         'category' => 'Category',
         'amount' => 'Amount',
         'description' => 'Description',
+        'status' => 'Status',
     ],
     'create_comment' => 'Create Comment',
     'your_message' => 'Your message',
@@ -39,5 +40,6 @@ return [
     'approve' => 'Approve',
     'remove' => 'Remove',
     'activated' => 'Activated',
-    'not_active' => 'Not active'
+    'not_active' => 'Not active',
+    'confirm' => 'Confirm',
 ];

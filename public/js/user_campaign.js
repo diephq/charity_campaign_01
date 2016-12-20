@@ -1,13 +1,16 @@
-var Approve = function (url, btnApprove, btnRemove) {
+var Approve = function (url, btnApprove, btnRemove, urlConfirmContribution, btnConfirm) {
     this.url = url;
     this.btnApprove = btnApprove;
     this.btnRemove = btnRemove;
+    this.urlConfirmContribution = urlConfirmContribution;
+    this.btnConfirm = btnConfirm;
 };
 
 Approve.prototype = {
     init: function () {
         var _self = this;
         _self.approveOrRemove();
+        _self.confirmContribution();
     },
 
     approveOrRemove: function () {
@@ -17,16 +20,55 @@ Approve.prototype = {
             e.preventDefault();
             var thisButton = this;
 
+            var divChangeAmount = $(this).parent();
+            var userId = divChangeAmount.data('userId');
+            var campaignId = divChangeAmount.data('campaignId');
+            var token = $('.hide').data('token');
+
             $.ajax({
                 type: "POST",
                 url: _self.url,
-                data: $("#formApprove").serialize(),
+                data: {
+                    'user_id': userId,
+                    'campaign_id': campaignId,
+                    '_token': token
+                },
                 success: function(data)
                 {
-                    if (data.id) {
+                    if (data.status) {
                         $(thisButton).attr('value', _self.btnRemove);
                     } else {
-                        $(thisButton).remove();
+                        $(thisButton).attr('value', _self.btnApprove);
+                    }
+                }
+            });
+        });
+    },
+
+    confirmContribution: function () {
+        var _self = this;
+
+        $(".confirm").click(function(e) {
+            e.preventDefault();
+            var thisButton = this;
+
+            var divChangeAmount = $(this).parent();
+            var contributionId = divChangeAmount.data('contributionId');
+            var token = $('.hide').data('token');
+
+            $.ajax({
+                type: "POST",
+                url: _self.urlConfirmContribution,
+                data: {
+                    'contribution_id': contributionId,
+                    '_token': token
+                },
+                success: function(data)
+                {
+                    if (data.status) {
+                        $(thisButton).attr('value', _self.btnRemove);
+                    } else {
+                        $(thisButton).attr('value', _self.btnConfirm);
                     }
                 }
             });

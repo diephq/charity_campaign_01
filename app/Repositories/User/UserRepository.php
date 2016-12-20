@@ -153,16 +153,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $campaign = Campaign::with('userCampaigns')->find($campaignId);
 
         $userIds = [];
-        foreach ($campaign->userCampaigns as $userCampaign)
-        {
+        foreach ($campaign->userCampaigns as $userCampaign) {
             if ($userCampaign->is_owner == config('constants.NOT_OWNER')) {
-                $userIds []  = $userCampaign->user_id;
+                $userIds [] = $userCampaign->user_id;
             }
         }
 
-        return $this->model->whereIn('id', $userIds)->with(['userCampaign' => function($query) use ($campaignId) {
+        return $this->model->whereIn('id', $userIds)
+            ->with(['userCampaign' => function ($query) use ($campaignId) {
                 $query->where('campaign_id', $campaignId);
             }]);
-
     }
 }

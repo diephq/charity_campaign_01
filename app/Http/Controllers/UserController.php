@@ -8,19 +8,23 @@ use App\Repositories\User\UserRepositoryInterface;
 use Auth;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
 use App\Models\Campaign;
+use App\Repositories\Contribution\ContributionRepositoryInterface;
 
 class UserController extends Controller
 {
     protected $user;
     protected $userRepository;
     protected $campaignRepository;
+    protected $contributionRepository;
 
     public function __construct(User $user, UserRepositoryInterface $userRepository,
-                                CampaignRepositoryInterface $campaignRepository)
+                                CampaignRepositoryInterface $campaignRepository,
+                                ContributionRepositoryInterface $contributionRepository)
     {
         $this->user = $user;
         $this->userRepository = $userRepository;
         $this->campaignRepository = $campaignRepository;
+        $this->contributionRepository = $contributionRepository;
     }
 
     /**
@@ -130,6 +134,9 @@ class UserController extends Controller
         // Get users joined
         $campaignUsers = $this->userRepository->getUsersInCampaign($campaignId)->paginate(config('constants.PAGINATE'));
 
-        return view('user.campaign_detail', compact('user', 'campaign', 'campaignUsers'));
+        // get campaign's contribution
+        $contributions = $this->contributionRepository->getAllCampaignContributions($campaignId)->paginate(config('constants.PAGINATE'));
+
+        return view('user.campaign_detail', compact('user', 'campaign', 'campaignUsers', 'contributions'));
     }
 }
