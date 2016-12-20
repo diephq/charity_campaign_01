@@ -71,6 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('campaign/active', 'CampaignController@activeOrCloseCampaign');
 
+    Route::post('rating/ratingCampaign', 'RatingController@ratingCampaign');
+
 });
 
 Route::get('campaigns', 'CampaignController@index');

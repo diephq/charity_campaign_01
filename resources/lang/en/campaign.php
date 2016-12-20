@@ -44,5 +44,8 @@ return [
     'confirm' => 'Confirm',
     'active' => 'Active',
     'close' => 'Close',
-    'categories' => 'Categories Contribution'
+    'categories' => 'Categories Contribution',
+    'total' => 'Total',
+    'error' => 'Error',
+    'must_join_campaign' => 'You must join this campaign',
 ];

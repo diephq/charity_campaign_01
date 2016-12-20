@@ -8,6 +8,7 @@ use App\Repositories\Campaign\CampaignRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
+use App\Repositories\Rating\RatingRepositoryInterface;
 
 class CampaignController extends Controller
 {
@@ -16,15 +17,19 @@ class CampaignController extends Controller
     protected $campaign;
     protected $categoryRepository;
     protected $contributionRepository;
+    protected $ratingRepository;
 
-    public function __construct(CampaignRepositoryInterface $campaignRepository, Campaign $campaign,
+    public function __construct(CampaignRepositoryInterface $campaignRepository,
+                                Campaign $campaign,
                                 CategoryRepositoryInterface $categoryRepository,
-                                ContributionRepositoryInterface $contributionRepository)
+                                ContributionRepositoryInterface $contributionRepository,
+                                RatingRepositoryInterface $ratingRepository)
     {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
         $this->categoryRepository = $categoryRepository;
         $this->contributionRepository = $contributionRepository;
+        $this->ratingRepository = $ratingRepository;
     }
 
     /**
@@ -112,7 +117,10 @@ class CampaignController extends Controller
             'campaign_id' => $id,
         ]);
 
-        return view('campaign.show', compact('campaign', 'contributions', 'results', 'userCampaign'));
+        // get averageRankingCampaign
+        $averageRanking = $this->ratingRepository->averageRatingCampaign($campaign->id);
+
+        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign', 'averageRanking'));
     }
 
     public function joinOrLeaveCampaign(Request $request)
