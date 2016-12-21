@@ -5,6 +5,16 @@
     {{ Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDFQqwSkHBKMaeW04BYgLL8_3fmrXlaxbE&v=3.exp&libraries=places&language=en') }}
     {{ Html::script('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}
     {{ Html::script('js/campaign.js') }}
+    {{ Html::script('http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.uploadPreview({
+                input_field: "#image-upload",
+                preview_box: "#image-preview"
+            });
+        });
+    </script>
 @stop
 
 @section('content')
@@ -14,7 +24,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ trans('campaign.create') }}</div>
                     <div class="panel-body">
-
                         @if (Session::has('message'))
                             <div class="col-lg-12">
                                 <div class="col-lg-10 col-lg-offset-1 alert alert-danger">
@@ -24,112 +33,129 @@
                             </div>
                         @endif
 
-                    {!! Form::open(['action' => 'CampaignController@store', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+                        <div class="campaign">
+                            {!! Form::open(['action' => 'CampaignController@store', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
 
-                        <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label for="image" class="col-md-4 control-label">{{ trans('campaign.image') }}</label>
-
-                            <div class="col-md-6">
-                                {{ Form::file('image', ['class' => 'form-control']) }}
-
-                                @if ($errors->has('image'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">{{ trans('campaign.name') }}</label>
-
-                            <div class="col-md-6">
-                                {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">{{ trans('campaign.categories') }}</label>
-
-                            <div class="col-md-6">
-                                @foreach ($categories as $category)
-                                    <div class="checkbox">
-                                        {!! Form::checkbox('category_id[]', $category->id ) !!}{{ $category->name }}
+                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <div class="col-lg-8 col-lg-offset-2">
+                                    <div id="image-preview" class="col-md-6">
+                                        <label for="image-upload" id="image-label">{{ trans('campaign.image') }}</label>
+                                        {{ Form::file('image', ['class' => 'form-control', 'id' => 'image-upload']) }}
+                                        @if ($errors->has('image'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('image') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                            <label for="start_date" class="col-md-4 control-label">{{ trans('campaign.start_date') }}</label>
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">{{ trans('campaign.name') }}</label>
 
-                            <div class="col-md-6">
-                                {!! Form::text('start_date', null, ['class' => 'form-control datetimepicker']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
 
-                                @if ($errors->has('start_date'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('start_date') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                            <label for="end_date" class="col-md-4 control-label">{{ trans('campaign.end_date') }}</label>
+                            <div class="form-group{{ $errors->has('categoryCampaign') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">{{ trans('campaign.categories') }}</label>
 
-                            <div class="col-md-6">
-                                {!! Form::text('end_date', null, ['class' => 'form-control datetimepicker']) !!}
+                                <div class="col-md-6">
+                                    @foreach ($categories as $category)
+                                        <div class="checkbox">
+                                            <div class="col-md-4">
+                                                {!! Form::checkbox('categoryCampaign[category][' . $category->id . ']', $category->id ) !!}{{ $category->name }}
+                                            </div>
 
-                                @if ($errors->has('end_date'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('end_date') }}</strong>
-                                    </span>
-                                @endif
+                                            <div class="col-md-8">
+                                                {!! Form::number('categoryCampaign[goal][' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.goal'), 'min' => 1]) !!}
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                    @endforeach
+                                    <div>
+                                        @if ($errors->has('categoryCampaign'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('categoryCampaign') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">{{ trans('campaign.address') }}</label>
+                            <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
+                                <label for="start_date" class="col-md-4 control-label">{{ trans('campaign.start_date') }}</label>
 
-                            <div class="col-md-6">
-                                {!! Form::text('address', old('address'), ['class' => 'form-control', 'id' => 'location']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('start_date', null, ['class' => 'form-control datetimepicker']) !!}
 
-                                @if ($errors->has('address'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('start_date'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('start_date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            <label for="description" class="col-md-4 control-label">{{ trans('campaign.description') }}</label>
+                            <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
+                                <label for="end_date" class="col-md-4 control-label">{{ trans('campaign.end_date') }}</label>
 
-                            <div class="col-md-6">
-                                {!! Form::textarea('description', old('description'), ['class' => 'form-control']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('end_date', null, ['class' => 'form-control datetimepicker']) !!}
 
-                                @if ($errors->has('description'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('end_date'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('end_date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ trans('campaign.create') }}
-                                </button>
+                            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                <label for="address" class="col-md-4 control-label">{{ trans('campaign.address') }}</label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text('address', old('address'), ['class' => 'form-control', 'id' => 'location']) !!}
+
+                                    @if ($errors->has('address'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('address') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
+
+                            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                <label for="description" class="col-md-4 control-label">{{ trans('campaign.description') }}</label>
+
+                                <div class="col-md-6">
+                                    {!! Form::textarea('description', old('description'), ['class' => 'form-control']) !!}
+
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ trans('campaign.create') }}
+                                    </button>
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
-                    {!! Form::close() !!}
                     </div>
                 </div>
             </div>

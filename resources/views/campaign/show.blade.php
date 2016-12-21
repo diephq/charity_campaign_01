@@ -16,7 +16,6 @@
     {{ Html::script('js/rating.js') }}
     {{ Html::script('js/rating_chart.js') }}
 
-
     <script type="text/javascript">
         $( document ).ready(function() {
             var comment = new Comment('{{ action('CommentController@store') }}',
@@ -151,15 +150,22 @@
                                     <hr>
                                 </div>
                                 <ul class="list-unstyled top_profiles scroll-view">
-                                    @foreach ($results as $key => $result)
+                                    @foreach ($results as $result)
                                         <li class="media event">
                                             <div class="pull-left">
                                                 <span>
-                                                    <strong>{{ $result->category->name }}</strong> :
-                                                    <strong>{{ $result->amount }}</strong>
+                                                    <strong>{{ $result['name'] }}</strong> :
+                                                    <strong>{{ $result['value'] }}</strong>
                                                 </span>
                                             </div>
                                         </li>
+
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped  active" role="progressbar" aria-valuenow="{{ $result['progress'] }}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:{{ $result['progress'] }}%">
+                                                <span class="show">{{ $result['progress'] }} %</span>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </ul>
                             </div>

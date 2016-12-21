@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CampaignRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
@@ -10,7 +11,7 @@ use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
 
-class CampaignController extends Controller
+class CampaignController extends BaseController
 {
 
     protected $campaignRepository;
@@ -18,13 +19,15 @@ class CampaignController extends Controller
     protected $categoryRepository;
     protected $contributionRepository;
     protected $ratingRepository;
+    protected $categoryCampaignRepository;
 
-    public function __construct(CampaignRepositoryInterface $campaignRepository,
-                                Campaign $campaign,
-                                CategoryRepositoryInterface $categoryRepository,
-                                ContributionRepositoryInterface $contributionRepository,
-                                RatingRepositoryInterface $ratingRepository)
-    {
+    public function __construct(
+        CampaignRepositoryInterface $campaignRepository,
+        Campaign $campaign,
+        CategoryRepositoryInterface $categoryRepository,
+        ContributionRepositoryInterface $contributionRepository,
+        RatingRepositoryInterface $ratingRepository
+    ) {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
         $this->categoryRepository = $categoryRepository;
@@ -57,33 +60,29 @@ class CampaignController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param CampaignRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CampaignRequest $request)
     {
-        $this->validate($request, $this->campaign->rules);
-
-        $input = $request->only([
+        $inputs = $request->only([
             'name',
             'image',
             'start_date',
             'end_date',
             'address',
             'description',
-            'category_id',
+            'categoryCampaign',
         ]);
 
-        $campaign = $this->campaignRepository->createCampaign($input);
+        $campaign = $this->campaignRepository->createCampaign($inputs);
 
         if (!$campaign) {
             return redirect(action('CampaignController@create'))
                 ->withMessage(trans('campaign.create_error'));
         }
 
-        return redirect(action('CampaignController@show', ['id' => $campaign->id]))
+        return redirect(action('UserController@listUserCampaign', ['id' => auth()->id()]))
             ->with(['alert-success' => trans('campaign.create_success')]);
     }
 
@@ -95,41 +94,36 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        try {
-            $campaign = $this->campaignRepository->getDetail($id);
-        } catch (ModelNotFoundException $e) {
-            return abort(404);
-        }
+        $this->dataView['campaign'] = $this->campaignRepository->getDetail($id);
 
-        if (!$campaign) {
+        if (!$this->dataView['campaign']) {
             return abort(404);
         }
 
         // get list contributions
-        $contributions = $this->contributionRepository->getContributions($id)->get();
+        $this->dataView['contributions'] = $this->contributionRepository->getContributions($id)->get();
 
         // get total contributions
-        $results = $this->contributionRepository->getValueContribution($id);
+        $this->dataView['results'] = $this->contributionRepository->getValueContribution($id);
 
         // check user had join campaign
-        $userCampaign = $this->campaignRepository->checkUserCampaign([
+        $this->dataView['userCampaign'] = $this->campaignRepository->checkUserCampaign([
             'user_id' => auth()->id(),
             'campaign_id' => $id,
         ]);
 
         // get averageRankingCampaign
-        $averageRanking = $this->ratingRepository->averageRatingCampaign($campaign->id);
+        $this->dataView['averageRanking'] = $this->ratingRepository->averageRatingCampaign($this->dataView['campaign']->id);
 
         // get rating chart
-        $ratingChart = $this->ratingRepository->getRatingChart($id);
+        $this->dataView['ratingChart'] = $this->ratingRepository->getRatingChart($id);
 
-        return view('campaign.show', compact('campaign', 'categories', 'contributions', 'results', 'userCampaign',
-            'averageRanking', 'ratingChart'));
+        return view('campaign.show', $this->dataView);
     }
 
     public function joinOrLeaveCampaign(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $inputs = $request->only([
                 'campaign_id',
             ]);
@@ -144,7 +138,7 @@ class CampaignController extends Controller
 
     public function approveOrRemove(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $inputs = $request->only([
                 'campaign_id',
                 'user_id',
@@ -158,7 +152,7 @@ class CampaignController extends Controller
 
     public function activeOrCloseCampaign(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $inputs = $request->only([
                 'campaign_id',
             ]);

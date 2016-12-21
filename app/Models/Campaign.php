@@ -30,15 +30,6 @@ class Campaign extends Model
      */
     protected $dates = ['deleted_at'];
 
-    public $rules = [
-        'name' => 'required|max:255',
-        'start_date' => 'required|date|date_format:"Y/m/d',
-        'end_date' => 'required|date|date_format:"Y/m/d',
-        'image' => ['required', 'mimes:jpg,jpeg,JPEG,png,gif', 'max:2024'],
-        'address' => 'required',
-        'description' => 'required',
-    ];
-
     public function image()
     {
         return $this->hasOne(Image::class);
