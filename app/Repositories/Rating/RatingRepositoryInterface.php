@@ -8,4 +8,6 @@ interface RatingRepositoryInterface
     public function checkUserRatingCampaign($campaignId);
 
     public function averageRatingCampaign($campaignId);
+
+    public function getRatingChart($campaignId);
 }

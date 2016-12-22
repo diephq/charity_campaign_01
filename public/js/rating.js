@@ -15,7 +15,7 @@ Rating.prototype = {
     ratingCampaign: function () {
         var _self = this;
 
-        $('#input-1').on('rating.change', function(event, value) {
+        $('#allow-rating').on('rating.change', function(event, value) {
 
             var campaignId = $('#campaign_id').val();
             var token = $('.hide').data('token');
@@ -31,7 +31,7 @@ Rating.prototype = {
                 success: function(data)
                 {
                     if (data) {
-                        $('#input-1').rating('update', data.average);
+                        $('#allow-rating').rating('update', data.average);
                         $('.reviews-num').html(data.amount);
                     }
                 }
@@ -42,7 +42,7 @@ Rating.prototype = {
     notifyCampaign: function () {
         var _self = this;
 
-        $('#input-2').on('rating.change', function() {
+        $('#not-allow-rating').on('rating.change', function() {
             BootstrapDialog.show({
                 title: _self.titleError,
                 message: _self.messageError,

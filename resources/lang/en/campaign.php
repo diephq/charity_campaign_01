@@ -48,4 +48,11 @@ return [
     'total' => 'Total',
     'error' => 'Error',
     'must_join_campaign' => 'You must join this campaign',
+    'star' => 'Star',
+    'one_star' => 'One',
+    'two_star' => 'Two',
+    'three_star' => 'Three',
+    'four_star' => 'Four',
+    'five_star' => 'Five',
+    'rating' => 'Rating',
 ];

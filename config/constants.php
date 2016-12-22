@@ -8,4 +8,9 @@ return [
     'OWNER' => 1,
     'NOT_OWNER' => 0,
     'CAMPAIGN' => 1,
+    'ONE_STAR' => 1,
+    'TWO_STAR' => 2,
+    'THREE_STAR' => 3,
+    'FOUR_STAR' => 4,
+    'FIVE_STAR' => 5,
 ];
