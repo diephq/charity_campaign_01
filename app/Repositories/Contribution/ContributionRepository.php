@@ -2,6 +2,7 @@
 namespace App\Repositories\Contribution;
 
 use App\Models\Category;
+use App\Models\CategoryCampaign;
 use Auth;
 use App\Models\Contribution;
 use App\Repositories\BaseRepository;
@@ -76,7 +77,7 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
             return false;
         }
 
-        $results = CategoryContribution::whereHas('contribution', function($query) use ($id) {
+        $categoryContributions = CategoryContribution::whereHas('contribution', function($query) use ($id) {
             $query->where('campaign_id', $id)
                 ->where('status', config('constants.ACTIVATED'));
             })
@@ -85,7 +86,35 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
             ->groupBy('category_id')
             ->get();
 
-        return $results;
+        $categoryCampaign = CategoryCampaign::where('campaign_id', $id)
+            ->with('category')
+            ->get();
+
+        $data = [];
+        if (!count($categoryContributions)) {
+            foreach ($categoryCampaign as $value) {
+                $data[] = [
+                    'name' => $value->category->name,
+                    'value' => config('constants.EMPTY_DATA'),
+                    'progress' => config('constants.EMPTY_DATA'),
+                ];
+            }
+        }
+
+        foreach ($categoryCampaign as $value) {
+            foreach ($categoryContributions as $categoryContribution) {
+                if ($value->category_id == $categoryContribution->category_id) {
+                    $data[] = [
+                        'name' => $value->category->name,
+                        'value' => $categoryContribution->amount,
+                        'progress' => round($categoryContribution->amount/$value->goal * 100,
+                            config('constants.ROUND_CHART'))
+                    ];
+                }
+            }
+        }
+
+        return $data;
     }
 
     public function getAllCampaignContributions($campaignId)

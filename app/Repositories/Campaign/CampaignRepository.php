@@ -53,9 +53,18 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'address' => $params['address'],
                 'status' => config('constants.NOT_ACTIVE'),
             ]);
+
+            $goals = $params['categoryCampaign']['goal'];
+            $categoryIds = $params['categoryCampaign']['category'];
+
             $inputs = [];
-            foreach ($params['category_id'] as $category) {
-                $inputs[]['category_id'] =  $category;
+            foreach ($goals as $key => $goal) {
+                if ($key == $categoryIds[$key]) {
+                    $inputs[] = [
+                        'category_id' => $key,
+                        'goal' => $goal,
+                    ];
+                }
             }
 
             $campaign->categoryCampaign()->createMany($inputs);

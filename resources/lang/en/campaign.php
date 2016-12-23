@@ -4,6 +4,7 @@ return [
     'index' => '#',
     'list' => 'List Campaign',
     'create' => 'Create Campaign',
+    'create_success' => 'Create campaign success',
     'name' => 'Campaign Name',
     'start_date' => 'Start date',
     'end_date' => 'End date',
@@ -55,4 +56,8 @@ return [
     'four_star' => 'Four',
     'five_star' => 'Five',
     'rating' => 'Rating',
+    'goal' => 'Goal',
+    'validate' => [
+        'required_input' => 'You must choose category and input goal'
+    ]
 ];

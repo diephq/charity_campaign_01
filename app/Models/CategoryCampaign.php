@@ -15,6 +15,7 @@ class CategoryCampaign extends Model
     protected $fillable = [
         'category_id',
         'campaign_id',
+        'goal',
     ];
 
     protected $table = 'categories_campaigns';
