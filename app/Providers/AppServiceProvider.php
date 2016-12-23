@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extendImplicit('campaign', 'App\Validation\CampaignValidate@campaign');
+        Validator::extendImplicit('amount', 'App\Validation\ContributionValidate@amount');
     }
 
     /**
@@ -43,6 +44,5 @@ class AppServiceProvider extends ServiceProvider
         App::bind(ContributionRepositoryInterface::class, ContributionRepository::class);
         App::bind(CommentRepositoryInterface::class, CommentRepository::class);
         App::bind(RatingRepositoryInterface::class, RatingRepository::class);
-        App::bind(CategoryCampaignRepositoryInterface::class, CategoryCampaignRepository::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contribution;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
+use App\Http\Requests\ContributionRequest;
 
 class ContributionController extends Controller
 {
@@ -38,31 +39,38 @@ class ContributionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param ContributionRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(ContributionRequest $request)
     {
-        $this->validate($request, $this->contribution->rules);
+        if ($request->ajax()) {
+            $input = $request->only([
+                'campaign_id',
+                'name',
+                'email',
+                'amount',
+                'description',
+            ]);
 
-        $input = $request->only([
-            'campaign_id',
-            'name',
-            'email',
-            'amount',
-            'description',
-        ]);
+            $result = $this->contributionRepository->createContribution($input);
 
-        $this->contributionRepository->createContribution($input);
+            if ($result) {
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('campaign.create_contribute_success'),
+                ]);
+            }
 
-        return redirect(action('CampaignController@show', ['id' => $input['campaign_id']]));
+            return response()->json(['success' => false]);
+        }
+
+        return response()->json(['success' => false]);
     }
 
     public function confirmContribution(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $contributionId = $request->get('contribution_id');
 
             $result = $this->contributionRepository->confirmContribution($contributionId);

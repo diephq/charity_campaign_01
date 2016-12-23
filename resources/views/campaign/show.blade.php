@@ -15,6 +15,7 @@
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
     {{ Html::script('js/rating_chart.js') }}
+    {{ Html::script('js/contribute.js') }}
 
     <script type="text/javascript">
         $( document ).ready(function() {
@@ -47,6 +48,9 @@
                     '{{ trans('campaign.rating') }}'
             );
             chart.init();
+
+            var contribute = new Contribute('{{ action('ContributionController@store') }}');
+            contribute.init();
         });
     </script>
 @stop
@@ -155,13 +159,14 @@
                                             <div class="pull-left">
                                                 <span>
                                                     <strong>{{ $result['name'] }}</strong> :
-                                                    <strong>{{ $result['value'] }}</strong>
+                                                    <span>{{ $result['value'] }}</span>
                                                 </span>
                                             </div>
                                         </li>
 
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-success progress-bar-striped  active" role="progressbar" aria-valuenow="{{ $result['progress'] }}"
+                                            <div class="progress-bar progress-bar-success progress-bar-striped  active" role="progressbar"
+                                                 aria-valuenow="{{ $result['progress'] }}"
                                                  aria-valuemin="0" aria-valuemax="100" style="width:{{ $result['progress'] }}%">
                                                 <span class="show">{{ $result['progress'] }} %</span>
                                             </div>

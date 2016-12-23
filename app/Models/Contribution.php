@@ -21,12 +21,6 @@ class Contribution extends Model
         'status',
     ];
 
-    public $rules = [
-        'name' => 'max:255',
-        'email' => 'email|max:255|unique:users',
-        'campaign_id' => 'required|numeric|exists:campaigns,id',
-    ];
-
     public function categoryContributions()
     {
         return $this->hasMany(CategoryContribution::class);
