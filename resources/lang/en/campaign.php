@@ -58,6 +58,8 @@ return [
     'rating' => 'Rating',
     'goal' => 'Goal',
     'validate' => [
-        'required_input' => 'You must choose category and input goal'
-    ]
+        'required_input' => 'You must choose category and input goal',
+        'amount' => 'Amount invalid'
+    ],
+    'create_contribute_success' => 'Create successful contribution',
 ];

@@ -99,6 +99,8 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
                     'progress' => config('constants.EMPTY_DATA'),
                 ];
             }
+
+            return $data;
         }
 
         foreach ($categoryCampaign as $value) {

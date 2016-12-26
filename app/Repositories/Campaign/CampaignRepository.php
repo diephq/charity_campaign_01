@@ -58,8 +58,9 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             $categoryIds = $params['categoryCampaign']['category'];
 
             $inputs = [];
+
             foreach ($goals as $key => $goal) {
-                if ($key == $categoryIds[$key]) {
+                if (isset($categoryIds[$key]) && $key == $categoryIds[$key]) {
                     $inputs[] = [
                         'category_id' => $key,
                         'goal' => $goal,
