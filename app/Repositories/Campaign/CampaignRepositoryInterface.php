@@ -18,4 +18,6 @@ interface CampaignRepositoryInterface
     public function approveOrRemove($params = []);
 
     public function activeOrCloseCampaign($params = []);
+
+    public function uploadImageCampaign($image);
 }

@@ -108,7 +108,7 @@
                                 <div>
                                     <div class="post-content--front-page">
                                         <h3>{{ $campaign->name }}</h3>
-                                        <p>{{ $campaign->description }}</p>
+                                        <div>{!! $campaign->description !!}</div>
                                     </div>
 
                                     <div class="row">

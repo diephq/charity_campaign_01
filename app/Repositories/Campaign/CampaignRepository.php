@@ -184,4 +184,11 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
 
         return $campaign;
     }
+
+    public function uploadImageCampaign($image)
+    {
+        $imageName = $this->uploadImage($image, config('path.description'));
+
+        return config('path.description') . $imageName;
+    }
 }
