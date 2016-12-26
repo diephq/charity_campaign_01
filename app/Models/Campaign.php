@@ -30,6 +30,10 @@ class Campaign extends Model
      */
     protected $dates = ['deleted_at'];
 
+    public $ruleImage = [
+        'upload' => 'required|image|mimes:jpg,jpeg,JPEG,png,gif', 'max:2024',
+    ];
+
     public function image()
     {
         return $this->hasOne(Image::class);

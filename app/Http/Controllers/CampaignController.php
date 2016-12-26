@@ -10,6 +10,8 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
+use Validator;
+use Purifier;
 
 class CampaignController extends BaseController
 {
@@ -74,7 +76,7 @@ class CampaignController extends BaseController
             'description',
             'categoryCampaign',
         ]);
-
+        $inputs['description'] = Purifier::clean($inputs['description']);
         $campaign = $this->campaignRepository->createCampaign($inputs);
 
         if (!$campaign) {
@@ -160,6 +162,40 @@ class CampaignController extends BaseController
             $result = $this->campaignRepository->activeOrCloseCampaign($inputs);
 
             return response()->json($result);
+        }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->campaign->ruleImage);
+
+        if ($validator->fails()) {
+            $message = implode(' ', $validator->errors()->all());
+
+            return view('layouts.upload', [
+                'CKEditorFuncNum' => $request->CKEditorFuncNum,
+                'data' => [
+                    'url' => '',
+                    'message' => $message,
+                ],
+            ]);
+        }
+
+        try {
+            $image = $this->campaignRepository->uploadImageCampaign($request->file('upload'));
+
+            return view('layouts.upload', [
+                'CKEditorFuncNum' => $request->CKEditorFuncNum,
+                'data' => [
+                    'url' => $image,
+                    'message' => trans('campaign.upload_image_success'),
+                ],
+            ]);
+        } catch (\Exception $ex) {
+            return [
+                'status' => false,
+                'message' => trans('campaign.upload_image_error') . $ex->getMessage(),
+            ];
         }
     }
 

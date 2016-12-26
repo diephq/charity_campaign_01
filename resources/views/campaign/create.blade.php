@@ -4,14 +4,19 @@
     @parent
     {{ Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDFQqwSkHBKMaeW04BYgLL8_3fmrXlaxbE&v=3.exp&libraries=places&language=en') }}
     {{ Html::script('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}
+    {{ Html::script('bower_components/ckeditor/ckeditor.js') }}
     {{ Html::script('js/campaign.js') }}
     {{ Html::script('http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.uploadPreview({
                 input_field: "#image-upload",
                 preview_box: "#image-preview"
+            });
+
+            CKEDITOR.replace( 'editor', {
+                filebrowserUploadUrl: '{!! action('CampaignController@uploadImage').'?_token='.csrf_token() !!}'
             });
         });
     </script>
@@ -134,10 +139,12 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label for="description" class="col-md-4 control-label">{{ trans('campaign.description') }}</label>
+                                <div>
+                                    <label for="description" class="col-md-2 control-label">{{ trans('campaign.description') }}</label>
+                                </div>
 
-                                <div class="col-md-6">
-                                    {!! Form::textarea('description', old('description'), ['class' => 'form-control']) !!}
+                                <div class="col-md-8">
+                                    {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'id' => 'editor', 'rows' => '10']) !!}
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">

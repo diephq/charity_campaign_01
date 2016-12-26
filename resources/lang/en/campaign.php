@@ -62,4 +62,6 @@ return [
         'amount' => 'Amount invalid'
     ],
     'create_contribute_success' => 'Create successful contribution',
+    'upload_image_success' => 'Upload successful image',
+    'upload_image_error' => 'Upload fail',
 ];
