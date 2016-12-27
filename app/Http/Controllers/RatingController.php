@@ -27,8 +27,20 @@ class RatingController extends Controller
                 'value',
                 'campaign_id',
             ]);
-
             $result = $this->ratingRepository->ratingCampaign($inputs);
+
+            return response()->json($result);
+        }
+    }
+
+    public function ratingUser(Request $request)
+    {
+        if ($request->ajax()) {
+            $inputs = $request->only([
+                'value',
+                'targetId',
+            ]);
+            $result = $this->ratingRepository->ratingUser($inputs);
 
             return response()->json($result);
         }

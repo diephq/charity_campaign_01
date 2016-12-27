@@ -118,6 +118,8 @@ class CampaignController extends BaseController
         // get rating chart
         $this->dataView['ratingChart'] = $this->ratingRepository->getRatingChart($id);
 
+        $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['campaign']->owner->user_id);
+
         return view('campaign.show', $this->dataView);
     }
 
