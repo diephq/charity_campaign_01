@@ -35,14 +35,20 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
             $rating->star = $params['value'];
             $rating->save();
 
-            return $this->averageRatingCampaign($params['campaign_id']);
+            $averageRatingCampaign = $this->averageRatingCampaign($params['campaign_id']);
+            $dataChart = $this->getRatingChart($params['campaign_id'], false);
+
+            return [
+                'dataAverage' => $averageRatingCampaign,
+                'dataChart' => $dataChart,
+            ];
         }
 
         $this->model->create([
             'user_id' => auth()->id(),
             'star' => $params['value'],
             'target_id' => $params['campaign_id'],
-            'target_type' => config('constants.CAMPAIGN'),
+            'target_type' => config('constants.RATING_CAMPAIGN'),
         ]);
 
         return $this->averageRatingCampaign($params['campaign_id']);
@@ -56,7 +62,7 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
 
         return $this->model->where('user_id', auth()->id())
             ->where('target_id', $campaignId)
-            ->where('target_type', config('constants.CAMPAIGN'))
+            ->where('target_type', config('constants.RATING_CAMPAIGN'))
             ->first();
     }
 
@@ -67,7 +73,7 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
         }
 
         $ratings = $this->model->where('target_id', $campaignId)
-            ->where('target_type', config('constants.CAMPAIGN'))
+            ->where('target_type', config('constants.RATING_CAMPAIGN'))
             ->get();
 
         if (!count($ratings)) {
@@ -76,15 +82,16 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
                 'amount' => count($ratings),
             ];
         }
+
         $star = array_sum($ratings->pluck('star')->toArray());
 
         return [
-            'average' => (float) $star/count($ratings),
+            'average' => (float)$star / count($ratings),
             'amount' => count($ratings),
         ];
     }
 
-    public function getRatingChart($campaignId)
+    public function getRatingChart($campaignId, $isResponseJson = true)
     {
         if (!$campaignId) {
             return false;
@@ -92,7 +99,7 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
 
         $ratings = $this->model->select('star', DB::raw('count(*) as total'))
             ->where('target_id', $campaignId)
-            ->where('target_type', config('constants.CAMPAIGN'))
+            ->where('target_type', config('constants.RATING_CAMPAIGN'))
             ->groupBy('star')
             ->orderBy('star')
             ->get();
@@ -102,6 +109,68 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
             $result[$rating->star] = $rating->total;
         }
 
-        return json_encode($result);
+        return $isResponseJson ? json_encode($result) : $result;
+    }
+
+    public function ratingUser($params = [])
+    {
+        if (empty($params)) {
+            return false;
+        }
+
+        $rating = $this->checkUserRatingUser($params['targetId']);
+
+        if ($rating) {
+            $rating->star = $params['value'];
+            $rating->save();
+
+            return $this->averageRatingUser($params['targetId']);
+        }
+
+        $this->model->create([
+            'user_id' => auth()->id(),
+            'star' => $params['value'],
+            'target_id' => $params['targetId'],
+            'target_type' => config('constants.RATING_USER'),
+        ]);
+
+        return $this->averageRatingUser($params['campaign_id']);
+    }
+
+    public function checkUserRatingUser($targetId)
+    {
+        if (!$targetId) {
+            return false;
+        }
+
+        return $this->model->where('user_id', auth()->id())
+            ->where('target_id', $targetId)
+            ->where('target_type', config('constants.RATING_USER'))
+            ->first();
+    }
+
+    public function averageRatingUser($targetId)
+    {
+        if (!$targetId) {
+            return false;
+        }
+
+        $ratings = $this->model->where('target_id', $targetId)
+            ->where('target_type', config('constants.RATING_USER'))
+            ->get();
+
+        if ($ratings->isEmpty()) {
+            return [
+                'average' => 0,
+                'amount' => count($ratings),
+            ];
+        }
+
+        $star = array_sum($ratings->pluck('star')->toArray());
+
+        return [
+            'average' => (float)$star / count($ratings),
+            'amount' => count($ratings),
+        ];
     }
 }

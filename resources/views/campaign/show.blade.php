@@ -14,7 +14,6 @@
     {{ Html::script('https://www.gstatic.com/charts/loader.js') }}
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
-    {{ Html::script('js/rating_chart.js') }}
     {{ Html::script('js/contribute.js') }}
 
     <script type="text/javascript">
@@ -27,18 +26,15 @@
             );
             comment.init();
 
-            $('#allow-rating').rating('update', '{{ $averageRanking['average'] }}');
-            $('#not-allow-rating').rating('update', '{{ $averageRanking['average'] }}');
-
             var rating = new Rating(
                     '{{ action('RatingController@ratingCampaign') }}',
-                    '{{ trans('campaign.error') }}',
                     '{{ trans('campaign.must_join_campaign') }}',
-                    '{{ trans('campaign.close') }}'
-            );
-            rating.init();
-
-            var chart = new Chart( {!! $ratingChart !!},
+                    '{{ trans('campaign.close') }}',
+                    '{{ $averageRanking['average'] }}',
+                    '{{ action('RatingController@ratingUser') }}',
+                    '{{ trans('campaign.must_login') }}',
+                    '{{ $averageRankingUser['average'] }}',
+                    {!! $ratingChart !!},
                     '{{ trans('campaign.star') }}',
                     '{{ config('constants.ONE_STAR') }}',
                     '{{ config('constants.TWO_STAR') }}',
@@ -47,7 +43,7 @@
                     '{{ config('constants.FIVE_STAR') }}',
                     '{{ trans('campaign.rating') }}'
             );
-            chart.init();
+            rating.init();
 
             var contribute = new Contribute('{{ action('ContributionController@store') }}');
             contribute.init();
@@ -71,6 +67,16 @@
                                             <span class="meta__author">
                                                 <img src="{{ $campaign->owner->user->avatar }}" class="img-circle">
                                                 <a href="#">{{ $campaign->owner->user->name }}</a>
+                                                @if (Auth::user())
+                                                    {!! Form::hidden('target_id', $campaign->owner->user->id, ['id' => 'target_id']) !!}
+                                                    <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                                @else
+                                                    <input id="not-allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                                @endif
+                                                <div class="reviews-stats"> {{ trans('campaign.total') }}
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                    <span class="reviews-num-user">{{ $averageRankingUser['amount'] }}</span>
+                                                </div>
                                             </span>
                                         </div>
                                     </div>
@@ -136,7 +142,9 @@
                                         <span class="reviews-num">{{ $averageRanking['amount'] }}</span>
                                     </div>
                                     <hr>
-                                    <div id="top_x_div"></div>
+                                    <div id="chart">
+                                        <div id="top_x_div"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

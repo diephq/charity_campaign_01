@@ -9,22 +9,28 @@ use Auth;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
 use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
+use App\Repositories\Rating\RatingRepositoryInterface;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     protected $user;
     protected $userRepository;
     protected $campaignRepository;
     protected $contributionRepository;
+    protected $ratingRepository;
 
-    public function __construct(User $user, UserRepositoryInterface $userRepository,
-                                CampaignRepositoryInterface $campaignRepository,
-                                ContributionRepositoryInterface $contributionRepository)
-    {
+    public function __construct(
+        User $user,
+        UserRepositoryInterface $userRepository,
+        CampaignRepositoryInterface $campaignRepository,
+        ContributionRepositoryInterface $contributionRepository,
+        RatingRepositoryInterface $ratingRepository
+    ) {
         $this->user = $user;
         $this->userRepository = $userRepository;
         $this->campaignRepository = $campaignRepository;
         $this->contributionRepository = $contributionRepository;
+        $this->ratingRepository = $ratingRepository;
     }
 
     /**
@@ -36,12 +42,14 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = $this->user->findOrFail($id);
+            $this->dataView['user'] = $this->user->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
 
-        return view('user.show', compact('user'));
+        $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
+
+        return view('user.show', $this->dataView);
     }
 
     /**
@@ -53,16 +61,18 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = $this->user->findOrFail($id);
+            $this->dataView['user'] = $this->user->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
 
-        if (!$user->isCurrent()) {
-            return redirect(action('UserController@show', ['id' => $user->id]));
+        if (!$this->dataView['user']->isCurrent()) {
+            return redirect(action('UserController@show', ['id' => $this->dataView['user']->id]));
         }
 
-        return view('user.detail', compact('user'));
+        $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
+
+        return view('user.detail', $this->dataView);
     }
 
     /**
@@ -111,32 +121,33 @@ class UserController extends Controller
     public function listUserCampaign($id)
     {
         try {
-            $user = $this->user->findOrFail($id);
+            $this->dataView['user'] = $this->user->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
 
+        $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
         // get list user's campaign
-        $campaigns = $this->campaignRepository->listCampaignOfUser($id)->paginate(config('constants.PAGINATE'));
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)->paginate(config('constants.PAGINATE'));
 
-        return view('user.campaigns', compact('user', 'campaigns'));
+        return view('user.campaigns', $this->dataView);
     }
 
     public function manageCampaign($id, $campaignId)
     {
         try {
-            $user = $this->user->findOrFail($id);
-            $campaign = Campaign::findOrFail($campaignId);
+            $this->dataView['user'] = $this->user->findOrFail($id);
+            $this->dataView['campaign'] = Campaign::findOrFail($campaignId);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
 
+        $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
         // Get users joined
-        $campaignUsers = $this->userRepository->getUsersInCampaign($campaignId)->paginate(config('constants.PAGINATE'));
-
+        $this->dataView['campaignUsers'] = $this->userRepository->getUsersInCampaign($campaignId)->paginate(config('constants.PAGINATE'));
         // get campaign's contribution
-        $contributions = $this->contributionRepository->getAllCampaignContributions($campaignId)->paginate(config('constants.PAGINATE'));
+        $this->dataView['contributions'] = $this->contributionRepository->getAllCampaignContributions($campaignId)->paginate(config('constants.PAGINATE'));
 
-        return view('user.campaign_detail', compact('user', 'campaign', 'campaignUsers', 'contributions'));
+        return view('user.campaign_detail', $this->dataView);
     }
 }

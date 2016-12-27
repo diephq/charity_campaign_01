@@ -9,5 +9,9 @@ interface RatingRepositoryInterface
 
     public function averageRatingCampaign($campaignId);
 
-    public function getRatingChart($campaignId);
+    public function getRatingChart($campaignId, $isResponseJson);
+
+    public function ratingUser($params = []);
+
+    public function averageRatingUser($targetId);
 }

@@ -73,6 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('rating/ratingCampaign', 'RatingController@ratingCampaign');
 
+    Route::post('rating/ratingUser', 'RatingController@ratingUser');
+
     Route::post('campaign/uploadImage', 'CampaignController@uploadImage');
 
 });
