@@ -10,17 +10,11 @@ class CampaignValidate extends Validator
     {
         if (count($value) == 2) {
             $goals = $value['goal'];
-            $categoryIds = $value['category'];
+            $categories = $value['name'];
 
-            foreach ($goals as $key => $goal) {
+            foreach ($categories as $key => $category) {
 
-                if (!array_key_exists($key, $categoryIds) && $goal) {
-                    return false;
-                }
-
-                if (array_key_exists($key, $categoryIds) && ($key == $categoryIds[$key]
-                        && !$goal || $key != $categoryIds[$key])
-                ) {
+                if ((!$category && $goals[$key] > 0) || ($category && !$goals[$key])) {
 
                     return false;
                 }

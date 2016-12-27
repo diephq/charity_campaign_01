@@ -31,14 +31,14 @@ class CampaignRequest extends FormRequest
             'image' => ['required', 'mimes:jpg,jpeg,JPEG,png,gif', 'max:2024'],
             'address' => 'required',
             'description' => 'required',
-            'categoryCampaign' => 'required|campaign:categoryCampaign',
+            'category' => 'required|campaign:category',
         ];
     }
 
     public function messages()
     {
         return [
-            'categoryCampaign.campaign' => trans('campaign.validate.required_input'),
+            'category.campaign' => trans('campaign.validate.required_input'),
         ];
     }
 }

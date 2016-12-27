@@ -56,9 +56,7 @@ class CampaignController extends BaseController
      */
     public function create()
     {
-        $categories = $this->categoryRepository->all();
-
-        return view('campaign.create', compact('categories'));
+        return view('campaign.create');
     }
 
     /**
@@ -74,7 +72,7 @@ class CampaignController extends BaseController
             'end_date',
             'address',
             'description',
-            'categoryCampaign',
+            'category',
         ]);
         $inputs['description'] = Purifier::clean($inputs['description']);
         $campaign = $this->campaignRepository->createCampaign($inputs);
