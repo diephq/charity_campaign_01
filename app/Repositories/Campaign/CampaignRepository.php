@@ -54,21 +54,21 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'status' => config('constants.NOT_ACTIVE'),
             ]);
 
-            $goals = $params['categoryCampaign']['goal'];
-            $categoryIds = $params['categoryCampaign']['category'];
+            $goals = $params['category']['goal'];
+            $categories = $params['category']['name'];
 
             $inputs = [];
-
             foreach ($goals as $key => $goal) {
-                if (isset($categoryIds[$key]) && $key == $categoryIds[$key]) {
+                foreach ($categories as $k => $category)
+                if ($key == $k) {
                     $inputs[] = [
-                        'category_id' => $key,
-                        'goal' => $goal,
+                        'name' => $categories[$key],
+                        'goal' => (int) $goal,
                     ];
                 }
             }
 
-            $campaign->categoryCampaign()->createMany($inputs);
+            $campaign->categories()->createMany($inputs);
 
             $campaign->image()->create([
                 'image' => $image,
@@ -102,7 +102,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             ->with(['contributions.user', 'contributions' => function ($query) {
                 $query->where('status', config('constants.ACTIVATED'));
             }])
-            ->with('categoryCampaign.category')
+            ->with('categories')
             ->where('status', config('constants.ACTIVATED'))
             ->find($id);
     }

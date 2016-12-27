@@ -39,15 +39,15 @@
                         </div>
                     @endif
 
-                    @foreach ($campaign->categoryCampaign as $category)
+                    @foreach ($campaign->categories as $category)
                         <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="col-md-6">
-                                    {{ $category->category->name }}
+                                    {{ $category->name }}
                                 </div>
                                 <div class="col-md-6 category">
                                     <div class="input-group">
-                                        {!! Form::number('amount[' . $category->category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 1]) !!}
+                                        {!! Form::number('amount[' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 1]) !!}
 
                                         @if ($errors->has('amount'))
                                             <span class="help-block">

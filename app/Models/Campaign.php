@@ -63,4 +63,9 @@ class Campaign extends Model
     {
         return $this->hasMany(CategoryCampaign::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

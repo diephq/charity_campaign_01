@@ -5,19 +5,13 @@
     {{ Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDFQqwSkHBKMaeW04BYgLL8_3fmrXlaxbE&v=3.exp&libraries=places&language=en') }}
     {{ Html::script('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}
     {{ Html::script('bower_components/ckeditor/ckeditor.js') }}
-    {{ Html::script('js/campaign.js') }}
     {{ Html::script('http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}
+    {{ Html::script('js/campaign.js') }}
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $.uploadPreview({
-                input_field: "#image-upload",
-                preview_box: "#image-preview"
-            });
-
-            CKEDITOR.replace( 'editor', {
-                filebrowserUploadUrl: '{!! action('CampaignController@uploadImage').'?_token='.csrf_token() !!}'
-            });
+            var campaign = new Campaign('{!! action('CampaignController@uploadImage').'?_token='.csrf_token() !!}');
+            campaign.init();
         });
     </script>
 @stop
@@ -69,32 +63,29 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('categoryCampaign') ? ' has-error' : '' }}">
+
+                            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">{{ trans('campaign.categories') }}</label>
 
-                                <div class="col-md-6">
-                                    @foreach ($categories as $category)
-                                        <div class="checkbox">
-                                            <div class="col-md-4">
-                                                {!! Form::checkbox('categoryCampaign[category][' . $category->id . ']', $category->id ) !!}{{ $category->name }}
-                                            </div>
-
-                                            <div class="col-md-8">
-                                                {!! Form::number('categoryCampaign[goal][' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.goal'), 'min' => 1]) !!}
-                                            </div>
+                                <div class="col-md-6 category">
+                                    <div class="category-content">
+                                        <div class="col-md-7">
+                                            {!! Form::text('category[name][1]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.name')] ) !!}
                                         </div>
-
-                                        <br>
-                                    @endforeach
+                                        <div class="col-md-5">
+                                            {!! Form::number('category[goal][1]', null, ['class' => 'form-control category-goal', 'placeholder' => trans('campaign.goal'), 'min' => 1]) !!}
+                                        </div>
+                                    </div>
                                     <div>
-                                        @if ($errors->has('categoryCampaign'))
+                                        @if ($errors->has('category'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('categoryCampaign') }}</strong>
-                                            </span>
+                                            <strong>{{ $errors->first('category') }}</strong>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                                 <label for="start_date" class="col-md-4 control-label">{{ trans('campaign.start_date') }}</label>

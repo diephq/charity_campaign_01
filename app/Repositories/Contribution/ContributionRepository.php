@@ -86,15 +86,13 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
             ->groupBy('category_id')
             ->get();
 
-        $categoryCampaign = CategoryCampaign::where('campaign_id', $id)
-            ->with('category')
-            ->get();
+        $categories = Category::where('campaign_id', $id)->get();
 
         $data = [];
         if (!count($categoryContributions)) {
-            foreach ($categoryCampaign as $value) {
+            foreach ($categories as $category) {
                 $data[] = [
-                    'name' => $value->category->name,
+                    'name' => $category->name,
                     'value' => config('constants.EMPTY_DATA'),
                     'progress' => config('constants.EMPTY_DATA'),
                 ];
@@ -103,17 +101,13 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
             return $data;
         }
 
-        foreach ($categoryCampaign as $value) {
-            foreach ($categoryContributions as $categoryContribution) {
-                if ($value->category_id == $categoryContribution->category_id) {
-                    $data[] = [
-                        'name' => $value->category->name,
-                        'value' => $categoryContribution->amount,
-                        'progress' => round($categoryContribution->amount/$value->goal * 100,
-                            config('constants.ROUND_CHART'))
-                    ];
-                }
-            }
+        foreach ($categoryContributions as $categoryContribution) {
+            $data[] = [
+                'name' => $categoryContribution->category->name,
+                'value' => $categoryContribution->amount,
+                'progress' => round($categoryContribution->amount/$categoryContribution->category->goal * 100,
+                    config('constants.ROUND_CHART'))
+            ];
         }
 
         return $data;
