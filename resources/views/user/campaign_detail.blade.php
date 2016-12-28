@@ -5,18 +5,13 @@
     {{ Html::script('js/user_campaign.js') }}
     <script type="text/javascript">
         $( document ).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             var approve = new Approve(
-                    '{{ action('CampaignController@approveOrRemove') }}',
-                    '{{ trans('campaign.approve') }}',
-                    '{{ trans('campaign.remove') }}',
-                    '{{ action('ContributionController@confirmContribution') }}',
-                    '{{ trans('campaign.confirm') }}'
+                '{{ action('CampaignController@approveOrRemove') }}',
+                '{{ trans('campaign.approve') }}',
+                '{{ trans('campaign.remove') }}',
+                '{{ action('ContributionController@confirmContribution') }}',
+                '{{ trans('campaign.confirm') }}',
+                '{{ trans('campaign.message_confirm') }}'
             );
             approve.init();
         });

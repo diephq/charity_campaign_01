@@ -65,4 +65,5 @@ return [
     'upload_image_success' => 'Upload successful image',
     'upload_image_error' => 'Upload fail',
     'must_login' => 'User must login',
+    'message_confirm' => 'Are you sure ?',
 ];
