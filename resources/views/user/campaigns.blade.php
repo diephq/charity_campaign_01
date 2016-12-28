@@ -5,11 +5,11 @@
     {{ Html::script('js/active_campaign.js') }}
     <script type="text/javascript">
         $( document ).ready(function() {
-
             var active = new Active(
-                    '{{ trans('campaign.active') }}',
-                    '{{ trans('campaign.close') }}',
-                    '{{ action('CampaignController@activeOrCloseCampaign') }}'
+                '{{ trans('campaign.active') }}',
+                '{{ trans('campaign.close') }}',
+                '{{ action('CampaignController@activeOrCloseCampaign') }}',
+                '{{ trans('campaign.message_confirm') }}'
             );
             active.init();
         });
