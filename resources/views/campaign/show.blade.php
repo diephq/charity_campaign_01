@@ -66,7 +66,7 @@
                                         <div class="meta__info">
                                             <span class="meta__author">
                                                 <img src="{{ $campaign->owner->user->avatar }}" class="img-circle">
-                                                <a href="#">{{ $campaign->owner->user->name }}</a>
+                                                <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}">{{ $campaign->owner->user->name }}</a>
                                                 @if (Auth::user())
                                                     {!! Form::hidden('target_id', $campaign->owner->user->id, ['id' => 'target_id']) !!}
                                                     <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
