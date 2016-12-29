@@ -16,4 +16,5 @@ return [
     'FIVE_STAR' => 5,
     'ROUND_CHART' => 2,
     'EMPTY_DATA' => 0,
+    'FOLLOW_USER' => 1,
 ];

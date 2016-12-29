@@ -15,5 +15,6 @@ class Relationship extends Model
         'user_id',
         'target_id',
         'target_type',
+        'status',
     ];
 }

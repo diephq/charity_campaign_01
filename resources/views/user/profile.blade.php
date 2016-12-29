@@ -17,7 +17,10 @@
                 '{{ action('RatingController@ratingUser') }}',
                 '{{ $averageRankingUser['average'] }}',
                 '{{ trans('user.rating_your_self') }}',
-                '{{ trans('campaign.close') }}'
+                '{{ trans('campaign.close') }}',
+                '{{ action('FollowController@followOrUnFollowUser') }}',
+                '{{ trans('user.follow') }}',
+                '{{ trans('user.un_follow') }}'
             );
             userProfile.init();
         });
@@ -48,9 +51,17 @@
             </div>
         </div>
 
+        @if (auth()->id() != $user->id)
         <div class="profile-userbuttons">
-            <button type="button" class="btn btn-success btn-sm">{{ trans('user.follow') }}</button>
+            <div data-user-id="{{ $user->id }}">
+                @if ($follow && $follow->status)
+                    {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-danger' , 'id' => 'follow']) !!}
+                @else
+                    {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-success', 'id' => 'follow']) !!}
+                @endif
+            </div>
         </div>
+        @endif
     </div>
 
     <div>
