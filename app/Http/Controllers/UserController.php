@@ -11,6 +11,7 @@ use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
 use App\Repositories\Follow\FollowRepositoryInterface;
+use App\Repositories\Action\ActionRepositoryInterface;
 
 class UserController extends BaseController
 {
@@ -20,6 +21,7 @@ class UserController extends BaseController
     protected $contributionRepository;
     protected $ratingRepository;
     protected $followRepository;
+    protected $actionRepository;
 
     public function __construct(
         User $user,
@@ -27,7 +29,8 @@ class UserController extends BaseController
         CampaignRepositoryInterface $campaignRepository,
         ContributionRepositoryInterface $contributionRepository,
         RatingRepositoryInterface $ratingRepository,
-        FollowRepositoryInterface $followRepository
+        FollowRepositoryInterface $followRepository,
+        ActionRepositoryInterface $actionRepository
     ) {
         $this->user = $user;
         $this->userRepository = $userRepository;
@@ -35,6 +38,7 @@ class UserController extends BaseController
         $this->contributionRepository = $contributionRepository;
         $this->ratingRepository = $ratingRepository;
         $this->followRepository = $followRepository;
+        $this->actionRepository = $actionRepository;
     }
 
     /**
@@ -53,6 +57,7 @@ class UserController extends BaseController
 
         $this->dataView['follow'] = $this->followRepository->getFollowUser($id);
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
+        $this->dataView['actions'] = $this->actionRepository->getActionByUser($id);
 
         return view('user.show', $this->dataView);
     }

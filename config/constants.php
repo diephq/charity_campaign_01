@@ -17,4 +17,9 @@ return [
     'ROUND_CHART' => 2,
     'EMPTY_DATA' => 0,
     'FOLLOW_USER' => 1,
+    'ACTION' => [
+        'ACTIVE_CAMPAIGN' => 1,
+        'CLOSE_CAMPAIGN' => 2,
+        'CONTRIBUTE' => 3,
+    ],
 ];

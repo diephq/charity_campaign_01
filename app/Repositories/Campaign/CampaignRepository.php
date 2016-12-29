@@ -179,10 +179,26 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return false;
         }
 
-        $campaign->status = $campaign->status ? config('constants.NOT_ACTIVE') : config('constants.ACTIVATED');
-        $campaign->save();
+        DB::beginTransaction();
+        try {
+            $campaign->status = config('constants.ACTIVATED') - $campaign->status;
+            $campaign->save();
+            
+            // save action
+            $campaign->actions()->create([
+                'user_id' => auth()->id(),
+                'action_type' => $campaign->status ? config('constants.ACTION.CLOSE_CAMPAIGN') :
+                    config('constants.ACTION.ACTIVE_CAMPAIGN'),
+                'time' => time(),
+            ]);
+            DB::commit();
 
-        return $campaign;
+            return $campaign;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return false;
+        }
     }
 
     public function uploadImageCampaign($image)
