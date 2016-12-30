@@ -10,6 +10,7 @@ use App\Repositories\Contribution\ContributionRepositoryInterface;
 use DB;
 use Illuminate\Container\Container;
 use App\Models\CategoryContribution;
+use App\Models\Action;
 
 class ContributionRepository extends BaseRepository implements ContributionRepositoryInterface
 {
@@ -130,15 +131,43 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
         }
 
         $contribution = $this->model->find($id);
-
         if (empty($contribution))
         {
             return false;
         }
 
-        $contribution->status = $contribution->status ? config('constants.NOT_ACTIVE') : config('constants.ACTIVATED');
-        $contribution->save();
+        DB::beginTransaction();
+        try {
+            $contribution->status = config('constants.ACTIVATED') - $contribution->status;
+            $contribution->save();
 
-        return $contribution;
+            if ($contribution->status && $contribution->user_id) {
+                $contribution->actions()->create([
+                    'user_id' => $contribution->user_id,
+                    'action_type' => config('constants.ACTION.CONTRIBUTE'),
+                    'time' => time(),
+                ]);
+                DB::commit();
+
+                return $contribution;
+            }
+
+            $action = Action::where('user_id', $contribution->user_id)
+                ->where('action_type', config('constants.ACTION.CONTRIBUTE'))
+                ->where('actionable_id', $contribution->id)
+                ->first();
+
+            if ($action) {
+                $action->delete();
+            }
+
+            DB::commit();
+
+            return $contribution;
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return false;
+        }
     }
 }

@@ -68,4 +68,9 @@ class Campaign extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
 }

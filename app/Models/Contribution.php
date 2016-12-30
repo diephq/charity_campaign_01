@@ -39,4 +39,9 @@ class Contribution extends Model
             $contribution->status = config('constants.NOT_ACTIVE');
         });
     }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
 }

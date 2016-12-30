@@ -19,6 +19,8 @@ use App\Repositories\Rating\RatingRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Follow\FollowRepository;
 use App\Repositories\Follow\FollowRepositoryInterface;
+use App\Repositories\Action\ActionRepository;
+use App\Repositories\Action\ActionRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,5 +49,6 @@ class AppServiceProvider extends ServiceProvider
         App::bind(CommentRepositoryInterface::class, CommentRepository::class);
         App::bind(RatingRepositoryInterface::class, RatingRepository::class);
         App::bind(FollowRepositoryInterface::class, FollowRepository::class);
+        App::bind(ActionRepositoryInterface::class, ActionRepository::class);
     }
 }
