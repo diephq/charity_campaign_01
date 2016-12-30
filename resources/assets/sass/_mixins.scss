@@ -1,0 +1,74 @@
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-shadow($value) {
+    -webkit-box-shadow: $value;
+    -moz-box-shadow: $value;
+    box-shadow: $value;
+}
+
+@mixin box-shadow2($value1, $value2) {
+    -webkit-box-shadow: $value1, $value2;
+    -moz-box-shadow: $value1, $value2;
+    box-shadow: $value1, $value2;
+}
+
+@mixin background-size($value) {
+    -webkit-background-size: $value;
+    -moz-background-size: $value;
+    background-size: $value;
+}
+
+/* keyframes mixin*/
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+/* animation mixin */
+@mixin animation($value) {
+    animation: $value;
+    -webkit-animation: $value;
+    -moz-animation: $value;
+}
+
+/**transition*/
+@mixin transition($transition) {
+    -moz-transition: unquote($transition);
+    -o-transition: unquote($transition);
+    -webkit-transition: unquote($transition);
+    transition: unquote($transition);
+}
+
+/** font-face mixin*/
+@mixin font-face($name, $relativePath) {
+    $eot: quote($relativePath + ".eot");
+    $iefont: quote($relativePath + ".eot#iefix");
+    $woff: quote($relativePath + ".woff");
+    $ttf: quote($relativePath + ".ttf");
+    $svg: quote($relativePath + ".svg#revicons");
+    @font-face {
+        font-family: quote($name);
+        src: url($eot);
+        src: url($iefont) unquote("format('embedded-opentype')"), url($woff) unquote("format('woff')"), url($ttf) unquote("format('truetype')"), url($svg) unquote("format('svg')");
+        font-weight: normal;
+        font-style: normal;
+    }
+}
