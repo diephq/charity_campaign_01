@@ -28,7 +28,7 @@
                 @endif
 
                 <div class="col-xs-12">
-                    {!! Form::textarea('text', old('text'), ['rows' => '4', 'class' => 'form-control', 'id' => 'text', 'placeholder' => trans('campaign.your_message')]) !!}
+                    {!! Form::textarea('text', old('text'), ['rows' => '3', 'class' => 'form-control', 'id' => 'text', 'placeholder' => trans('campaign.your_message')]) !!}
 
                     @if ($errors->has('text'))
                         <span class="help-block">

@@ -30,7 +30,7 @@ body {
 
     }
     #main-container {
-        //margin: 0 $pageMarginLeft;
+        margin: 0 $pageMarginLeft;
         @include box-shadow(2px 2px 2px $boxShadowColor);
         border: 1px solid $boxShadowColor;
         .panel-title {
@@ -261,5 +261,8 @@ body {
                 padding: 10px;
             }
         }
+    }
+    .gmap-timeline {
+        height: 220px;
     }
 }

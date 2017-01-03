@@ -6,8 +6,7 @@ elixir(function (mix) {
         'resources/assets/sass/base.scss'
     ], 'public/css/');
 
-    mix.copy('resources/assets/css/fonts', 'public/css/fonts');
-    mix.copy('resources/assets/css/themes', 'public/css/themes');
+    mix.copy('resources/assets/css', 'public/css');
     mix.copy('resources/assets/img', 'public/img');
     mix.copy('resources/assets/js', 'public/js');
 

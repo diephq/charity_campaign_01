@@ -71,6 +71,8 @@ class CampaignController extends BaseController
             'start_date',
             'end_date',
             'address',
+            'lattitude',
+            'longitude',
             'description',
             'category',
         ]);

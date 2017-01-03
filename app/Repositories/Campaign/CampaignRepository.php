@@ -51,6 +51,8 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'start_time' => $params['start_date'],
                 'end_time' => $params['end_date'],
                 'address' => $params['address'],
+                'lat' => $params['lattitude'],
+                'lng' => $params['longitude'],
                 'status' => config('constants.NOT_ACTIVE'),
             ]);
 
@@ -60,7 +62,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             $inputs = [];
             foreach ($goals as $key => $goal) {
                 foreach ($categories as $k => $category)
-                if ($key == $k) {
+                if ($key == $k && $category && $goal) {
                     $inputs[] = [
                         'name' => $categories[$key],
                         'goal' => (int) $goal,

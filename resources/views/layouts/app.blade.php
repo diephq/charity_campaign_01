@@ -14,22 +14,36 @@
         {{ Html::style('css/common.css') }}
         {{ Html::style('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700%7CLato:700,900&subset=latin,latin') }}
         {{ Html::style('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
+        {{ Html::style('css/templates.css') }}
+        {{ Html::style('css/app.css') }}
     @show
 
 </head>
 <body>
+    <div id="page-wrapper">
+        <div id="page-container">
+            <div id="main-container">
 
-    @include('layouts.header')
+                @include('layouts.header')
 
-    @include('layouts.alert')
+                @include('layouts.alert')
 
-    @yield('content')
+                @yield('content')
 
-    @include('layouts.footer')
+                @include('layouts.footer')
+
+            </div>
+        </div>
+    </div>
 
     @section('js')
         {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
         {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
+        {{ Html::script('http://maps.google.com/maps/api/js?sensor=true') }}
+        {{ Html::script('js/helpers/gmaps.min.js') }}
+        {{ Html::script('js/plugins.js') }}
+        {{ Html::script('js/app.js') }}
+        {{ Html::script('js/base.js') }}
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {

@@ -9,7 +9,7 @@ return [
     'start_date' => 'Start date',
     'end_date' => 'End date',
     'image' => 'Image',
-    'address' => 'Address',
+    'address' => 'Location',
     'description' => 'Description',
     'status' => 'Status',
     'by' => 'By',
@@ -66,4 +66,5 @@ return [
     'upload_image_error' => 'Upload fail',
     'must_login' => 'User must login',
     'message_confirm' => 'Are you sure ?',
+    'author' => 'Author',
 ];

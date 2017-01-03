@@ -120,6 +120,8 @@
 
                                 <div class="col-md-6">
                                     {!! Form::text('address', old('address'), ['class' => 'form-control', 'id' => 'location']) !!}
+                                    {!! Form::hidden('lattitude', '', ['id' => 'lat']) !!}
+                                    {!! Form::hidden('longitude', '', ['id' => 'lng']) !!}
 
                                     @if ($errors->has('address'))
                                         <span class="help-block">
