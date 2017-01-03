@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">{{ trans('campaign.contribute') }}</h4>
             </div>
             <div class="modal-body">
-                <table id="contributor" class="table table-striped table-bordered table-hover table-responsive">
+                <table id="contributor" class=" table-striped table-bordered table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>{{ trans('campaign.contribution.index') }}</th>
@@ -24,18 +24,17 @@
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             @if ($contribution->user)
-                                <td><img src="{{ $contribution->user->avatar }}" alt=""></td>
+                                <td><img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle"></td>
                                 <td>{{ $contribution->user->name }}</td>
                                 <td>{{ $contribution->user->email }}</td>
                             @else
-                                <td><img src="{{ config('path.to_avatar_default') }}" alt=""></td>
+                                <td><img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle"></td>
                                 <td>{{ $contribution->name }}</td>
                                 <td>{{ $contribution->email }}</td>
                             @endif
-
                             <td>
                                 @foreach ($contribution->categoryContributions as $value)
-                                    <p>{{ $value->category->name }} : <small>{{ $value->amount }}</small></p>
+                                    <span>{{ $value->category->name }} : {{ $value->amount }}  ({{ $value->category->unit }})</span><br>
                                 @endforeach
                             </td>
                             <td>{{ $contribution->description }}</td>

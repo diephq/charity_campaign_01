@@ -64,6 +64,8 @@ UserProfile.prototype = {
         var _self = this;
         $('#allow-rating-user').rating('update', _self.averageRankingUser);
         $('#not-allow-rating-user').rating('update', _self.averageRankingUser);
+        $('.clear-rating').remove();
+        $('.caption').remove();
     },
 
     followOrUnFollowUser: function () {

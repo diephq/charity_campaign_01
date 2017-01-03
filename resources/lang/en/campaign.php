@@ -67,4 +67,7 @@ return [
     'must_login' => 'User must login',
     'message_confirm' => 'Are you sure ?',
     'author' => 'Author',
+    'unit' => 'Unit',
+    'create_campaign' => 'Create campaign',
+
 ];

@@ -35,7 +35,7 @@
                             <strong>{{ $errors->first('text') }}</strong>
                         </span>
                     @endif
-                    {!! Form::button(trans('campaign.create_comment'), ['class' => 'btn  btn-success', 'id' => 'buttonComment']) !!}
+                    {!! Form::button(trans('campaign.create_comment'), ['class' => 'btn btn-sm  btn-success', 'id' => 'buttonComment']) !!}
                 </div>
             </div>
             {!! Form::close() !!}

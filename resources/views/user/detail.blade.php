@@ -22,7 +22,7 @@
                         {{ Form::file('avatar', ['class' => 'form-control']) }}
                     </div>
                 </div>
-                    
+
                 <div class="col-md-9 personal-info">
                     <h3>{{ trans('user.profile') }}</h3>
                     <div class="form-group">
@@ -55,10 +55,10 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-8">
-                            {{ Form::submit( trans('message.save_changes'), ['class' => 'btn btn-primary']) }}
+                            {{ Form::submit( trans('message.save_changes'), ['class' => 'btn btn-sm btn-primary']) }}
                             {{ Form::hidden('_token', csrf_token()) }}
                             <span></span>
-                            <input type="reset" class="btn btn-default" value="{{ trans('message.cancel') }}">
+                            <input type="reset" class="btn btn-sm btn-default" value="{{ trans('message.cancel') }}">
                         </div>
                     </div>
                 </div>

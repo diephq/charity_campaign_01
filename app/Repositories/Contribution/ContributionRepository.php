@@ -96,6 +96,8 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
                     'name' => $category->name,
                     'value' => config('constants.EMPTY_DATA'),
                     'progress' => config('constants.EMPTY_DATA'),
+                    'goal' => $category->goal,
+                    'unit' => $category->unit,
                 ];
             }
 
@@ -107,7 +109,9 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
                 'name' => $categoryContribution->category->name,
                 'value' => $categoryContribution->amount,
                 'progress' => round($categoryContribution->amount/$categoryContribution->category->goal * 100,
-                    config('constants.ROUND_CHART'))
+                    config('constants.ROUND_CHART')),
+                'goal' => $categoryContribution->category->goal,
+                'unit' => $categoryContribution->category->unit,
             ];
         }
 

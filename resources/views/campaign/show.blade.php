@@ -61,7 +61,6 @@
         <div class="row">
             <div class="col-md-8 center-panel">
                 <div class="block">
-                    <!-- Timeline Title -->
                     <div class="block-title themed-background-dark">
                         <div class="block-options pull-right">
                             <div class="dropdown">
@@ -74,9 +73,7 @@
                         </div>
                         <h2 class="block-title-light campaign-title"><strong>{{{ $campaign->name }}}</strong></h2>
                     </div>
-                    <!-- END Timeline Title -->
 
-                    <!-- Timeline Content -->
                     <div class="block-content-full">
                         <div class="timeline">
                             <ul class="timeline-list">
@@ -86,7 +83,7 @@
                                     <div class="timeline-content">
                                         <p class="push-bit"><strong>{{{ $campaign->start_time }}}</strong></p>
                                         <div class="row push">
-                                            <div class="col-sm-6 col-md-4">
+                                            <div class="col-sm-8 col-md-8">
                                                 <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
                                                     <img src="{{ $campaign->image->image }}" alt="image">
                                                 </a>
@@ -97,15 +94,15 @@
                                                 {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
                                                 {!! Form::hidden('campaign_id', $campaign->id) !!}
                                                 @if (empty($userCampaign))
-                                                    {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                                    {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
                                                 @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
-                                                    {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                                    {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
                                                 @elseif ($userCampaign->status && empty($userCampaign->is_owner))
-                                                    {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-success joinOrLeave']) !!}
+                                                    {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
                                                 @endif
                                                 {!! Form::close() !!}
                                             @else
-                                                <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-success join">{{ trans('campaign.request_join') }}</a>
+                                                <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-sm btn-success join">{{ trans('campaign.request_join') }}</a>
                                             @endif
                                         </div>
                                     </div>
@@ -116,9 +113,9 @@
                                     <div class="timeline-content">
                                         <p class="push-bit"><a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}"><strong>{{ $campaign->owner->user->name }}</strong></a></p>
                                         <div class="row push">
-                                            <div class="col-sm-2 col-md-2">
-                                                <a href="{{ $campaign->owner->user->avatar }}" data-toggle="lightbox-image">
-                                                    <img src="{{ $campaign->owner->user->avatar }}" class="img-circle" alt="image">
+                                            <div class="col-sm-6 col-md-6">
+                                                <a href="{{ $campaign->owner->user->avatar }}" data-toggle="lightbox-image" class="profile_thumb">
+                                                    <img src="{{ $campaign->owner->user->avatar }}" class="img-responsive img-circle" alt="image">
                                                 </a>
                                                 @if (Auth::user())
                                                     {!! Form::hidden('target_id', $campaign->owner->user->id, ['id' => 'target_id']) !!}
@@ -156,7 +153,7 @@
                                     <div class="timeline-icon"><i class="gi gi-calendar"></i></div>
                                     <div class="timeline-time"><small>{{ trans('campaign.end_date') }}</small></div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><a href="#"><strong>{{ $campaign->end_time }}</strong></a></p>
+                                        <p class="push-bit"><strong>{{ $campaign->end_time }}</strong></p>
                                     </div>
                                 </li>
                             </ul>
@@ -164,19 +161,17 @@
                         <hr>
                         @include('campaign.comment')
                     </div>
-                    <!-- END Timeline Content -->
                 </div>
             </div>
 
             <div class="col-md-4 right-panel">
                 <div class="widget">
                     <div class="widget-extra themed-background-dark">
-                        <h3 class="widget-content-light">
+                        <h4 class="block-title-light campaign-title">
                             <strong>{{ trans('campaign.value') }}</strong>
-                        </h3>
+                        </h4>
                     </div>
                     <div class="widget-extra">
-                        <!-- Timeline Content -->
                         <div class="timeline">
                             <ul class="">
                                 @foreach ($results as $result)
@@ -185,7 +180,13 @@
                                             <span>
                                                 <strong>{{ $result['name'] }}</strong> :
                                                 <span>{{ $result['value'] }}</span>
+                                                <strong>{{ $result['unit'] }}</strong>
                                             </span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <strong>{{ trans('campaign.goal') }}</strong> :
+                                            <span>{{ $result['goal'] }}</span>
+                                            <strong>{{ $result['unit'] }}</strong>
                                         </div>
                                     </li>
 
@@ -199,56 +200,59 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <!-- END Timeline Content -->
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-extra themed-background-dark">
+                        <h4 class="widget-content-light">
+                            <strong>{{ trans('campaign.contributors') }}</strong>
+                        </h4>
                     </div>
 
-                    <div class="widget-extra themed-background-dark">
-                        <h3 class="widget-content-light">
-                            <strong>{{ trans('campaign.contributors') }}</strong>
-                        </h3>
-                    </div>
-                    <br>
-                    <!-- Timeline Content -->
-                    <div class="timeline">
-                        <ul class="timeline-list">
+                    <div class="widget-extra active-user">
+                        <ul class="active-user-list">
                             @foreach ($campaign->contributions as $contribution)
-                                <li class="media event active">
-                                    @if ($contribution->user)
-                                        <div class="timeline-icon"><i class="fa fa-smile-o"></i></div>
-                                        <a class="pull-left border-aero profile_thumb">
-                                            <img src="{{ $contribution->user->avatar }}" class="img-circle" alt="" >
-                                        </a>
-                                        <div class="timeline-content">
-                                            <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id    ]) }}">
-                                                {{ $contribution->user->name }}
-                                            </a>
-                                            <p>{{ $contribution->user->email }}</p>
-                                            <p>{{ $contribution->created_at }}</p>
-                                        </div>
-                                    @else
-                                        <div class="timeline-icon"><i class="fa fa-smile-o"></i></div>
-                                        <a class="pull-left border-aero profile_thumb">
-                                            <img src="{{ config('path.to_avatar_default') }}" class="img-circle" alt="" >
-                                        </a>
-                                        <div class="timeline-content">
-                                            <p>{{ $contribution->name }}</p>
-                                            <p>{{ $contribution->email }}</p>
-                                            <p>{{ $contribution->created_at }}</p>
-                                        </div>
-                                    @endif
+                                <li class="active-user-item">
+                                    <div class="row">
+                                        @if ($contribution->user)
+                                            <div class="col-md-4">
+                                                <a class="pull-left border-aero profile_thumb">
+                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle" >
+                                                </a>
+                                            </div>
+                                            <div class="col-md-8 active-user-item-info">
+                                                <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                                    {{ $contribution->user->name }}
+                                                </a>
+                                                <span>{{ $contribution->user->email }}</span><br>
+                                                <span>{{ $contribution->created_at }}</span><br>
+                                            </div>
+                                        @else
+                                            <div class="col-md-4">
+                                                <a class="pull-left border-aero profile_thumb">
+                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle" >
+                                                </a>
+                                            </div>
+                                            <div class="col-md-8 active-user-item-info">
+                                                <span>{{ $contribution->name }}</span><br>
+                                                <span>{{ $contribution->email }}</span><br>
+                                                <span>{{ $contribution->created_at }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
                         <div class="contribution">
                             {{ Form::button(trans('campaign.contribute'), [
-                                'class' => 'btn btn-success',
+                                'class' => 'btn btn-sm btn-success',
                                 'data-toggle'=>'modal',
                                 'data-target'=>'.contribute'
                             ]) }}
                             <a href=".list_contribute" data-toggle="modal" data-target=".list_contribute">{{ trans('campaign.show_more') }}</a>
                         </div>
                     </div>
-                    <!-- END Timeline Content -->
                 </div>
             </div>
         </div>
@@ -256,5 +260,4 @@
 
     @include('campaign.create_contribution')
     @include('campaign.list_contribution')
-
 @stop
