@@ -6,6 +6,7 @@ Contribute.prototype = {
     init: function () {
         var _self = this;
         _self.contribute();
+        _self.dataTable();
     },
 
     contribute: function () {
@@ -43,5 +44,9 @@ Contribute.prototype = {
                 }
             });
         });
+    },
+
+    dataTable: function () {
+        $('#contributor').dataTable();
     }
-}
+};

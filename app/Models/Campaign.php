@@ -18,6 +18,8 @@ class Campaign extends Model
         'name',
         'description',
         'address',
+        'lat',
+        'lng',
         'start_time',
         'end_time',
         'status',

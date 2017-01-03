@@ -22,7 +22,8 @@ Campaign.prototype = {
             google.maps.event.addDomListener(window, 'load', function () {
                 var places = new google.maps.places.Autocomplete(document.getElementById('location'));
                 google.maps.event.addListener(places, 'place_changed', function () {
-
+                    document.getElementById('lat').value = places.getPlace().geometry.location.lat();
+                    document.getElementById('lng').value = places.getPlace().geometry.location.lng();
                 });
             });
         }

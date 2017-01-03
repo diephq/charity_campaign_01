@@ -10,7 +10,7 @@
     @endif
 
     <div class="media-body">
-        <div class="well well-lg">
+        <div class="well ">
             @if ($comment->user)
                 <a href="{{ action('UserController@show', ['id' => $comment->user->id]) }}">
                     <h4 class="media-heading reviews">{{ $comment->user->name }}</h4>
@@ -18,8 +18,8 @@
             @else
                 <h4 class="media-heading reviews">{{{ $comment->name }}}</h4>
             @endif
-            <p class="media-date reviews list-inline">{{ $comment->created_at }}</p>
-            <p class="media-comment">{{{ $comment->text }}}</p>
+            <span class="text-muted"><small><em>{{ $comment->created_at }}</em></small></span>
+            <p>{{{ $comment->text }}}</p>
         </div>
     </div>
 </li>

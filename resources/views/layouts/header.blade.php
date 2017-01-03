@@ -1,29 +1,27 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ trans('message.project') }}
+<header class="navbar navbar-default">
+    <ul class="nav navbar-nav-custom">
+        <li>
+            <a href="/">
+                <i class="gi gi-home"></i>
+                <span>{{ trans('message.project') }}</span>
             </a>
-        </div>
+        </li>
+    </ul>
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">{{ trans('message.login') }}</a></li>
-                    <li><a href="{{ url('/register') }}">{{ trans('message.register') }}</a></li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ action('UserController@show', ['id' => Auth::user()->id]) }}" ><span class="glyphicon glyphicon-user"></span> {{ trans('user.your_profile') }}</a></li>
-                            <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> {{ trans('message.logout') }}</a></li>
-                        </ul>
-                    </li>
-                @endif
+    <ul class="nav navbar-nav-custom pull-right">
+        @if (Auth::guest())
+            <li><a href="{{ url('/login') }}">{{ trans('message.login') }}</a></li>
+            <li><a href="{{ url('/register') }}">{{ trans('message.register') }}</a></li>
+        @else
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{ Auth()->user()->avatar }}" alt="avatar"> <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                <li><a href="{{ action('UserController@show', ['id' => Auth::user()->id]) }}" ><span class="glyphicon glyphicon-user"></span> {{ trans('user.your_profile') }}</a></li>
+                <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> {{ trans('message.logout') }}</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
+        </li>
+        @endif
+    </ul>
+</header>

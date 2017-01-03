@@ -81,6 +81,8 @@ Rating.prototype = {
         var _self = this;
         $('#allow-rating').rating('update', _self.averageRanking);
         $('#not-allow-rating').rating('update', _self.averageRanking);
+        $('.clear-rating').remove();
+        $('.caption').remove();
     },
 
     ratingUser: function () {

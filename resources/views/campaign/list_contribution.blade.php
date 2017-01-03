@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">{{ trans('campaign.contribute') }}</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-bordered table-hover table-responsive">
+                <table id="contributor" class="table table-striped table-bordered table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>{{ trans('campaign.contribution.index') }}</th>
