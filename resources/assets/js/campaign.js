@@ -51,11 +51,14 @@ Campaign.prototype = {
             e.preventDefault();
             var html = '';
             html += '<div class="category-content">';
-            html += '<div class="col-md-7">';
+            html += '<div class="col-md-6">';
             html += '<input class="form-control category-name" placeholder="Campaign Name" name="category[name][' + count + ']" type="text" value="">';
             html += '</div>';
-            html += '<div class="col-md-5">';
+            html += '<div class="col-md-3">';
             html += '<input class="form-control category-goal" placeholder="Goal" min="1" name="category[goal][' + count + ']" type="number" value="">';
+            html += '</div>';
+            html += '<div class="col-md-3">';
+            html += '<input class="form-control category-unit" placeholder="Unit" name="category[unit][' + count + ']" type="text">';
             html += '</div>';
             html += '</div>';
 

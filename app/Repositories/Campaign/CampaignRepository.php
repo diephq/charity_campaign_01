@@ -58,14 +58,15 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
 
             $goals = $params['category']['goal'];
             $categories = $params['category']['name'];
-
+            $units = $params['category']['unit'];
             $inputs = [];
             foreach ($goals as $key => $goal) {
                 foreach ($categories as $k => $category)
-                if ($key == $k && $category && $goal) {
+                if ($key == $k && $category && $goal && isset($units[$key])) {
                     $inputs[] = [
                         'name' => $categories[$key],
                         'goal' => (int) $goal,
+                        'unit' => $units[$key],
                     ];
                 }
             }

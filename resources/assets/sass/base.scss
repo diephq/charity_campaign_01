@@ -265,4 +265,20 @@ body {
     .gmap-timeline {
         height: 220px;
     }
+    .show {
+        color: black;
+    }
+    .push-bit {
+        p {
+            img {
+                width: 200px;
+            }
+        }
+    }
+    .media-list {
+        .media {
+            display: inline-flex;
+            width: 100%;
+        }
+    }
 }

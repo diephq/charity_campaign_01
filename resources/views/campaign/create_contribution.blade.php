@@ -42,12 +42,18 @@
                     @foreach ($campaign->categories as $category)
                         <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                             <div class="col-md-10 col-md-offset-1">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     {{ $category->name }}
                                 </div>
-                                <div class="col-md-6 category">
+                                <div class="col-md-8 category">
                                     <div class="input-group">
-                                        {!! Form::number('amount[' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 1]) !!}
+                                        <div class="col-md-10">
+                                            {!! Form::number('amount[' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 1]) !!}
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="name" class="pull-right control-label">{{ $category->unit }}</label>
+                                        </div>
 
                                         @if ($errors->has('amount'))
                                             <span class="help-block">
@@ -74,7 +80,7 @@
 
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-1">
-                            <button id="btn-contribute" type="submit" class="btn btn-primary">
+                            <button id="btn-contribute" type="submit" class="btn btn-sm btn-primary">
                                 {{ trans('campaign.create_contribute') }}
                             </button>
                         </div>

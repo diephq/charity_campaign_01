@@ -17,11 +17,22 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ trans('campaign.create') }}</div>
+        <div id="page-content">
+            <div class="col-md-12 center-panel">
+                <div class="block">
+                    <div class="block-title themed-background-dark">
+                        <div class="block-options pull-right">
+                            <div class="dropdown">
+                                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle" data-toggle="dropdown" title="Settings">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                </ul>
+                            </div>
+                        </div>
+                        <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.create') }}</strong></h2>
+                    </div>
+
                     <div class="panel-body">
                         @if (Session::has('message'))
                             <div class="col-lg-12">
@@ -36,7 +47,7 @@
                             {!! Form::open(['action' => 'CampaignController@store', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
 
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <div class="col-lg-8 col-lg-offset-2">
+                                <div class="col-lg-10 col-lg-offset-1">
                                     <div id="image-preview" class="col-md-6">
                                         <label for="image-upload" id="image-label">{{ trans('campaign.image') }}</label>
                                         {{ Form::file('image', ['class' => 'form-control', 'id' => 'image-upload']) }}
@@ -50,9 +61,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">{{ trans('campaign.name') }}</label>
+                                <label for="name" class="col-md-3 control-label">{{ trans('campaign.name') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
 
                                     @if ($errors->has('name'))
@@ -65,15 +76,18 @@
 
 
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">{{ trans('campaign.categories') }}</label>
+                                <label for="name" class="col-md-3 control-label">{{ trans('campaign.categories') }}</label>
 
-                                <div class="col-md-6 category">
+                                <div class="col-md-8 category">
                                     <div class="category-content">
-                                        <div class="col-md-7">
-                                            {!! Form::text('category[name][1]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.name')] ) !!}
+                                        <div class="col-md-6">
+                                            {!! Form::text('category[name][1]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.category')] ) !!}
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-3">
                                             {!! Form::number('category[goal][1]', null, ['class' => 'form-control category-goal', 'placeholder' => trans('campaign.goal'), 'min' => 1]) !!}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {!! Form::text('category[unit][1]', null, ['class' => 'form-control category-unit', 'placeholder' => trans('campaign.unit')]) !!}
                                         </div>
                                     </div>
                                     <div>
@@ -86,11 +100,10 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                                <label for="start_date" class="col-md-4 control-label">{{ trans('campaign.start_date') }}</label>
+                                <label for="start_date" class="col-md-3 control-label">{{ trans('campaign.start_date') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     {!! Form::text('start_date', null, ['class' => 'form-control datetimepicker']) !!}
 
                                     @if ($errors->has('start_date'))
@@ -102,9 +115,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                                <label for="end_date" class="col-md-4 control-label">{{ trans('campaign.end_date') }}</label>
+                                <label for="end_date" class="col-md-3 control-label">{{ trans('campaign.end_date') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     {!! Form::text('end_date', null, ['class' => 'form-control datetimepicker']) !!}
 
                                     @if ($errors->has('end_date'))
@@ -116,9 +129,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                <label for="address" class="col-md-4 control-label">{{ trans('campaign.address') }}</label>
+                                <label for="address" class="col-md-3 control-label">{{ trans('campaign.address') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     {!! Form::text('address', old('address'), ['class' => 'form-control', 'id' => 'location']) !!}
                                     {!! Form::hidden('lattitude', '', ['id' => 'lat']) !!}
                                     {!! Form::hidden('longitude', '', ['id' => 'lng']) !!}
@@ -132,11 +145,11 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <div>
-                                    <label for="description" class="col-md-2 control-label">{{ trans('campaign.description') }}</label>
-                                </div>
 
-                                <div class="col-md-8">
+                                <label for="description" class="col-md-3 control-label">{{ trans('campaign.description') }}</label>
+
+                                <br>
+                                <div class="col-lg-10 col-lg-offset-1">
                                     {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'id' => 'editor', 'rows' => '10']) !!}
 
                                     @if ($errors->has('description'))
@@ -148,7 +161,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-2 col-md-offset-1">
                                     <button type="submit" class="btn btn-primary">
                                         {{ trans('campaign.create') }}
                                     </button>
@@ -160,5 +173,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @stop

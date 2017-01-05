@@ -18,6 +18,7 @@ class Category extends Model
         'name',
         'campaign_id',
         'goal',
+        'unit',
         'description',
     ];
 

@@ -27,66 +27,94 @@
     </script>
 @stop
 
-<div class="col-md-3">
-    <div class="profile-sidebar">
-        <div class="profile-userpic">
-            <img src="{{ $user->avatar }}" class="img-responsive" alt="">
+<div class="col-md-3 left-panel">
+    <div class="widget user-info">
+        <div class="widget-extra themed-background-dark">
+            <h3 class="widget-content-light">
+                <p>{{ trans('user.profile') }}</p>
+            </h3>
         </div>
-        <div class="profile-usertitle">
-            <div class="profile-usertitle-name">
-                {{ $user->name }}
+        <div class="widget-extra">
+            <div class="user-info-details">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                    </div>
+                    <div class="profile-usertitle-name">
+                        {{ $user->name }}
+                    </div>
+                </div>
             </div>
-            <div class="profile-usertitle-email">
-                {{ $user->email }}
-            </div>
-            @if (Auth::user()->id != $user->id)
-                {!! Form::hidden('target_id', $user->id, ['id' => 'target_id']) !!}
-                <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
-            @else
-                <input id="not-allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
-            @endif
-            <div class="reviews-stats"> {{ trans('campaign.total') }}
-                <span class="glyphicon glyphicon-user"></span>
-                <span class="reviews-num-user">{{ $averageRankingUser['amount'] }}</span>
-            </div>
-        </div>
-
-        @if (auth()->id() != $user->id)
-        <div class="profile-userbuttons">
-            <div data-user-id="{{ $user->id }}">
-                @if ($follow && $follow->status)
-                    {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-danger' , 'id' => 'follow']) !!}
-                @else
-                    {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-success', 'id' => 'follow']) !!}
-                @endif
-            </div>
-        </div>
-        @endif
-    </div>
-
-    <div>
-        <div class="profile-sidebar">
-            <div class="profile-usermenu">
-                <ul class="nav">
-                    @if ($user->isCurrent())
-                        <li>
-                            <a href="{{ action('UserController@edit', ['id' => $user->id]) }}">
-                                <i class="glyphicon glyphicon-user"></i>{{ trans('user.setting') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ action('UserController@listUserCampaign', ['userId' => $user->id]) }}">
-                                <i class="glyphicon glyphicon-heart-empty"></i>{{ trans('user.your_campaign') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="glyphicon glyphicon-list"></i>{{ trans('user.joined') }}
-                            </a>
-                        </li>
-                    @endif
+            <div class="user-info-social">
+                <ul>
+                    <li>
+                        {{ $user->email }}
+                    </li>
+                    <li>
+                        @if (Auth::user()->id != $user->id)
+                            {!! Form::hidden('target_id', $user->id, ['id' => 'target_id']) !!}
+                            <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                        @else
+                            <input id="not-allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                        @endif
+                    </li>
+                    <li>
+                        <div class="reviews-stats"> {{ trans('campaign.total') }}
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="reviews-num-user">{{ $averageRankingUser['amount'] }}</span>
+                        </div>
+                    </li>
+                    <li  class="user-info-social-item">
+                        @if (auth()->id() != $user->id)
+                            <div class="profile-userbuttons">
+                                <div data-user-id="{{ $user->id }}">
+                                    @if ($follow && $follow->status)
+                                        {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-sm btn-danger' , 'id' => 'follow']) !!}
+                                    @else
+                                        {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-sm btn-success', 'id' => 'follow']) !!}
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
+    @if ($user->isCurrent())
+    <div class="widget favorite-tag">
+        <div class="widget-extra themed-background-dark">
+            <h3 class="widget-content-light">
+            </h3>
+        </div>
+        <div class="widget-extra">
+            <ul class="tag-list nav">
+                <li class="tag-item">
+                    <a href="{{ action('UserController@edit', ['id' => $user->id]) }}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span>{{ trans('user.setting') }}</span>
+                    </a>
+                </li>
+                <li class="tag-item">
+                    <a href="{{ action('UserController@listUserCampaign', ['userId' => $user->id]) }}">
+                        <span class="glyphicon glyphicon-heart-empty"></span>
+                        <span>{{ trans('user.your_campaign') }}</span>
+                    </a>
+                </li>
+                <li class="tag-item">
+                    <a href="">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <span>{{ trans('user.joined') }}</span>
+                    </a>
+                </li>
+                <li class="tag-item">
+                    <a href="{{ action('CampaignController@create') }}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span>{{ trans('user.create_campaign') }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @endif
 </div>

@@ -8,7 +8,7 @@ class CampaignValidate extends Validator
 {
     public function campaign($attribute, $value, $parameters, $validator)
     {
-        if (count($value) == 2) {
+        if (count($value) == 3) {
             $goals = $value['goal'];
             $categories = $value['name'];
 
