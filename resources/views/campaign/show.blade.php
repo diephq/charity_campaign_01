@@ -16,10 +16,10 @@
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
     {{ Html::script('js/contribute.js') }}
-    {{ Html::script('js/page/tablesDatatables.js') }}
-
+    {{ Html::script('http://maps.google.com/maps/api/js?sensor=true') }}
+    {{ Html::script('js/helpers/gmaps.min.js') }}
     <script type="text/javascript">
-        $( document ).ready(function() {
+        $(document).ready(function () {
             Dashboard.init();
 
             var comment = new Comment('{{ action('CommentController@store') }}',
@@ -62,24 +62,16 @@
             <div class="col-md-8 center-panel">
                 <div class="block">
                     <div class="block-title themed-background-dark">
-                        <div class="block-options pull-right">
-                            <div class="dropdown">
-                                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle" data-toggle="dropdown" title="Settings">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                </ul>
-                            </div>
-                        </div>
                         <h2 class="block-title-light campaign-title"><strong>{{{ $campaign->name }}}</strong></h2>
                     </div>
-
                     <div class="block-content-full">
                         <div class="timeline">
                             <ul class="timeline-list">
                                 <li class="active">
                                     <div class="timeline-icon"><i class="gi gi-calendar"></i></div>
-                                    <div class="timeline-time"><small>{{ trans('campaign.start_date') }}</small></div>
+                                    <div class="timeline-time">
+                                        <small>{{ trans('campaign.start_date') }}</small>
+                                    </div>
                                     <div class="timeline-content">
                                         <p class="push-bit"><strong>{{{ $campaign->start_time }}}</strong></p>
                                         <div class="row push">
@@ -102,26 +94,37 @@
                                                 @endif
                                                 {!! Form::close() !!}
                                             @else
-                                                <a href="{{ action('Auth\UserLoginController@getLogin') }}" class="btn btn-sm btn-success join">{{ trans('campaign.request_join') }}</a>
+                                                <a href="{{ action('Auth\UserLoginController@getLogin') }}"
+                                                   class="btn btn-sm btn-success join">{{ trans('campaign.request_join') }}</a>
                                             @endif
                                         </div>
                                     </div>
                                 </li>
                                 <li class="active">
                                     <div class="timeline-icon"><i class="fa fa-smile-o"></i></div>
-                                    <div class="timeline-time"><small>{{{ trans('campaign.author') }}}</small></div>
+                                    <div class="timeline-time">
+                                        <small>{{{ trans('campaign.author') }}}</small>
+                                    </div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}"><strong>{{ $campaign->owner->user->name }}</strong></a></p>
+                                        <p class="push-bit">
+                                            <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}"><strong>{{ $campaign->owner->user->name }}</strong></a>
+                                        </p>
                                         <div class="row push">
                                             <div class="col-sm-6 col-md-6">
-                                                <a href="{{ $campaign->owner->user->avatar }}" data-toggle="lightbox-image" class="profile_thumb">
-                                                    <img src="{{ $campaign->owner->user->avatar }}" class="img-responsive img-circle" alt="image">
+                                                <a href="{{ $campaign->owner->user->avatar }}"
+                                                   data-toggle="lightbox-image" class="profile_thumb">
+                                                    <img src="{{ $campaign->owner->user->avatar }}"
+                                                         class="img-responsive img-circle" alt="image">
                                                 </a>
                                                 @if (Auth::user())
                                                     {!! Form::hidden('target_id', $campaign->owner->user->id, ['id' => 'target_id']) !!}
-                                                    <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                                    <input id="allow-rating-user" name="input-1"
+                                                        class="rating rating-loading" data-min="0" data-max="5"
+                                                        data-step="1" data-size="xs">
                                                 @else
-                                                    <input id="not-allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
+                                                    <input id="not-allow-rating-user" name="input-1"
+                                                        class="rating rating-loading" data-min="0" data-max="5"
+                                                        data-step="1" data-size="xs">
                                                 @endif
                                                 <div class="reviews-stats"> {{ trans('campaign.total') }}
                                                     <span class="glyphicon glyphicon-user"></span>
@@ -133,9 +136,12 @@
                                 </li>
                                 <li class="active">
                                     <div class="timeline-icon"><i class="fa fa-map-marker"></i></div>
-                                    <div class="timeline-time"><small>{{ trans('campaign.address') }}</small></div>
+                                    <div class="timeline-time">
+                                        <small>{{ trans('campaign.address') }}</small>
+                                    </div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><a href="#"><strong>{{{ $campaign->address }}}</strong></a></p>
+                                        <p class="push-bit"><a href="#"><strong>{{{ $campaign->address }}}</strong></a>
+                                        </p>
                                         <div id="gmap-timeline-ID" class="gmap gmap-timeline"
                                              data-lat="{{ $campaign->lat }}" data-lng="{{ $campaign->lng }}"
                                              data-address="{{ $campaign->address }}"></div>
@@ -143,7 +149,9 @@
                                 </li>
                                 <li class="active">
                                     <div class="timeline-icon"><i class="gi gi-suitcase"></i></div>
-                                    <div class="timeline-time"><small>{{ trans('campaign.description') }}</small></div>
+                                    <div class="timeline-time">
+                                        <small>{{ trans('campaign.description') }}</small>
+                                    </div>
                                     <div class="timeline-content">
                                         <p class="push-bit"><strong>{{ trans('campaign.description') }}</strong></p>
                                         <p class="push-bit">{!! $campaign->description !!}</p>
@@ -151,7 +159,9 @@
                                 </li>
                                 <li class="active">
                                     <div class="timeline-icon"><i class="gi gi-calendar"></i></div>
-                                    <div class="timeline-time"><small>{{ trans('campaign.end_date') }}</small></div>
+                                    <div class="timeline-time">
+                                        <small>{{ trans('campaign.end_date') }}</small>
+                                    </div>
                                     <div class="timeline-content">
                                         <p class="push-bit"><strong>{{ $campaign->end_time }}</strong></p>
                                     </div>
@@ -191,11 +201,25 @@
                                     </li>
 
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped  active" role="progressbar"
-                                             aria-valuenow="{{ $result['progress'] }}"
-                                             aria-valuemin="0" aria-valuemax="100" style="width:{{ $result['progress'] }}%">
-                                            <span class="show">{{ $result['progress'] }} %</span>
-                                        </div>
+                                        @if ($result['progress'] < 100)
+                                            <div class="progress-bar progress-bar-success progress-bar-striped  active"
+                                                role="progressbar"
+                                                aria-valuenow="{{ $result['progress'] }}"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                style="width:{{ $result['progress'] }}%">
+                                                <span class="show">{{ $result['progress'] }} %</span>
+                                            </div>
+                                        @else
+                                            <div class="progress-bar progress-bar-success progress-bar-striped  active"
+                                                role="progressbar"
+                                                style="width:{{ round(100 / $result['progress'] * 100) }}%">
+                                                <span class="show">100%</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped  active"
+                                                 style="width:{{ 100 - round(100 / $result['progress'] * 100) }}%">
+                                                <span class="show">{{ $result['progress'] - 100 }}%</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endforeach
                             </ul>
@@ -218,20 +242,22 @@
                                         @if ($contribution->user)
                                             <div class="col-md-4">
                                                 <a class="pull-left border-aero profile_thumb">
-                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle" >
+                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar"
+                                                        class="img-responsive img-circle">
                                                 </a>
                                             </div>
                                             <div class="col-md-8 active-user-item-info">
                                                 <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
                                                     {{ $contribution->user->name }}
-                                                </a>
+                                                </a><br>
                                                 <span>{{ $contribution->user->email }}</span><br>
-                                                <span>{{ $contribution->created_at }}</span><br>
+                                                <span>{{ $contribution->created_at }}</span>
                                             </div>
                                         @else
                                             <div class="col-md-4">
                                                 <a class="pull-left border-aero profile_thumb">
-                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle" >
+                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar"
+                                                        class="img-responsive img-circle">
                                                 </a>
                                             </div>
                                             <div class="col-md-8 active-user-item-info">
@@ -250,7 +276,8 @@
                                 'data-toggle'=>'modal',
                                 'data-target'=>'.contribute'
                             ]) }}
-                            <a href=".list_contribute" data-toggle="modal" data-target=".list_contribute">{{ trans('campaign.show_more') }}</a>
+                            <a href=".list_contribute" data-toggle="modal"
+                               data-target=".list_contribute">{{ trans('campaign.show_more') }}</a>
                         </div>
                     </div>
                 </div>

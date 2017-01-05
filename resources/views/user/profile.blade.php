@@ -37,7 +37,7 @@
         <div class="widget-extra">
             <div class="user-info-details">
                 <div class="row">
-                    <div class="col-md-5 col-sm-5">
+                    <div class="col-md-5 col-sm-5 profile_thumb">
                         <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
                     </div>
                     <div class="profile-usertitle-name">
@@ -107,14 +107,9 @@
                         <span>{{ trans('user.joined') }}</span>
                     </a>
                 </li>
-                <li class="tag-item">
-                    <a href="{{ action('CampaignController@create') }}">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span>{{ trans('user.create_campaign') }}</span>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
     @endif
 </div>
+

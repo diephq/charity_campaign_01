@@ -43,7 +43,9 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>
-                                    <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                    <div class="profile_thumb">
+                                        <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                    </div>
                                 </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -85,11 +87,19 @@
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
                                 @if ($contribution->user)
-                                    <td><img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle"></td>
+                                    <td>
+                                        <div class="profile_thumb">
+                                            <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                        </div>
+                                    </td>
                                     <td>{{ $contribution->user->name }}</td>
                                     <td>{{ $contribution->user->email }}</td>
                                 @else
-                                    <td><img src="{{ config('path.to_avatar_default') }}"  alt="avatar" class="img-responsive img-circle"></td>
+                                    <td>
+                                        <div class="profile_thumb">
+                                            <img src="{{ config('path.to_avatar_default') }}"  alt="avatar" class="img-responsive img-circle">
+                                        </div>
+                                    </td>
                                     <td>{{ $contribution->name }}</td>
                                     <td>{{ $contribution->email }}</td>
                                 @endif
