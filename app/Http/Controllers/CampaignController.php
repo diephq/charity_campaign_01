@@ -11,7 +11,7 @@ use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
 use Validator;
-use Purifier;
+use App\Services\Purifier;
 
 class CampaignController extends BaseController
 {

@@ -110,7 +110,7 @@ class UserController extends BaseController
             'id' => $user->id,
             'name' => $user->name = $request->get('name'),
             'email' => $request->get('email'),
-            'password' => $request->get('password'),
+            'password' => bcrypt($request->get('password')),
             'avatar' => $request->file('avatar')
         ];
 
