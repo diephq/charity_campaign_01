@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -80,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('follow/user', 'FollowController@followOrUnFollowUser');
 });
 
-Route::get('campaigns', 'CampaignController@index');
+Route::get('', 'CampaignController@index');
 
 Route::get('campaigns/{id}', 'CampaignController@show');
 
