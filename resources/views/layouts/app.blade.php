@@ -39,8 +39,6 @@
     @section('js')
         {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
         {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
-        {{ Html::script('http://maps.google.com/maps/api/js?sensor=true') }}
-        {{ Html::script('js/helpers/gmaps.min.js') }}
         {{ Html::script('js/plugins.js') }}
         {{ Html::script('js/app.js') }}
         {{ Html::script('js/base.js') }}
