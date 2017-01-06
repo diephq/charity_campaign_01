@@ -75,4 +75,16 @@ class Campaign extends Model
     {
         return $this->morphMany(Action::class, 'actionable');
     }
+
+    public function countComment($id)
+    {
+        return Comment::where('campaign_id', $id)->count();
+    }
+
+    public function campaign($id)
+    {
+        return Campaign::with('image')
+            ->with('owner.user')
+            ->find($id);
+    }
 }

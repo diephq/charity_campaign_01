@@ -44,4 +44,11 @@ class Contribution extends Model
     {
         return $this->morphMany(Action::class, 'actionable');
     }
+
+    public function campaign($id)
+    {
+        return Campaign::with('image')
+            ->with('owner.user')
+            ->find($id);
+    }
 }

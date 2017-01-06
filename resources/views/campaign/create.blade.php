@@ -18,7 +18,8 @@
 @stop
 
 @section('content')
-        <div id="page-content">
+    <div id="page-content">
+        <div class="row">
             <div class="col-md-12 center-panel">
                 <div class="block">
                     <div class="block-title themed-background-dark">
@@ -94,8 +95,8 @@
                                     <div>
                                         @if ($errors->has('category'))
                                             <span class="help-block">
-                                            <strong>{{ $errors->first('category') }}</strong>
-                                        </span>
+                                                <strong>{{ $errors->first('category') }}</strong>
+                                            </span>
                                         @endif
                                     </div>
                                 </div>
@@ -146,13 +147,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-
                                 <label for="description" class="col-md-3 control-label">{{ trans('campaign.description') }}</label>
-
                                 <br>
                                 <div class="col-lg-10 col-lg-offset-1">
                                     {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'id' => 'editor', 'rows' => '10']) !!}
-
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('description') }}</strong>
@@ -174,4 +172,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @stop

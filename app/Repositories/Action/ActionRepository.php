@@ -22,6 +22,6 @@ class ActionRepository extends BaseRepository implements ActionRepositoryInterfa
 
         return $this->model->where('user_id', $userId)
             ->orderBy('time', 'desc')
-            ->get();
+            ->paginate(config('constants.PAGINATE'));
     }
 }
