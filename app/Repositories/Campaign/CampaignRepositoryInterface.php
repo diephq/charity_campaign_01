@@ -20,4 +20,6 @@ interface CampaignRepositoryInterface
     public function activeOrCloseCampaign($params = []);
 
     public function uploadImageCampaign($image);
+
+    public function countCampaign($userId);
 }

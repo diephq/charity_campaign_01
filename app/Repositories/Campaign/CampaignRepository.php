@@ -31,7 +31,8 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         return $this->model->with('image')
             ->with(['owner.user', 'owner' => function ($query) {
                 $query->where('is_owner', config('constants.OWNER'));
-            }]);
+            }])
+            ->where('status', config('constants.ACTIVATED'));
     }
 
     public function createCampaign($params = [])
@@ -190,8 +191,8 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             // save action
             $campaign->actions()->create([
                 'user_id' => auth()->id(),
-                'action_type' => $campaign->status ? config('constants.ACTION.CLOSE_CAMPAIGN') :
-                    config('constants.ACTION.ACTIVE_CAMPAIGN'),
+                'action_type' => $campaign->status ? config('constants.ACTION.ACTIVE_CAMPAIGN') :
+                    config('constants.ACTION.CLOSE_CAMPAIGN'),
                 'time' => time(),
             ]);
             DB::commit();
@@ -209,5 +210,19 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         $imageName = $this->uploadImage($image, config('path.description'));
 
         return config('path.description') . $imageName;
+    }
+
+    public function countCampaign($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return UserCampaign::where('user_id', $userId)
+            ->where('is_owner', config('constants.OWNER'))
+            ->whereHas('campaign', function ($query) {
+                $query->where('status', config('constants.ACTIVATED'));
+            })
+            ->count();
     }
 }

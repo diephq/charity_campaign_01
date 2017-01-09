@@ -35,4 +35,7 @@ return [
     'status' => 'Status',
     'rating_your_self' => 'You can not rating your self',
     'un_follow' => 'Unfollow',
+    'following' => 'Following',
+    'followers' => 'Followers',
+
 ];
