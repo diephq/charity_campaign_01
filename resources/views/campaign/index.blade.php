@@ -8,7 +8,9 @@
                     @foreach ($campaigns as $campaign)
                     <div class="block">
                         <div class="block-title themed-background-dark">
-                            <h2 class="block-title-light campaign-title"><a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}"><strong>{{{ $campaign->name }}}</strong></a></h2>
+                            <h2 class="block-title-light campaign-title">
+                                <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">{{{ $campaign->name }}}</a>
+                            </h2>
                         </div>
                         <div class="block-content-full">
                             <div class="timeline">

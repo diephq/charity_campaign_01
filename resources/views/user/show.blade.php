@@ -24,7 +24,7 @@
                             <div class="block-content-full">
                                 <div class="tag-item" style="padding: 15px">
                                     <p>
-                                        <strong>{{ $message }}</strong>
+                                        <span>{{ $message }}</span>
                                         <span class="activity-time">{{  Carbon\Carbon::now()->subSeconds(time() - $action->time)->diffForHumans() }}</span>
                                     </p>
                                 </div>
@@ -32,7 +32,7 @@
                             <div class="block-title themed-background-dark">
                                 <h2 class="block-title-light campaign-title">
                                     @if ($campaign->status)
-                                    <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}"><strong>{{{ $campaign->name }}}</strong></a>
+                                    <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">{{{ $campaign->name }}}</a>
                                     @else
                                     <p><strong>{{{ $campaign->name }}}</strong></p>
                                     @endif

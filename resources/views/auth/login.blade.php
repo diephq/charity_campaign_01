@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="col-xs-8 text-right">
-                    {!! Form::submit(trans('user.login'), ['class' => 'btn btn-sm btn-primary']) !!}
+                    {!! Form::submit(trans('user.login'), ['class' => 'btn btn-raised btn-primary']) !!}
                 </div>
             </div>
             <div class="form-group">

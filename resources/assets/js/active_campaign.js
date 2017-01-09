@@ -14,7 +14,7 @@ Active.prototype = {
     activeOrCloseCampaign: function () {
         var _self = this;
 
-        $(".active").click(function (e) {
+        $(".active-campaign").click(function (e) {
             e.preventDefault();
             var thisButton = this;
             var divChangeAmount = $(this).parent();

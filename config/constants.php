@@ -22,4 +22,5 @@ return [
         'CLOSE_CAMPAIGN' => 2,
         'CONTRIBUTE' => 3,
     ],
+    'PAGINATE_CAMPAIGN' => 10,
 ];

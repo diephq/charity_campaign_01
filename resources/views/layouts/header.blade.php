@@ -1,13 +1,4 @@
-<header class="navbar navbar-default">
-    <ul class="nav navbar-nav-custom">
-        <li>
-            <a href="/">
-                <i class="gi gi-home"></i>
-                <span>{{ trans('message.project') }}</span>
-            </a>
-        </li>
-    </ul>
-
+<header class="navbar navbar-default fix-float">
     <ul class="nav navbar-nav-custom pull-right">
         @if (Auth::guest())
             <li><a href="{{ url('/login') }}">{{ trans('message.login') }}</a></li>
@@ -29,5 +20,13 @@
                 </ul>
             </li>
         @endif
+    </ul>
+    <ul class="nav navbar-nav-custom">
+        <li>
+            <a href="/">
+                <i class="gi gi-home"></i>
+                <span>{{ trans('message.project') }}</span>
+            </a>
+        </li>
     </ul>
 </header>

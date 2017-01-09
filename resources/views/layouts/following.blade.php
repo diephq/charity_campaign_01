@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="tableFollowing" class=" table-striped table-bordered table-hover table-responsive">
+                <table id="tableFollowing" class="mdl-data-table table-custome" cellspacing="0">
                     <thead>
                     <tr>
                         <th>{{ trans('campaign.contribution.index') }}</th>

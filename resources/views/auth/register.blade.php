@@ -69,7 +69,7 @@
 
             <div class="form-group form-actions">
                 <div class="col-xs-6 text-right pull-right">
-                    <button type="submit" class="btn btn-sm btn-success"><i
+                    <button type="submit" class="btn btn-raised btn-success"><i
                                 class="fa fa-plus"></i> {{ trans('message.register') }}</button>
                 </div>
             </div>

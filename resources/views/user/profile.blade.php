@@ -42,7 +42,7 @@
                         <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
                     </div>
                     <div class="profile-usertitle-name">
-                        <p class="user-info-details-name">
+                        <p>
                             {{ $user->name }}
                         </p>
                     </div>
@@ -58,9 +58,9 @@
                             <div class="profile-userbuttons">
                                 <div data-user-id="{{ $user->id }}">
                                     @if ($follow && $follow->status)
-                                        {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-sm btn-danger' , 'id' => 'follow']) !!}
+                                        {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger' , 'id' => 'follow']) !!}
                                     @else
-                                        {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-sm btn-success', 'id' => 'follow']) !!}
+                                        {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-raised btn-success', 'id' => 'follow']) !!}
                                     @endif
                                 </div>
                             </div>

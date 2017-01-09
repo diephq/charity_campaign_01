@@ -15,7 +15,7 @@
         @else
             <span>{{{ $comment->name }}}</span>
         @endif
-        <span class="text-muted"><small><em>{{ $comment->created_at }}</em></small></span>
+        <span class="text-muted"><small><em>{{  Carbon\Carbon::now()->subSeconds(time() - strtotime($comment->created_at))->diffForHumans() }}</em></small></span>
         <p class="push-bit">{{{ $comment->text }}}</p>
     </div>
 </li>

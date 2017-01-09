@@ -30,6 +30,7 @@ return [
         'amount' => 'Amount',
         'description' => 'Description',
         'status' => 'Status',
+        'time' => 'Time',
     ],
     'create_comment' => 'Create Comment',
     'your_message' => 'Your message',

@@ -144,7 +144,7 @@ class UserController extends BaseController
 
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
         // get list user's campaign
-        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)->paginate(config('constants.PAGINATE'));
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id);
         $this->dataView['countCampaign'] = $this->campaignRepository->countCampaign($id);
         $this->dataView['following'] = $this->followRepository->following($id);
         $this->dataView['followers'] = $this->followRepository->followers($id);
