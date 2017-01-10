@@ -18,6 +18,8 @@ UserProfile.prototype = {
         _self.ratingUser();
         _self.notifyRatingUser();
         _self.followOrUnFollowUser();
+        _self.followingUserTable();
+        _self.followerUserTable();
     },
 
     ratingUser: function () {
@@ -98,5 +100,13 @@ UserProfile.prototype = {
                 }
             });
         });
+    },
+
+    followingUserTable: function () {
+        $('#tableFollowing').DataTable();
+    },
+    
+    followerUserTable: function () {
+        $('#tableFollower').DataTable();
     }
 };

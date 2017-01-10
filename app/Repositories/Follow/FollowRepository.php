@@ -49,4 +49,30 @@ class FollowRepository extends BaseRepository implements FollowRepositoryInterfa
             ->where('target_type', config('constants.FOLLOW_USER'))
             ->first();
     }
+
+    public function following($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return $this->model->where('user_id', $userId)
+            ->where('target_type', config('constants.FOLLOW_USER'))
+            ->where('status', config('constants.ACTIVATED'))
+            ->with('following')
+            ->get();
+    }
+
+    public function followers($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return $this->model->where('target_id', $userId)
+            ->where('target_type', config('constants.FOLLOW_USER'))
+            ->where('status', config('constants.ACTIVATED'))
+            ->with('follower')
+            ->get();
+    }
 }

@@ -17,4 +17,14 @@ class Relationship extends Model
         'target_type',
         'status',
     ];
+
+    public function following()
+    {
+        return $this->belongsTo(User::class, 'target_id');
+    }
+
+    public function follower()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

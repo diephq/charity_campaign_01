@@ -73,4 +73,7 @@ return [
     'action_active_campaign' => 'You active this campaign',
     'action_close_campaign' => 'You close this campaign',
     'action_contribute_campaign' => 'You contribute for this campaign',
+    'campaigns' => 'Campaigns',
+    'message_end_campaign' => 'There are :time before this campaign end.',
+
 ];

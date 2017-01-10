@@ -23,11 +23,20 @@
                         <div class="block">
                             <div class="block-content-full">
                                 <div class="tag-item" style="padding: 15px">
-                                    <p><strong><i>{{ $message }}</i></strong></p>
+                                    <p>
+                                        <strong>{{ $message }}</strong>
+                                        <span class="activity-time">{{  Carbon\Carbon::now()->subSeconds(time() - $action->time)->diffForHumans() }}</span>
+                                    </p>
                                 </div>
                             </div>
                             <div class="block-title themed-background-dark">
-                                <h2 class="block-title-light campaign-title"><a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}"><strong>{{{ $campaign->name }}}</strong></a></h2>
+                                <h2 class="block-title-light campaign-title">
+                                    @if ($campaign->status)
+                                    <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}"><strong>{{{ $campaign->name }}}</strong></a>
+                                    @else
+                                    <p><strong>{{{ $campaign->name }}}</strong></p>
+                                    @endif
+                                </h2>
                             </div>
                             <div class="block-content-full">
                                 <div class="timeline">
@@ -38,7 +47,7 @@
                                                 <small>{{ trans('campaign.start_date') }}</small>
                                             </div>
                                             <div class="timeline-content">
-                                                <p class="push-bit"><strong>{{{ $campaign->start_time }}}</strong></p>
+                                                <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong></p>
                                                 <div class="row push">
                                                     <div class="col-sm-8 col-md-8">
                                                         <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
@@ -60,13 +69,11 @@
                                                 </p>
                                                 <div class="row push">
                                                     <div class="col-sm-6 col-md-6">
-                                                        <div class="col-sm-6 col-md-6">
-                                                            <a href="{{ $campaign->owner->user->avatar }}"
-                                                               data-toggle="lightbox-image" class="profile_thumb">
-                                                                <img src="{{ $campaign->owner->user->avatar }}"
-                                                                     class="img-responsive img-circle" alt="image">
-                                                            </a>
-                                                        </div>
+                                                        <a href="{{ $campaign->owner->user->avatar }}"
+                                                           data-toggle="lightbox-image" class="profile_thumb">
+                                                            <img src="{{ $campaign->owner->user->avatar }}"
+                                                                 class="img-responsive img-circle" alt="image">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +85,8 @@
                                                 <small>{{ trans('campaign.address') }}</small>
                                             </div>
                                             <div class="timeline-content">
-                                                <p class="push-bit"><a href="#"><strong>{{{ $campaign->address }}}</strong></a>
+                                                <p class="push-bit">
+                                                    <a href="#"><strong>{{{ $campaign->address }}}</strong></a>
                                                 </p>
                                             </div>
                                         </li>
@@ -89,7 +97,10 @@
                                                 <small>{{ trans('campaign.end_date') }}</small>
                                             </div>
                                             <div class="timeline-content">
-                                                <p class="push-bit"><strong>{{ $campaign->end_time }}</strong></p>
+                                                <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</strong></p>
+                                                <p>
+                                                    <span>{{ trans('campaign.message_end_campaign', ['time' => Carbon\Carbon::now()->addSeconds(strtotime($campaign->end_time) - time())->diffForHumans()]) }}</span>
+                                                </p>
                                             </div>
                                         </li>
                                     </ul>
