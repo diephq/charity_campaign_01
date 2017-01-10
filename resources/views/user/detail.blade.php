@@ -84,10 +84,10 @@
 
                         <div class="form-group form-actions">
                             <div class="col-md-8 col-md-offset-4">
-                                {{ Form::submit( trans('message.save_changes'), ['class' => 'btn btn-sm btn-primary']) }}
+                                {{ Form::submit( trans('message.save_changes'), ['class' => 'btn btn-raised btn-primary']) }}
                                 {{ Form::hidden('_token', csrf_token()) }}
                                 <span></span>
-                                <input type="reset" class="btn btn-sm btn-default"
+                                <input type="reset" class="btn btn-raised btn-default"
                                        value="{{ trans('message.cancel') }}">
                             </div>
                         </div>

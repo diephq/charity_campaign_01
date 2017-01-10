@@ -32,7 +32,8 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             ->with(['owner.user', 'owner' => function ($query) {
                 $query->where('is_owner', config('constants.OWNER'));
             }])
-            ->where('status', config('constants.ACTIVATED'));
+            ->where('status', config('constants.ACTIVATED'))
+            ->orderBy('id', 'desc');
     }
 
     public function createCampaign($params = [])
@@ -142,7 +143,9 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         return $this->model->whereHas('owner', function ($query) use ($userId) {
             $query->where('user_id', $userId)
                 ->where('is_owner', config('constants.OWNER'));
-            });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(config('constants.PAGINATE_CAMPAIGN'));
     }
 
     public function approveOrRemove($params = [])

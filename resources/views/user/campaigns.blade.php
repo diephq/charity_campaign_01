@@ -21,15 +21,16 @@
         <div class="row">
             @include('user.profile')
             <div class="col-md-9 center-panel">
+                @if ($campaigns->count())
                 <div class="block">
                     <div class="block-title themed-background-dark">
-                        <h2 class="block-title-light campaign-title"><strong>{{ trans('user.your_campaign') }}</strong></h2>
+                        <h2 class="block-title-light campaign-title">{{ trans('user.your_campaign') }}</h2>
                     </div>
 
                     <div class="block-content-full">
                         <div class="timeline">
-                            <table class="table table-striped table-bordered table-hover table-responsive">
 
+                            <table class="table table-striped table-bordered table-hover table-responsive">
                                 <tr>
                                     <th>{{ trans('campaign.index') }}</th>
                                     <th>{{ trans('campaign.name') }}</th>
@@ -49,9 +50,9 @@
                                         <td>
                                             <div data-campaign-id="{{ $campaign->id }}">
                                                 @if (!$campaign->status)
-                                                    {!! Form::submit(trans('campaign.active'), ['class' => 'btn btn-sm btn-success active']) !!}
+                                                    {!! Form::submit(trans('campaign.active'), ['class' => 'btn btn-raised btn-success active-campaign']) !!}
                                                 @else
-                                                    {!! Form::submit(trans('campaign.close'), ['class' => 'btn btn-sm btn-success active']) !!}
+                                                    {!! Form::submit(trans('campaign.close'), ['class' => 'btn btn-raised btn-success active-campaign']) !!}
                                                 @endif
                                             </div>
                                         </td>
@@ -64,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

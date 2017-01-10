@@ -14,7 +14,7 @@ Campaign.prototype = {
     },
 
     setDatepicker: function () {
-        $('.datetimepicker').datepicker({format: 'yyyy/mm/dd'}).datepicker("setDate", new Date());
+        $('.datetimepicker').bootstrapMaterialDatePicker({ weekStart : 0, time: false, format : 'YYYY/MM/DD'}  );
     },
 
     getGoogleAddress: function () {

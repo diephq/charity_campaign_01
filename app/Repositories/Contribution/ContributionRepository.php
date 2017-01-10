@@ -69,7 +69,8 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
 
         return $this->model->where('status', config('constants.ACTIVATED'))
             ->where('campaign_id', $id)
-            ->with(['user', 'categoryContributions.category']);
+            ->with(['user', 'categoryContributions.category'])
+            ->orderBy('id', 'desc');
     }
 
     public function getValueContribution($id)
@@ -125,7 +126,8 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
         }
 
         return $this->model->where('campaign_id', $campaignId)
-            ->with(['user', 'categoryContributions.category']);
+            ->with(['user', 'categoryContributions.category'])
+            ->orderBy('id', 'desc');
     }
 
     public function confirmContribution($id)

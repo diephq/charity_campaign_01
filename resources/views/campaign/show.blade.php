@@ -5,7 +5,6 @@
     {{ Html::style('bower_components/bootstrap-star-rating/css/star-rating.css') }}
     {{ Html::style('bower_components/bootstrap-star-rating/css/theme-krajee-fa.css') }}
     {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css') }}
-    {{ Html::style('https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css') }}
 @stop
 
 @section('js')
@@ -18,6 +17,7 @@
     {{ Html::script('js/contribute.js') }}
     {{ Html::script('http://maps.google.com/maps/api/js?sensor=true') }}
     {{ Html::script('js/helpers/gmaps.min.js') }}
+
     <script type="text/javascript">
         $(document).ready(function () {
             Dashboard.init();
@@ -63,6 +63,23 @@
                 <div class="block">
                     <div class="block-title themed-background-dark">
                         <h2 class="block-title-light campaign-title"><strong>{{{ $campaign->name }}}</strong></h2>
+                        <div class="pull-right request-join">
+                            @if (Auth::user())
+                                {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
+                                {!! Form::hidden('campaign_id', $campaign->id) !!}
+                                @if (empty($userCampaign))
+                                    {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
+                                    {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                @elseif ($userCampaign->status && empty($userCampaign->is_owner))
+                                    {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                @endif
+                                {!! Form::close() !!}
+                            @else
+                                <a href="{{ action('Auth\UserLoginController@getLogin') }}"
+                                   class="btn btn-raised btn-success join">{{ trans('campaign.request_join') }}</a>
+                            @endif
+                        </div>
                     </div>
                     <div class="block-content-full">
                         <div class="timeline">
@@ -73,30 +90,13 @@
                                         <small>{{ trans('campaign.start_date') }}</small>
                                     </div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><strong>{{{ $campaign->start_time }}}</strong></p>
+                                        <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong></p>
                                         <div class="row push">
                                             <div class="col-sm-8 col-md-8">
                                                 <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
                                                     <img src="{{ $campaign->image->image }}" alt="image">
                                                 </a>
                                             </div>
-                                        </div>
-                                        <div class="right request-join">
-                                            @if (Auth::user())
-                                                {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
-                                                {!! Form::hidden('campaign_id', $campaign->id) !!}
-                                                @if (empty($userCampaign))
-                                                    {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
-                                                @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
-                                                    {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
-                                                @elseif ($userCampaign->status && empty($userCampaign->is_owner))
-                                                    {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-sm btn-success joinOrLeave']) !!}
-                                                @endif
-                                                {!! Form::close() !!}
-                                            @else
-                                                <a href="{{ action('Auth\UserLoginController@getLogin') }}"
-                                                   class="btn btn-sm btn-success join">{{ trans('campaign.request_join') }}</a>
-                                            @endif
                                         </div>
                                     </div>
                                 </li>
@@ -163,7 +163,10 @@
                                         <small>{{ trans('campaign.end_date') }}</small>
                                     </div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><strong>{{ $campaign->end_time }}</strong></p>
+                                        <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</strong></p>
+                                        <p>
+                                            <span>{{ trans('campaign.message_end_campaign', ['time' => Carbon\Carbon::now()->addSeconds(strtotime($campaign->end_time) - time())->diffForHumans()]) }}</span>
+                                        </p>
                                     </div>
                                 </li>
                             </ul>
@@ -185,7 +188,7 @@
                         <div class="timeline">
                             <ul class="">
                                 @foreach ($results as $result)
-                                    <li class="media event active">
+                                    <li class="media event active fix-float font-size-progress-bar">
                                         <div class="pull-left">
                                             <span>
                                                 <strong>{{ $result['name'] }}</strong> :
@@ -202,7 +205,7 @@
 
                                     <div class="progress">
                                         @if ($result['progress'] < 100)
-                                            <div class="progress-bar progress-bar-success progress-bar-striped  active"
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped  active"
                                                 role="progressbar"
                                                 aria-valuenow="{{ $result['progress'] }}"
                                                 aria-valuemin="0" aria-valuemax="100"
@@ -272,7 +275,7 @@
                         </ul>
                         <div class="contribution">
                             {{ Form::button(trans('campaign.contribute'), [
-                                'class' => 'btn btn-sm btn-success',
+                                'class' => 'btn btn-raised btn-success',
                                 'data-toggle'=>'modal',
                                 'data-target'=>'.contribute'
                             ]) }}

@@ -162,6 +162,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->whereIn('id', $userIds)
             ->with(['userCampaign' => function ($query) use ($campaignId) {
                 $query->where('campaign_id', $campaignId);
-            }]);
+            }])
+            ->orderBy('id', 'desc');
     }
 }

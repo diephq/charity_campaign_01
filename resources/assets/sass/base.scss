@@ -2,8 +2,15 @@
 @import "mixins";
 @import "settings";
 
+html {
+    font-size: 62.5%;
+}
 body {
     font-size: $mainContentSize;
+    color: #333 !important;
+    font-family: 'Roboto', sans-serif, 'Helvetica', 'Arial';
+    font-weight: 300 !important;
+    font-size: 14px !important;
 }
 
 #page-wrapper {
@@ -288,5 +295,26 @@ body {
     }
     .activity-time {
         float: right;
+    }
+    .progress {
+        height: 20px;
+    }
+    .fix-float {
+        display: block;
+    }
+    .font-size-progress-bar {
+        font-size: 12px;
+    }
+    .mdl-data-table {
+        white-space: normal;
+    }
+    .table-custome {
+        display: inline-table;
+        width: 100%;
+    }
+    .campaign-title {
+        a {
+            color: #fff;
+        }
     }
 }

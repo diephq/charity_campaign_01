@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">{{ trans('campaign.contribute') }}</h4>
             </div>
             <div class="modal-body">
-                <table id="contributor" class=" table-striped table-bordered table-hover table-responsive">
+                <table id="contributor" class="mdl-data-table table-custome" cellspacing="0">
                     <thead>
                         <tr>
                             <th>{{ trans('campaign.contribution.index') }}</th>
@@ -17,27 +17,29 @@
                             <th>{{ trans('campaign.contribution.email') }}</th>
                             <th>{{ trans('campaign.contribute') }}</th>
                             <th>{{ trans('campaign.contribution.description') }}</th>
+                            <th>{{ trans('campaign.contribution.time') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($contributions as $key => $contribution)
                         <tr>
-                            <th scope="row">{{ $key + 1 }}</th>
+                            <td scope="row"><p>{{ $key + 1 }}</p></td>
                             @if ($contribution->user)
                                 <td><img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle"></td>
-                                <td>{{ $contribution->user->name }}</td>
-                                <td>{{ $contribution->user->email }}</td>
+                                <td><p>{{ $contribution->user->name }}</p></td>
+                                <td><p>{{ $contribution->user->email }}</p></td>
                             @else
                                 <td><img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle"></td>
-                                <td>{{ $contribution->name }}</td>
-                                <td>{{ $contribution->email }}</td>
+                                <td><p>{{ $contribution->name }}</p></td>
+                                <td><p>{{ $contribution->email }}</p></td>
                             @endif
                             <td>
                                 @foreach ($contribution->categoryContributions as $value)
                                     <span>{{ $value->category->name }} : {{ $value->amount }}  ({{ $value->category->unit }})</span><br>
                                 @endforeach
                             </td>
-                            <td>{{ $contribution->description }}</td>
+                            <td><p>{{ $contribution->description }}</p></td>
+                            <td><p>{{ $contribution->created_at }}</p></td>
                         </tr>
                     @endforeach
                     </tbody>

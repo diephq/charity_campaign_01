@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('css')
+    @parent
+    {{ Html::style('bower_components/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}
+@endsection
+
 @section('js')
     @parent
     {{ Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js') }}
@@ -8,6 +13,7 @@
     {{ Html::script('bower_components/ckeditor/ckeditor.js') }}
     {{ Html::script('http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}
     {{ Html::script('js/campaign.js') }}
+    {{ Html::script('bower_components/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -32,7 +38,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.create') }}</strong></h2>
+                        <h2 class="block-title-light campaign-title">{{ trans('campaign.create') }}</h2>
                     </div>
 
                     <div class="panel-body">
@@ -50,7 +56,7 @@
 
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                                 <div class="col-lg-10 col-lg-offset-1">
-                                    <div id="image-preview" class="col-md-6">
+                                    <div id="image-preview">
                                         <label for="image-upload" id="image-label">{{ trans('campaign.image') }}</label>
                                         {{ Form::file('image', ['class' => 'form-control', 'id' => 'image-upload']) }}
                                         @if ($errors->has('image'))
@@ -82,7 +88,7 @@
 
                                 <div class="col-md-8 category">
                                     <div class="category-content">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 ">
                                             {!! Form::text('category[name][1]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.category')] ) !!}
                                         </div>
                                         <div class="col-md-3">
@@ -161,7 +167,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-2 col-md-offset-1">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-raised btn-primary">
                                         {{ trans('campaign.create') }}
                                     </button>
                                 </div>

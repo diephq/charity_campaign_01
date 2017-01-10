@@ -80,7 +80,7 @@
 
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-1">
-                            <button id="btn-contribute" type="submit" class="btn btn-sm btn-primary">
+                            <button id="btn-contribute" type="submit" class="btn btn-raised btn-primary">
                                 {{ trans('campaign.create_contribute') }}
                             </button>
                         </div>

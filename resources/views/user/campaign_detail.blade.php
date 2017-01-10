@@ -25,12 +25,13 @@
             @include('user.profile')
 
             <div class="col-md-9 center-panel">
+                @if ($campaignUsers->count())
                 <div class="block">
                     <div class="block-title themed-background-dark">
                         <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.request_join') }}</strong></h2>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-responsive table-custome">
                         <tr>
                             <th>{{ trans('campaign.index') }}</th>
                             <th>{{ trans('user.avatar') }}</th>
@@ -52,11 +53,11 @@
                                 <td>
                                     @if (!$user->userCampaign->status)
                                         <div data-campaign-id="{{ $campaign->id }}" data-user-id="{{ $user->id }}">
-                                            {!! Form::submit(trans('campaign.approve'), ['class' => 'btn btn-sm btn-success approve']) !!}
+                                            {!! Form::submit(trans('campaign.approve'), ['class' => 'btn btn-raised btn-success approve']) !!}
                                         </div>
                                     @else
                                         <div data-campaign-id="{{ $campaign->id }}" data-user-id="{{ $user->id }}">
-                                            {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-sm btn-success approve']) !!}
+                                            {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-raised btn-success approve']) !!}
                                         </div>
                                     @endif
                                 </td>
@@ -66,7 +67,9 @@
                     </table>
                     {{ $campaignUsers->links() }}
                 </div>
+                @endif
 
+                @if ($contributions->count())
                 <div class="block">
                     <div class="block-title themed-background-dark">
                         <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.contribute') }}</strong></h2>
@@ -114,9 +117,9 @@
                                 <td>
                                     <div data-contribution-id="{{ $contribution->id }}">
                                     @if (!$contribution->status)
-                                        {!! Form::submit(trans('campaign.confirm'), ['class' => 'btn btn-sm btn-success confirm']) !!}
+                                        {!! Form::submit(trans('campaign.confirm'), ['class' => 'btn btn-raised btn-success confirm']) !!}
                                     @else
-                                        {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-sm btn-success confirm']) !!}
+                                        {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-raised btn-success confirm']) !!}
                                     @endif
                                 </td>
                             </tr>
@@ -125,6 +128,7 @@
                     </table>
                     {{ $contributions->links() }}
                 </div>
+                @endif
             </div>
         </div>
     </div>

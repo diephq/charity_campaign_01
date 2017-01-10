@@ -9,13 +9,17 @@
     <title>{{ trans('message.project') }}</title>
 
     @section('css')
+        {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css') }}
+        {{ Html::style('https://cdn.datatables.net/1.10.13/css/dataTables.material.min.css') }}
         {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('bower_components/bootstrap-social/bootstrap-social.css') }}
         {{ Html::style('css/common.css') }}
-        {{ Html::style('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700%7CLato:700,900&subset=latin,latin') }}
+        {{ Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') }}
+        {{ Html::style('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700') }}
         {{ Html::style('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
         {{ Html::style('css/templates.css') }}
         {{ Html::style('css/app.css') }}
+        {{ Html::style('bower_components/bootstrap-material-design/dist/bootstrap-material-design.css') }}
     @show
 
 </head>
@@ -42,6 +46,8 @@
         {{ Html::script('js/plugins.js') }}
         {{ Html::script('js/app.js') }}
         {{ Html::script('js/base.js') }}
+        {{ Html::script('https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js') }}
+        {{ Html::script('https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js') }}
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
