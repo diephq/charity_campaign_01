@@ -76,5 +76,8 @@ return [
     'action_contribute_campaign' => 'You contribute for this campaign',
     'campaigns' => 'Campaigns',
     'message_end_campaign' => 'There are :time before this campaign end.',
+    'show_detail' => 'Show detail',
+    'confirmed' => 'Confirmed',
+    'unconfirmed' => 'Unconfirmed',
 
 ];

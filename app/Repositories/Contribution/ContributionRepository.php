@@ -61,18 +61,6 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
         }
     }
 
-    public function getContributions($id)
-    {
-        if (!$id) {
-            return false;
-        }
-
-        return $this->model->where('status', config('constants.ACTIVATED'))
-            ->where('campaign_id', $id)
-            ->with(['user', 'categoryContributions.category'])
-            ->orderBy('id', 'desc');
-    }
-
     public function getValueContribution($id)
     {
         if (!$id) {
@@ -175,5 +163,31 @@ class ContributionRepository extends BaseRepository implements ContributionRepos
 
             return false;
         }
+    }
+
+    public function getUserContributionConfirmed($campaignId)
+    {
+        if (empty($campaignId)) {
+            return false;
+        }
+
+        return $this->model->where('campaign_id', $campaignId)
+            ->where('status', config('constants.ACTIVATED'))
+            ->with('user', 'categoryContributions')
+            ->latest()
+            ->get();
+    }
+
+    public function getUserContributionUnConfirmed($campaignId)
+    {
+        if (empty($campaignId)) {
+            return false;
+        }
+
+        return $this->model->where('campaign_id', $campaignId)
+            ->where('status', config('constants.NOT_ACTIVE'))
+            ->with('user', 'categoryContributions')
+            ->latest()
+            ->get();
     }
 }

@@ -92,7 +92,7 @@
                                 @if ($contribution->user)
                                     <td>
                                         <div class="profile_thumb">
-                                            <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                            <img src="{{ $contribution->user->avatar }}" alt="avatar" class=" img-circle">
                                         </div>
                                     </td>
                                     <td>{{ $contribution->user->name }}</td>
@@ -100,7 +100,7 @@
                                 @else
                                     <td>
                                         <div class="profile_thumb">
-                                            <img src="{{ config('path.to_avatar_default') }}"  alt="avatar" class="img-responsive img-circle">
+                                            <img src="{{ config('path.to_avatar_default') }}"  alt="avatar" class=" img-circle">
                                         </div>
                                     </td>
                                     <td>{{ $contribution->name }}</td>
