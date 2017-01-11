@@ -29,4 +29,12 @@
             </a>
         </li>
     </ul>
+
+    <div class="col-sm-6">
+        <form class="navbar-form-custom form-group typeahead" role="search" style="width: 100%">
+            <div class="form-group">
+                <input id="typehead-search" value="" type="search" name="q" class="form-control typeahead-search" autocomplete="off" placeholder="{{ trans('campaign.search_campaign') }}">
+            </div>
+        </form>
+    </div>
 </header>

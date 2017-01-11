@@ -196,15 +196,11 @@ class CampaignController extends BaseController
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function searchCampaign(Request $request)
     {
-        //
+        $result = $this->campaignRepository->searchCampaign($request->get('q'));
+
+        return response()->json($result);
     }
 
     /**

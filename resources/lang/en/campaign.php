@@ -79,5 +79,6 @@ return [
     'show_detail' => 'Show detail',
     'confirmed' => 'Confirmed',
     'unconfirmed' => 'Unconfirmed',
+    'search_campaign' => 'Search Campaign',
 
 ];

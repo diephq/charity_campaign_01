@@ -22,4 +22,6 @@ interface CampaignRepositoryInterface
     public function uploadImageCampaign($image);
 
     public function countCampaign($userId);
+
+    public function searchCampaign($keyWords);
 }

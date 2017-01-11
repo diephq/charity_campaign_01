@@ -228,4 +228,22 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             })
             ->count();
     }
+
+    public function searchCampaign($keyWords)
+    {
+        $campaigns = $this->model->where('status', 1)
+            ->search($keyWords)
+            ->with('image')
+            ->get();
+
+        $result = [];
+        foreach ($campaigns as $campaign) {
+            $result[] = [
+                'html' => view('campaign.search_result', ['campaign' => $campaign])->render(),
+                'success' => true,
+            ];
+        }
+
+        return $result;
+    }
 }
