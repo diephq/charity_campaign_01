@@ -48,11 +48,17 @@
         {{ Html::script('js/base.js') }}
         {{ Html::script('https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js') }}
         {{ Html::script('https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js') }}
+        {{ Html::script('bower_components/typeahead.js/dist/typeahead.bundle.min.js') }}
+        {{ Html::script('js/search.js') }}
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+            jQuery(document).ready(function($) {
+                var search = new Search();
+                search.init();
             });
         </script>
     @show

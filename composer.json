@@ -10,7 +10,8 @@
         "laravelcollective/html": "^5.3",
         "laravel/socialite": "^2.0",
         "doctrine/dbal": "^2.5",
-        "mews/purifier": "^2.0"
+        "mews/purifier": "^2.0",
+        "nicolaslopezj/searchable": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

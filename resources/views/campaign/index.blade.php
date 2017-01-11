@@ -23,7 +23,7 @@
                                         <div class="timeline-content">
                                             <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong></p>
                                             <div class="row push">
-                                                <div class="col-sm-8 col-md-8">
+                                                <div class="col-sm-4 col-md-4">
                                                     <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
                                                         <img src="{{ $campaign->image->image }}" alt="image">
                                                     </a>
