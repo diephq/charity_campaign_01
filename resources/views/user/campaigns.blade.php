@@ -45,8 +45,8 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td><a href="{{ action('UserController@manageCampaign', ['userId' => $user->id, 'campaignId' => $campaign->id]) }}">{{ $campaign->name }}</a></td>
                                         <td>{{ $campaign->address }}</td>
-                                        <td>{{ $campaign->start_time }}</td>
-                                        <td>{{ $campaign->end_time }}</td>
+                                        <td>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</td>
+                                        <td>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</td>
                                         <td>
                                             <div data-campaign-id="{{ $campaign->id }}">
                                                 @if (!$campaign->status)

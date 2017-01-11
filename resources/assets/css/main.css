@@ -1106,7 +1106,7 @@ a.sidebar-title:focus {
 
 .widget .widget-extra {
     padding-top: 10px;
-    padding-bottom: 1px;
+    padding-bottom: 10px;
 }
 
 .widget .widget-content-light {

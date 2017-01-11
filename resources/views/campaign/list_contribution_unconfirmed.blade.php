@@ -1,4 +1,4 @@
-<div class="modal fade list_contribute" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade list-contribute-unconfirmed" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,28 +8,36 @@
                 <h4 class="modal-title" id="myLargeModalLabel">{{ trans('campaign.contribute') }}</h4>
             </div>
             <div class="modal-body">
-                <table id="contributor" class="mdl-data-table table-custome" cellspacing="0">
+                <table id="contribution-unconfirmed" class="mdl-data-table table-custome" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>{{ trans('campaign.contribution.index') }}</th>
-                            <th>{{ trans('campaign.contribution.avatar') }}</th>
-                            <th>{{ trans('campaign.contribution.name') }}</th>
-                            <th>{{ trans('campaign.contribution.email') }}</th>
-                            <th>{{ trans('campaign.contribute') }}</th>
-                            <th>{{ trans('campaign.contribution.description') }}</th>
-                            <th>{{ trans('campaign.contribution.time') }}</th>
-                        </tr>
+                    <tr>
+                        <th>{{ trans('campaign.contribution.index') }}</th>
+                        <th>{{ trans('campaign.contribution.avatar') }}</th>
+                        <th>{{ trans('campaign.contribution.name') }}</th>
+                        <th>{{ trans('campaign.contribution.email') }}</th>
+                        <th>{{ trans('campaign.contribute') }}</th>
+                        <th>{{ trans('campaign.contribution.description') }}</th>
+                        <th>{{ trans('campaign.contribution.time') }}</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    @foreach ($contributions as $key => $contribution)
+                    @foreach ($contributionUnConfirmed as $key => $contribution)
                         <tr>
                             <td scope="row"><p>{{ $key + 1 }}</p></td>
                             @if ($contribution->user)
-                                <td><img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle"></td>
+                                <td>
+                                    <div class="profile_thumb">
+                                        <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                    </div>
+                                </td>
                                 <td><p>{{ $contribution->user->name }}</p></td>
                                 <td><p>{{ $contribution->user->email }}</p></td>
                             @else
-                                <td><img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle"></td>
+                                <td>
+                                    <div class="profile_thumb">
+                                        <img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle">
+                                    </div>
+                                </td>
                                 <td><p>{{ $contribution->name }}</p></td>
                                 <td><p>{{ $contribution->email }}</p></td>
                             @endif

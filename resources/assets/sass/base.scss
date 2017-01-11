@@ -308,13 +308,34 @@ body {
     .mdl-data-table {
         white-space: normal;
     }
-    .table-custome {
+
+    @media (min-width: 1080px) {
+      .table-custome {
         display: inline-table;
         width: 100%;
+      }
     }
+
     .campaign-title {
         a {
             color: #fff;
         }
+    }
+    .border-tab {
+        border-bottom: 1px solid #ddd;
+    }
+    .rating-xs {
+        font-size: 1.4em;
+    }
+    .rating {
+        .glyphicon-star, .glyphicon-star-empty {
+            margin-right: 0px;
+        }
+        .list-group-item {
+            padding: 10px 15px;
+        }
+    }
+    .timeline-list li {
+        padding: 8px 0;
     }
 }

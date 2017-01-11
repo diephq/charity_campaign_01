@@ -47,6 +47,7 @@ Contribute.prototype = {
     },
 
     dataTable: function () {
-        $('#contributor').dataTable();
+        $('#contribution-confirmed').dataTable();
+        $('#contribution-unconfirmed').dataTable();
     }
 };

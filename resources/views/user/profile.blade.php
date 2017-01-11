@@ -52,9 +52,9 @@
                 <span class="user-info-social-item">{{ $user->email }}</span>
             </div>
             <div class="user-info-social">
-                <ul>
+                <ul class="list-group">
                     @if (auth()->id() != $user->id)
-                        <li  class="user-info-social-item">
+                        <li  class="list-group-item">
                             <div class="profile-userbuttons">
                                 <div data-user-id="{{ $user->id }}">
                                     @if ($follow && $follow->status)
@@ -67,7 +67,7 @@
                         </li>
                     @endif
 
-                    <li class="user-info-social-item">
+                    <li class="list-group-item">
                         @if (Auth::user()->id != $user->id)
                             {!! Form::hidden('target_id', $user->id, ['id' => 'target_id']) !!}
                             <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
@@ -75,31 +75,30 @@
                             <input id="not-allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
                         @endif
                     </li>
-                    <li class="user-info-social-item">
+                    <li class="list-group-item">
                         <div class="reviews-stats"> {{ trans('campaign.total') }}
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="reviews-num-user">{{ $averageRankingUser['amount'] }}</span>
                         </div>
                     </li>
-                    <li class="user-info-social-item">
-                       <p>
-                            <span class="title">{{ trans('campaign.campaigns') }}</span>
-                            <span class="number">{{ $countCampaign }}</span>
-                       </p>
+                    <li class="list-group-item">
+                        <span class="title">{{ trans('campaign.campaigns') }}</span>
+                        <span class="badge">{{ $countCampaign }}</span>
                     </li>
-                    <li class="user-info-social-item">
+                    <li class="list-group-item">
                         <a href="" data-toggle="modal" data-target="#followingUser">
                             <span class="title">{{ trans('user.following') }}</span>
-                            <span class="number">{{ $following->count() }}</span>
+                            <span class="badge">{{ $following->count() }}</span>
                         </a>
                     </li>
-                    <li class="user-info-social-item">
+                    <li class="list-group-item" >
                         <a href="" data-toggle="modal" data-target="#followerUser">
                             <span class="title">{{ trans('user.followers') }}</span>
-                            <span class="number">{{ $followers->count() }}</span>
+                            <span class="badge">{{ $followers->count() }}</span>
                         </a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>

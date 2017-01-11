@@ -233,54 +233,106 @@
                 <div class="widget">
                     <div class="widget-extra themed-background-dark">
                         <h4 class="widget-content-light">
-                            <strong>{{ trans('campaign.contributors') }}</strong>
+                            <strong>{{ trans('campaign.list_contribution') }}</strong>
                         </h4>
                     </div>
 
                     <div class="widget-extra active-user">
-                        <ul class="active-user-list">
-                            @foreach ($campaign->contributions as $contribution)
-                                <li class="active-user-item">
-                                    <div class="row">
-                                        @if ($contribution->user)
-                                            <div class="col-md-4">
-                                                <a class="pull-left border-aero profile_thumb">
-                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar"
-                                                        class="img-responsive img-circle">
-                                                </a>
-                                            </div>
-                                            <div class="col-md-8 active-user-item-info">
-                                                <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
-                                                    {{ $contribution->user->name }}
-                                                </a><br>
-                                                <span>{{ $contribution->user->email }}</span><br>
-                                                <span>{{ $contribution->created_at }}</span>
-                                            </div>
-                                        @else
-                                            <div class="col-md-4">
-                                                <a class="pull-left border-aero profile_thumb">
-                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar"
-                                                        class="img-responsive img-circle">
-                                                </a>
-                                            </div>
-                                            <div class="col-md-8 active-user-item-info">
-                                                <span>{{ $contribution->name }}</span><br>
-                                                <span>{{ $contribution->email }}</span><br>
-                                                <span>{{ $contribution->created_at }}</span>
-                                            </div>
-                                        @endif
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs border-tab">
+                                    <li class="active"><a href="#confirmed" data-toggle="tab">{{ trans('campaign.confirmed') }}</a></li>
+                                    <li><a href="#unconfirmed" data-toggle="tab">{{ trans('campaign.unconfirmed') }}</a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="confirmed">
+                                        <ul class="active-user-list">
+                                            @foreach ($contributionConfirmed->take(10) as $contribution)
+                                                <li class="active-user-item">
+                                                    <div class="row">
+                                                        @if ($contribution->user)
+                                                            <div class="col-md-4">
+                                                                <a class="pull-left border-aero profile_thumb">
+                                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar"
+                                                                         class="img-responsive img-circle">
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-8 active-user-item-info">
+                                                                <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                                                    {{ $contribution->user->name }}
+                                                                </a><br>
+                                                                <span>{{ $contribution->user->email }}</span><br>
+                                                                <span>{{ Carbon\Carbon::now()->subSeconds(time() - strtotime($contribution->created_at))->diffForHumans() }}</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-4">
+                                                                <a class="pull-left border-aero profile_thumb">
+                                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar"
+                                                                         class="img-responsive img-circle">
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-8 active-user-item-info">
+                                                                <span>{{ $contribution->name }}</span><br>
+                                                                <span>{{ $contribution->email }}</span><br>
+                                                                <span>{{ Carbon\Carbon::now()->subSeconds(time() - strtotime($contribution->created_at))->diffForHumans() }}</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                            <a class="pull-right" href=".list-contribute-confirmed" data-toggle="modal"
+                                               data-target=".list-contribute-confirmed">{{ trans('campaign.show_detail') }}</a>
+                                        </ul>
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                                    <div class="tab-pane fade" id="unconfirmed">
+                                        <ul class="active-user-list">
+                                            @foreach ($contributionUnConfirmed->take(10) as $contribution)
+                                                <li class="active-user-item">
+                                                    <div class="row">
+                                                        @if ($contribution->user)
+                                                            <div class="col-md-4">
+                                                                <a class="pull-left border-aero profile_thumb">
+                                                                    <img src="{{ $contribution->user->avatar }}" alt="avatar"
+                                                                         class="img-responsive img-circle">
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-8 active-user-item-info">
+                                                                <a class="title" href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                                                    {{ $contribution->user->name }}
+                                                                </a><br>
+                                                                <span>{{ $contribution->user->email }}</span><br>
+                                                                <span>{{ Carbon\Carbon::now()->subSeconds(time() - strtotime($contribution->created_at))->diffForHumans() }}</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-4">
+                                                                <a class="pull-left border-aero profile_thumb">
+                                                                    <img src="{{ config('path.to_avatar_default') }}" alt="avatar"
+                                                                         class="img-responsive img-circle">
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-8 active-user-item-info">
+                                                                <span>{{ $contribution->name }}</span><br>
+                                                                <span>{{ $contribution->email }}</span><br>
+                                                                <span>{{ Carbon\Carbon::now()->subSeconds(time() - strtotime($contribution->created_at))->diffForHumans() }}</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                            <a class="pull-right" href=".list-contribute-unconfirmed" data-toggle="modal"
+                                               data-target=".list-contribute-unconfirmed">{{ trans('campaign.show_detail') }}</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                         <div class="contribution">
                             {{ Form::button(trans('campaign.contribute'), [
                                 'class' => 'btn btn-raised btn-success',
                                 'data-toggle'=>'modal',
                                 'data-target'=>'.contribute'
                             ]) }}
-                            <a href=".list_contribute" data-toggle="modal"
-                               data-target=".list_contribute">{{ trans('campaign.show_more') }}</a>
                         </div>
                     </div>
                 </div>
@@ -289,5 +341,6 @@
     </div>
 
     @include('campaign.create_contribution')
-    @include('campaign.list_contribution')
+    @include('campaign.list_contribution_confirmed')
+    @include('campaign.list_contribution_unconfirmed')
 @stop

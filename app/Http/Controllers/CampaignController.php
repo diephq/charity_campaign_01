@@ -102,9 +102,6 @@ class CampaignController extends BaseController
             return abort(404);
         }
 
-        // get list contributions
-        $this->dataView['contributions'] = $this->contributionRepository->getContributions($id)->get();
-
         // get total contributions
         $this->dataView['results'] = $this->contributionRepository->getValueContribution($id);
 
@@ -114,13 +111,11 @@ class CampaignController extends BaseController
             'campaign_id' => $id,
         ]);
 
-        // get averageRankingCampaign
         $this->dataView['averageRanking'] = $this->ratingRepository->averageRatingCampaign($this->dataView['campaign']->id);
-
-        // get rating chart
         $this->dataView['ratingChart'] = $this->ratingRepository->getRatingChart($id);
-
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['campaign']->owner->user_id);
+        $this->dataView['contributionConfirmed'] = $this->contributionRepository->getUserContributionConfirmed($id);
+        $this->dataView['contributionUnConfirmed'] = $this->contributionRepository->getUserContributionUnConfirmed($id);
 
         return view('campaign.show', $this->dataView);
     }
