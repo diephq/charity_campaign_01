@@ -108,7 +108,6 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 $query->where('status', config('constants.ACTIVATED'));
             }])
             ->with('categories')
-            ->where('status', config('constants.ACTIVATED'))
             ->find($id);
     }
 
@@ -232,8 +231,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
 
     public function searchCampaign($keyWords)
     {
-        $campaigns = $this->model->where('status', config('constants.ACTIVATED'))
-            ->search($keyWords)
+        $campaigns = $this->model->search($keyWords)
             ->with('image')
             ->get();
 

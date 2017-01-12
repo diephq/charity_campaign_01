@@ -23,6 +23,7 @@ class User extends Authenticatable
         'avatar',
         'password',
         'is_active',
+        'star',
         'token_verification'
     ];
 
@@ -114,5 +115,29 @@ class User extends Authenticatable
     public function userCampaign()
     {
         return $this->hasOne(UserCampaign::class);
+    }
+
+    public function followers($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return Relationship::where('target_id', $userId)
+            ->where('target_type', config('constants.FOLLOW_USER'))
+            ->where('status', config('constants.ACTIVATED'))
+            ->count();
+    }
+
+    public function checkFollow($targetId)
+    {
+        if (!$targetId) {
+            return false;
+        }
+
+        return Relationship::where('user_id', $this->id)
+            ->where('target_id', $targetId)
+            ->where('status', config('constants.ACTIVATED'))
+            ->first();
     }
 }

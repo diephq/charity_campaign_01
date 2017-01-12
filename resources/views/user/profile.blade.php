@@ -54,20 +54,20 @@
             <div class="user-info-social">
                 <ul class="list-group">
                     @if (auth()->id() != $user->id)
-                        <li  class="list-group-item">
+                        <li  class="list-group-item btn-follow">
                             <div class="profile-userbuttons">
                                 <div data-user-id="{{ $user->id }}">
                                     @if ($follow && $follow->status)
-                                        {!! Form::submit(trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger' , 'id' => 'follow']) !!}
+                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger' , 'id' => 'follow']) !!}
                                     @else
-                                        {!! Form::submit(trans('user.follow'), ['class' => 'btn btn-raised btn-success', 'id' => 'follow']) !!}
+                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.follow'), ['class' => 'btn btn-raised btn-success', 'id' => 'follow']) !!}
                                     @endif
                                 </div>
                             </div>
                         </li>
                     @endif
 
-                    <li class="list-group-item">
+                    <li class="list-group-item rating-user">
                         @if (Auth::user()->id != $user->id)
                             {!! Form::hidden('target_id', $user->id, ['id' => 'target_id']) !!}
                             <input id="allow-rating-user" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">
@@ -120,12 +120,6 @@
                     <a href="{{ action('UserController@listUserCampaign', ['userId' => $user->id]) }}">
                         <span class="glyphicon glyphicon-heart-empty"></span>
                         <span>{{ trans('user.your_campaign') }}</span>
-                    </a>
-                </li>
-                <li class="tag-item">
-                    <a href="">
-                        <span class="glyphicon glyphicon-list"></span>
-                        <span>{{ trans('user.joined') }}</span>
                     </a>
                 </li>
             </ul>

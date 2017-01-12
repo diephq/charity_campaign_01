@@ -17,7 +17,7 @@ class CreateCampaignsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('image_id');
-            $table->string('description');
+            $table->text('description');
             $table->string('address');
             $table->dateTime('start_time');
             $table->dateTime('end_time');

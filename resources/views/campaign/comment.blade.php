@@ -2,6 +2,7 @@
     <div class="col-xs-10  col-xs-offset-1">
         <div class="comment">
             <h2>{{ trans('campaign.comments') }}</h2>
+            @if ($campaign->status)
             {!! Form::open([ 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'formComment', 'enctype' => 'multipart/form-data']) !!}
             {!! Form::hidden('campaign_id', $campaign->id) !!}
 
@@ -39,8 +40,7 @@
                 </div>
             </div>
             {!! Form::close() !!}
-            <br>
-            <hr>
+            @endif
             <ul class="media-list">
                 @foreach ($campaign->comments->sortBy(function($comment)
                     {
