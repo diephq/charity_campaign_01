@@ -6,14 +6,11 @@
         <div class="row">
             @include('user.profile')
 
-            <div class="col-md-6 center-panel">
+            <div class="col-md-9 center-panel">
                 <div class="profile-content">
                     @foreach ($actions as $action)
                         @if ($action->action_type == config('constants.ACTION.ACTIVE_CAMPAIGN'))
                             @php ($message = trans('campaign.action_active_campaign'))
-                            @php ($campaign = $action->actionable->campaign($action->actionable->id))
-                        @elseif ($action->action_type == config('constants.ACTION.CLOSE_CAMPAIGN'))
-                            @php ($message = trans('campaign.action_close_campaign'))
                             @php ($campaign = $action->actionable->campaign($action->actionable->id))
                         @elseif ($action->action_type == config('constants.ACTION.CONTRIBUTE'))
                             @php ($message = trans('campaign.action_contribute_campaign'))
@@ -24,8 +21,18 @@
                             <div class="block-content-full">
                                 <div class="tag-item" style="padding: 15px">
                                     <p>
-                                        <span>{{ $message }}</span>
-                                        <span class="activity-time">{{  Carbon\Carbon::now()->subSeconds(time() - $action->time)->diffForHumans() }}</span>
+                                        @if ($action->action_type == config('constants.ACTION.ACTIVE_CAMPAIGN'))
+                                            <span class="glyphicon glyphicon-eye-open">
+                                                @if (auth()->id() == $action->user_id)
+                                                    <i>{{ trans('user.you') . ' ' . $message }}</i>
+                                                @else
+                                                    <i>{{ $action->user($action->user_id)->name . ' ' . $message }}</i>
+                                                @endif
+                                            </span>
+                                        @else
+                                            <span class="glyphicon glyphicon-plus"> <i>{{ $message }}</i></span>
+                                        @endif
+                                        <span class="pull-right"><i>{{  Carbon\Carbon::now()->subSeconds(time() - $action->time)->diffForHumans() }}</i></span>
                                     </p>
                                 </div>
                             </div>
@@ -49,7 +56,7 @@
                                             <div class="timeline-content">
                                                 <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong></p>
                                                 <div class="row push">
-                                                    <div class="col-sm-8 col-md-8">
+                                                    <div class="col-sm-4 col-md-4">
                                                         <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
                                                             <img src="{{ $campaign->image->image }}" alt="image">
                                                         </a>

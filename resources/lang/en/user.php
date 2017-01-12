@@ -37,5 +37,5 @@ return [
     'un_follow' => 'Unfollow',
     'following' => 'Following',
     'followers' => 'Followers',
-
+    'you' => 'You',
 ];
