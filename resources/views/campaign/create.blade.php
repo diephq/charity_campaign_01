@@ -29,15 +29,6 @@
             <div class="col-md-12 center-panel">
                 <div class="block">
                     <div class="block-title themed-background-dark">
-                        <div class="block-options pull-right">
-                            <div class="dropdown">
-                                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle" data-toggle="dropdown" title="Settings">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                </ul>
-                            </div>
-                        </div>
                         <h2 class="block-title-light campaign-title">{{ trans('campaign.create') }}</h2>
                     </div>
 

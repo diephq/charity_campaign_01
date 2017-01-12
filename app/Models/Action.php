@@ -26,4 +26,9 @@ class Action extends Model
     {
         return $this->morphTo();
     }
+
+    public function user($userId)
+    {
+        return User::find($userId);
+    }
 }

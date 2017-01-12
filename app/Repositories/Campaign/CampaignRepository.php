@@ -190,14 +190,15 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         try {
             $campaign->status = config('constants.ACTIVATED') - $campaign->status;
             $campaign->save();
-            
-            // save action
-            $campaign->actions()->create([
-                'user_id' => auth()->id(),
-                'action_type' => $campaign->status ? config('constants.ACTION.ACTIVE_CAMPAIGN') :
-                    config('constants.ACTION.CLOSE_CAMPAIGN'),
-                'time' => time(),
-            ]);
+
+            if ($campaign->status) {
+                // save action
+                $campaign->actions()->create([
+                    'user_id' => auth()->id(),
+                    'action_type' => config('constants.ACTION.ACTIVE_CAMPAIGN'),
+                    'time' => time(),
+                ]);
+            }
             DB::commit();
 
             return $campaign;
@@ -231,7 +232,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
 
     public function searchCampaign($keyWords)
     {
-        $campaigns = $this->model->where('status', 1)
+        $campaigns = $this->model->where('status', config('constants.ACTIVATED'))
             ->search($keyWords)
             ->with('image')
             ->get();

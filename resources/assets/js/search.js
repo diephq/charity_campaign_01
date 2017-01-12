@@ -21,7 +21,7 @@ Search.prototype = {
             queryTokenizer: Bloodhound.tokenizers.whitespace
         });
 
-        $(".typeahead-search").typeahead({
+        inputSearch.typeahead({
             hint: true,
             highlight: true,
             minLength: 1

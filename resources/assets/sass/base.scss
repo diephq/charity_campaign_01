@@ -336,13 +336,14 @@ body {
         }
     }
     .timeline-list li {
-        padding: 8px 0;
+        padding: 2px;
     }
     .twitter-typeahead {
         width: 100%;
     }
     .list-group-item {
         background: #fff;
+        z-index: 100;
     }
     .search-campaign-img {
         float: left;
@@ -366,5 +367,13 @@ body {
             }
         }
 
+    }
+    .timeline-list {
+        .timeline-icon {
+            top: 2px !important;
+        }
+    }
+    .timeline p img {
+        width: 100% !important;
     }
 }

@@ -45,7 +45,9 @@ Campaign.prototype = {
     
     category: function () {
         var count = 1;
-        $(document).on('click', '.category-name', function(e) {
+        $(document).on('change', '.category-name', function(e) {
+            var value = $(this).val();
+
             count ++;
             $(this).attr('class', 'form-control');
             e.preventDefault();
@@ -63,6 +65,6 @@ Campaign.prototype = {
             html += '</div>';
 
             $('.category').append(html);
-        })
+        });
     }
 };
