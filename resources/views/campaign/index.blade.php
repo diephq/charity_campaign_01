@@ -157,17 +157,19 @@
                                                     <p class="number">{{ $user->followers($user->id) }}</p>
                                                 </li>
                                                 <li class="">
-                                                    @if (Auth::guest())
-                                                        <a class="btn btn-raised btn-success"
-                                                           href="{{ url('/login') }}"><i class="fa fa-users"></i> Follow</a>
-                                                    @else
-                                                        <div data-user-id="{{ $user->id }}">
-                                                            @if (Auth()->user()->checkFollow($user->id))
-                                                                {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger follow' ]) !!}
-                                                            @else
-                                                                {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.follow'), ['class' => 'btn btn-raised btn-success follow' ]) !!}
-                                                            @endif
-                                                        </div>
+                                                    @if (auth()->id() != $user->id)
+                                                        @if (Auth::guest())
+                                                            <a class="btn btn-raised btn-success"
+                                                               href="{{ url('/login') }}"><i class="fa fa-users"></i> Follow</a>
+                                                        @else
+                                                            <div data-user-id="{{ $user->id }}">
+                                                                @if (Auth()->user()->checkFollow($user->id))
+                                                                    {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger follow' ]) !!}
+                                                                @else
+                                                                    {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.follow'), ['class' => 'btn btn-raised btn-success follow' ]) !!}
+                                                                @endif
+                                                            </div>
+                                                        @endif
                                                     @endif
                                                 </li>
                                             </ul>

@@ -45,7 +45,8 @@
                     '{{ config('constants.THREE_STAR') }}',
                     '{{ config('constants.FOUR_STAR') }}',
                     '{{ config('constants.FIVE_STAR') }}',
-                    '{{ trans('campaign.rating') }}'
+                    '{{ trans('campaign.rating') }}',
+                    '{{ trans('user.rating_your_self') }}'
             );
             rating.init();
 
@@ -118,11 +119,15 @@
                                                     <img src="{{ $campaign->owner->user->avatar }}"
                                                          class="img-responsive img-circle" alt="image">
                                                 </a>
-                                                @if (Auth::user())
+                                                @if (Auth::user() && auth()->id() != $campaign->owner->user_id)
                                                     {!! Form::hidden('target_id', $campaign->owner->user->id, ['id' => 'target_id']) !!}
                                                     <input id="allow-rating-user" name="input-1"
                                                         class="rating rating-loading" data-min="0" data-max="5"
                                                         data-step="1" data-size="xs">
+                                                @elseif (Auth::user() && auth()->id() == $campaign->owner->user_id)
+                                                    <input id="not-allow-rating-user-myself" name="input-1"
+                                                           class="rating rating-loading" data-min="0" data-max="5"
+                                                           data-step="1" data-size="xs">
                                                 @else
                                                     <input id="not-allow-rating-user" name="input-1"
                                                         class="rating rating-loading" data-min="0" data-max="5"

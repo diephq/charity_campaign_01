@@ -1,6 +1,7 @@
 var Rating = function (
     ratingUrl, messageError, btnClose, averageRanking, ratingUserUrl, messageRequireLogin,
-    averageRankingUser, options, star, one_star, two_star, three_star, four_star, five_star, rating
+    averageRankingUser, options, star, one_star, two_star, three_star, four_star, five_star, rating,
+    messageRatingYourSelf
     ) {
     this.ratingUrl = ratingUrl;
     this.messageError = messageError;
@@ -17,6 +18,7 @@ var Rating = function (
     this.four_star = four_star;
     this.five_star = five_star;
     this.rating = rating;
+    this.messageRatingYourSelf = messageRatingYourSelf;
 };
 
 Rating.prototype = {
@@ -123,12 +125,27 @@ Rating.prototype = {
                 }]
             });
         });
+
+        $('#not-allow-rating-user-myself').on('rating.change', function () {
+            BootstrapDialog.show({
+                title: '',
+                message: _self.messageRatingYourSelf,
+                buttons: [{
+                    label: _self.btnClose,
+                    action: function (dialog) {
+                        dialog.close();
+                        _self.initStarUser();
+                    }
+                }]
+            });
+        });
     },
 
     initStarUser: function () {
         var _self = this;
         $('#allow-rating-user').rating('update', _self.averageRankingUser);
         $('#not-allow-rating-user').rating('update', _self.averageRankingUser);
+        $('#not-allow-rating-user-myself').rating('update', _self.averageRankingUser);
     },
 
     drawStuff: function (dataChart) {
