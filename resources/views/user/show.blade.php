@@ -22,15 +22,19 @@
                                 <div class="tag-item" style="padding: 15px">
                                     <p>
                                         @if ($action->action_type == config('constants.ACTION.ACTIVE_CAMPAIGN'))
-                                            <span class="glyphicon glyphicon-eye-open">
-                                                @if (auth()->id() == $action->user_id)
-                                                    <i>{{ trans('user.you') . ' ' . $message }}</i>
-                                                @else
-                                                    <i>{{ $action->user($action->user_id)->name . ' ' . $message }}</i>
-                                                @endif
-                                            </span>
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            @if (auth()->id() == $action->user_id)
+                                                <i>{{ trans('user.you') . ' ' . $message }}</i>
+                                            @else
+                                                <i>{{ $action->user($action->user_id)->name . ' ' . $message }}</i>
+                                            @endif
                                         @else
-                                            <span class="glyphicon glyphicon-plus"> <i>{{ $message }}</i></span>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                            @if (auth()->id() == $action->user_id)
+                                                <i>{{ trans('user.you') . ' ' . $message }}</i>
+                                            @else
+                                                <i>{{ $action->user($action->user_id)->name . ' ' . $message }}</i>
+                                            @endif
                                         @endif
                                         <span class="pull-right"><i>{{  Carbon\Carbon::now()->subSeconds(time() - $action->time)->diffForHumans() }}</i></span>
                                     </p>
