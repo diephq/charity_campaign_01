@@ -72,6 +72,7 @@ UserProfile.prototype = {
 
     followOrUnFollowUser: function () {
         var _self = this;
+        var icon = '<i class="fa fa-users"></i>';
 
         $("#follow").click(function(e) {
             e.preventDefault();
@@ -89,11 +90,11 @@ UserProfile.prototype = {
                 success: function(data)
                 {
                     if (data.result.status) {
-                        $("#follow").val(_self.btnUnFollow);
+                        $("#follow").text(_self.btnUnFollow).prepend(icon);
                         $("#follow").removeClass('btn-success');
                         $("#follow").addClass('btn-danger');
                     } else {
-                        $("#follow").val(_self.btnFollow);
+                        $("#follow").text(_self.btnFollow).prepend(icon);
                         $("#follow").removeClass('btn-danger');
                         $("#follow").addClass('btn-success');
                     }

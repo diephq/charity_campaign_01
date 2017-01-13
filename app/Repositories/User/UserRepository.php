@@ -165,4 +165,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             }])
             ->orderBy('id', 'desc');
     }
+
+    public function getUserByRating()
+    {
+        return $this->model->orderBy('star', 'desc')
+            ->take(config('constants.USER_LIMIT'))
+            ->get();
+    }
 }

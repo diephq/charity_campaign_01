@@ -73,7 +73,6 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-3 control-label">{{ trans('campaign.categories') }}</label>
 

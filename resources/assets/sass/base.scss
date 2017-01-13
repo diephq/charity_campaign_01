@@ -164,8 +164,8 @@ body {
                     .avatar {
                         margin-right: 0;
                         img {
-                            width: 70px;
-                            height: 70px;
+                            width: 55px;
+                            height: 55px;
                             vertical-align: middle;
                         }
                     }
@@ -177,7 +177,7 @@ body {
                 &-social {
                     & > li {
                         display: inline-block;
-                        margin: 10px 5px 0;
+                        margin: 0px 5px 0;
                         text-align: left;
                     }
                     p {
@@ -324,16 +324,8 @@ body {
     .border-tab {
         border-bottom: 1px solid #ddd;
     }
-    .rating-xs {
-        font-size: 1.4em;
-    }
-    .rating {
-        .glyphicon-star, .glyphicon-star-empty {
-            margin-right: 0px;
-        }
-        .list-group-item {
-            padding: 10px 15px;
-        }
+    .rating-user :first-child {
+        margin-right: 0;
     }
     .timeline-list li {
         padding: 2px;
@@ -375,5 +367,17 @@ body {
     }
     .timeline p img {
         width: 100% !important;
+    }
+    .active-user {
+        padding: 3px 15px;
+    }
+    .rating-user {
+        margin-right: 0px;
+    }
+    .btn-follow :first-child {
+        margin-right: 5px;
+    }
+    .btn {
+        text-transform: none;
     }
 }

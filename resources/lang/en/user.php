@@ -38,4 +38,6 @@ return [
     'following' => 'Following',
     'followers' => 'Followers',
     'you' => 'You',
+    'stars' => 'Stars',
+
 ];

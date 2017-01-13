@@ -10,6 +10,7 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use Validator;
 use App\Services\Purifier;
 
@@ -22,19 +23,22 @@ class CampaignController extends BaseController
     protected $contributionRepository;
     protected $ratingRepository;
     protected $categoryCampaignRepository;
+    protected $userRepository;
 
     public function __construct(
         CampaignRepositoryInterface $campaignRepository,
         Campaign $campaign,
         CategoryRepositoryInterface $categoryRepository,
         ContributionRepositoryInterface $contributionRepository,
-        RatingRepositoryInterface $ratingRepository
+        RatingRepositoryInterface $ratingRepository,
+        UserRepositoryInterface $userRepository
     ) {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
         $this->categoryRepository = $categoryRepository;
         $this->contributionRepository = $contributionRepository;
         $this->ratingRepository = $ratingRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -44,9 +48,10 @@ class CampaignController extends BaseController
      */
     public function index()
     {
-        $campaigns = $this->campaignRepository->getAll()->paginate(config('constants.PAGINATE'));
+        $this->dataView['campaigns'] = $this->campaignRepository->getAll()->paginate(config('constants.PAGINATE'));
+        $this->dataView['users'] = $this->userRepository->getUserByRating();
 
-        return view('campaign.index', compact('campaigns'));
+        return view('campaign.index', $this->dataView);
     }
 
     /**

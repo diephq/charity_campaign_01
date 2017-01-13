@@ -1,15 +1,30 @@
 @extends('layouts.app')
 
+@section('js')
+    @parent
+    {{ Html::script('js/follow_user.js') }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var follow = new Follow(
+                    '{{ action('FollowController@followOrUnFollowUser') }}',
+                    '{{ trans('user.follow') }}',
+                    '{{ trans('user.un_follow') }}'
+            );
+            follow.init();
+        });
+    </script>
+@stop
+
 @section('content')
     <div id="page-content">
         <div class="hide" data-token="{{ csrf_token() }}"></div>
-            <div class="row">
-                <div class="col-md-8 center-panel">
-                    @foreach ($campaigns as $campaign)
+        <div class="row">
+            <div class="col-md-8 center-panel">
+                @foreach ($campaigns as $campaign)
                     <div class="block">
                         <div class="block-title themed-background-dark">
                             <h2 class="block-title-light campaign-title">
-                                <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">{{{ $campaign->name }}}</a>
+                                <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">{{ $campaign->name }}</a>
                             </h2>
                         </div>
                         <div class="block-content-full">
@@ -21,10 +36,13 @@
                                             <small>{{ trans('campaign.start_date') }}</small>
                                         </div>
                                         <div class="timeline-content">
-                                            <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong></p>
+                                            <p class="push-bit">
+                                                <strong>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</strong>
+                                            </p>
                                             <div class="row push">
                                                 <div class="col-sm-4 col-md-4">
-                                                    <a href="{{ $campaign->image->image }}" data-toggle="lightbox-image">
+                                                    <a href="{{ $campaign->image->image }}"
+                                                       data-toggle="lightbox-image">
                                                         <img src="{{ $campaign->image->image }}" alt="image">
                                                     </a>
                                                 </div>
@@ -48,7 +66,7 @@
                                                         <a href="{{ $campaign->owner->user->avatar }}"
                                                            data-toggle="lightbox-image" class="profile_thumb">
                                                             <img src="{{ $campaign->owner->user->avatar }}"
-                                                                class="img-responsive img-circle" alt="image">
+                                                                 class="img-responsive img-circle" alt="image">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -73,7 +91,9 @@
                                             <small>{{ trans('campaign.end_date') }}</small>
                                         </div>
                                         <div class="timeline-content">
-                                            <p class="push-bit"><strong>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</strong></p>
+                                            <p class="push-bit">
+                                                <strong>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</strong>
+                                            </p>
                                             <p>
                                                 <span>{{ trans('campaign.message_end_campaign', ['time' => Carbon\Carbon::now()->addSeconds(strtotime($campaign->end_time) - time())->diffForHumans()]) }}</span>
                                             </p>
@@ -84,13 +104,15 @@
                             <div class="timeline-controls">
                                 <div class="timeline-controls-list">
                                     <div class="timeline-controls-item">
-                                        <a href="javascript:void(0)" class="comment" data-toggle="tooltip" title="" data-original-title="Comments">
+                                        <a href="javascript:void(0)" class="comment" data-toggle="tooltip" title=""
+                                           data-original-title="Comments">
                                             <i class="gi gi-comments"></i>
                                             <span>{{ $campaign->countComment($campaign->id) }}</span>
                                         </a>
                                     </div>
                                     <div class="timeline-controls-item">
-                                        <a href="javascript:void(0)" class="facebook" data-toggle="tooltip" title="" data-original-title="Share facebook">
+                                        <a href="javascript:void(0)" class="facebook" data-toggle="tooltip" title=""
+                                           data-original-title="Share facebook">
                                             <i class="fa fa-facebook-square"></i>
                                         </a>
                                     </div>
@@ -98,8 +120,63 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                    {{ $campaigns->render() }}
+                @endforeach
+                {{ $campaigns->render() }}
+            </div>
+
+            <div class="col-md-4 right-panel">
+                <div class="widget">
+                    <div class="active-user themed-background-dark">
+                        <h4 class="widget-content-light">
+                            <strong>Active users</strong>
+                        </h4>
+                    </div>
+                    <div class="widget-extra active-user">
+                        <ul class="active-user-list">
+                            @foreach ($users as $user)
+                                <li class="active-user-item">
+                                    <div class="row">
+                                        <div class="col-md-4 avatar ">
+                                            <a href="{{ action('UserController@show', ['id' => $user->id]) }}">
+                                                <img src="{{ $user->avatar }}" alt="avatar"
+                                                     class="img-responsive img-circle">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8 active-user-item-info">
+                                            <a href="{{ action('UserController@show', ['id' => $user->id]) }}"
+                                               class="active-user-name">
+                                                {{ $user->name }}
+                                            </a>
+                                            <ul class="active-user-social">
+                                                <li class="campaign">
+                                                    <p class="title">{{ trans('user.stars') }}</p>
+                                                    <p class="number">{{ $user->star }}</p>
+                                                </li>
+                                                <li class="followers">
+                                                    <p class="title">{{ trans('user.followers') }}</p>
+                                                    <p class="number">{{ $user->followers($user->id) }}</p>
+                                                </li>
+                                                <li class="">
+                                                    @if (Auth::guest())
+                                                        <a class="btn btn-raised btn-success"
+                                                           href="{{ url('/login') }}"><i class="fa fa-users"></i> Follow</a>
+                                                    @else
+                                                        <div data-user-id="{{ $user->id }}">
+                                                            @if (Auth()->user()->checkFollow($user->id))
+                                                                {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger follow' ]) !!}
+                                                            @else
+                                                                {!! Form::button('<i class="fa fa-users"></i> ' . trans('user.follow'), ['class' => 'btn btn-raised btn-success follow' ]) !!}
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

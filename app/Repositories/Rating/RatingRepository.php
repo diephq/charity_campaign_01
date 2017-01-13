@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Rating;
 
+use App\Models\User;
 use Auth;
 use App\Models\Rating;
 use App\Repositories\BaseRepository;
@@ -118,23 +119,38 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
             return false;
         }
 
-        $rating = $this->checkUserRatingUser($params['targetId']);
+        DB::beginTransaction();
+        try {
+            $rating = $this->checkUserRatingUser($params['targetId']);
 
-        if ($rating) {
-            $rating->star = $params['value'];
-            $rating->save();
+            if ($rating) {
+                $rating->star = $params['value'];
+                $rating->save();
 
-            return $this->averageRatingUser($params['targetId']);
+                $dataRating = $this->averageRatingUser($params['targetId']);
+                $this->__updateStarAverage($params['targetId'], $dataRating['average']);
+                DB::commit();
+
+                return $dataRating;
+            }
+
+            $this->model->create([
+                'user_id' => auth()->id(),
+                'star' => $params['value'],
+                'target_id' => $params['targetId'],
+                'target_type' => config('constants.RATING_USER'),
+            ]);
+
+            $dataRating = $this->averageRatingUser($params['targetId']);
+            $this->__updateStarAverage($params['targetId'], $dataRating['average']);
+            DB::commit();
+
+            return $dataRating;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return false;
         }
-
-        $this->model->create([
-            'user_id' => auth()->id(),
-            'star' => $params['value'],
-            'target_id' => $params['targetId'],
-            'target_type' => config('constants.RATING_USER'),
-        ]);
-
-        return $this->averageRatingUser($params['campaign_id']);
     }
 
     public function checkUserRatingUser($targetId)
@@ -169,8 +185,17 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
         $star = array_sum($ratings->pluck('star')->toArray());
 
         return [
-            'average' => (float)$star / count($ratings),
+            'average' => round($star / count($ratings), 2),
             'amount' => count($ratings),
         ];
+    }
+
+    private function __updateStarAverage($userId, $data)
+    {
+        if (!$userId || !$data) {
+            return false;
+        }
+
+        return User::find($userId)->update(['star' => $data]);
     }
 }

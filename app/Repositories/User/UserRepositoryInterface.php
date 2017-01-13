@@ -19,4 +19,6 @@ interface UserRepositoryInterface
     public function updateProfile($inputs, $id);
 
     public function getUsersInCampaign($campaignId);
+
+    public function getUserByRating();
 }

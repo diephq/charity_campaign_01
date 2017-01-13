@@ -23,4 +23,5 @@ return [
         'CONTRIBUTE' => 3,
     ],
     'PAGINATE_CAMPAIGN' => 10,
+    'USER_LIMIT' => 10,
 ];

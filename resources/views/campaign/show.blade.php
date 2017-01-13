@@ -64,20 +64,22 @@
                     <div class="block-title themed-background-dark">
                         <h2 class="block-title-light campaign-title"><strong>{{{ $campaign->name }}}</strong></h2>
                         <div class="pull-right request-join">
-                            @if (Auth::user())
-                                {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
-                                {!! Form::hidden('campaign_id', $campaign->id) !!}
-                                @if (empty($userCampaign))
-                                    {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
-                                @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
-                                    {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
-                                @elseif ($userCampaign->status && empty($userCampaign->is_owner))
-                                    {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                            @if ($campaign->status)
+                                @if (Auth::user())
+                                    {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
+                                    {!! Form::hidden('campaign_id', $campaign->id) !!}
+                                    @if (empty($userCampaign))
+                                        {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                    @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
+                                        {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                    @elseif ($userCampaign->status && empty($userCampaign->is_owner))
+                                        {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                    @endif
+                                    {!! Form::close() !!}
+                                @else
+                                    <a href="{{ action('Auth\UserLoginController@getLogin') }}"
+                                       class="btn btn-raised btn-success join">{{ trans('campaign.request_join') }}</a>
                                 @endif
-                                {!! Form::close() !!}
-                            @else
-                                <a href="{{ action('Auth\UserLoginController@getLogin') }}"
-                                   class="btn btn-raised btn-success join">{{ trans('campaign.request_join') }}</a>
                             @endif
                         </div>
                     </div>
@@ -326,7 +328,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        @if ($campaign->status)
                         <div class="contribution">
                             {{ Form::button(trans('campaign.contribute'), [
                                 'class' => 'btn btn-raised btn-success',
@@ -334,6 +336,7 @@
                                 'data-target'=>'.contribute'
                             ]) }}
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
