@@ -38,8 +38,7 @@ body {
     }
     #main-container {
         margin: 0 $pageMarginLeft;
-        @include box-shadow(2px 2px 2px $boxShadowColor);
-        border: 1px solid $boxShadowColor;
+        
         .panel-title {
             font-size: $titleFontSize;
         }
@@ -379,5 +378,8 @@ body {
     }
     .btn {
         text-transform: none;
+    }
+    .error {
+        color: red;
     }
 }

@@ -199,14 +199,9 @@
                                         <div class="pull-left">
                                             <span>
                                                 <strong>{{ $result['name'] }}</strong> :
-                                                <span>{{ $result['value'] }}</span>
+                                                <span>{{ $result['value'] . '/' . $result['goal'] }}</span>
                                                 <strong>{{ $result['unit'] }}</strong>
                                             </span>
-                                        </div>
-                                        <div class="pull-right">
-                                            <strong>{{ trans('campaign.goal') }}</strong> :
-                                            <span>{{ $result['goal'] }}</span>
-                                            <strong>{{ $result['unit'] }}</strong>
                                         </div>
                                     </li>
 

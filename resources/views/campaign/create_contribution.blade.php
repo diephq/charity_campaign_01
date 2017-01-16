@@ -16,7 +16,7 @@
                     @if (Auth::guest())
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <div class="col-md-10 col-md-offset-1">
-                                {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => trans('user.name')]) !!}
+                                {!! Form::text('name', old('name'), ['id' => 'name-comment', 'class' => 'form-control', 'placeholder' => trans('user.name')]) !!}
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <div class="col-md-10 col-md-offset-1">
-                                {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => trans('user.email')]) !!}
+                                {!! Form::email('email', old('email'), ['id' => 'email-comment', 'class' => 'form-control', 'placeholder' => trans('user.email')]) !!}
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -48,7 +48,7 @@
                                 <div class="col-md-8 category">
                                     <div class="input-group">
                                         <div class="col-md-10">
-                                            {!! Form::number('amount[' . $category->id . ']', 'value', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 1]) !!}
+                                            {!! Form::number('amount[' . $category->id . ']', '0', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 0]) !!}
                                         </div>
 
                                         <div class="col-md-2">

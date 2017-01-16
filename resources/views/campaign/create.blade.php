@@ -14,10 +14,15 @@
     {{ Html::script('http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}
     {{ Html::script('js/campaign.js') }}
     {{ Html::script('bower_components/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}
-
+    {{ Html::script('bower_components/jquery-validation/dist/jquery.validate.min.js') }}
+    {{ Html::script('bower_components/jquery-validation/dist/additional-methods.js') }}
     <script type="text/javascript">
         $(document).ready(function () {
-            var campaign = new Campaign('{!! action('CampaignController@uploadImage').'?_token='.csrf_token() !!}');
+
+            var campaign = new Campaign(
+                '{!! action('CampaignController@uploadImage').'?_token='.csrf_token() !!}',
+                '{!! $validateMessage !!}'
+            );
             campaign.init();
         });
     </script>
@@ -43,7 +48,7 @@
                         @endif
 
                         <div class="campaign">
-                            {!! Form::open(['action' => 'CampaignController@store', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['action' => 'CampaignController@store', 'method' => 'POST', 'id' => 'create-campaign', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
 
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                                 <div class="col-lg-10 col-lg-offset-1">
@@ -73,27 +78,29 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-3 control-label">{{ trans('campaign.categories') }}</label>
+                            <div class="contribution">
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label for="name" class="col-md-3 control-label">{{ trans('campaign.categories') }}</label>
 
-                                <div class="col-md-8 category">
-                                    <div class="category-content">
-                                        <div class="col-md-6 ">
-                                            {!! Form::text('category[name][1]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.category')] ) !!}
+                                    <div class="col-md-8 category">
+                                        <div class="category-content">
+                                            <div class="col-md-6 ">
+                                                {!! Form::text('contribution_type[]', null, ['class' => 'form-control category-name', 'placeholder' => trans('campaign.validate.contribution_type.contribution')] ) !!}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {!! Form::number('goal[]', null, ['class' => 'form-control category-goal', 'placeholder' => trans('campaign.validate.goal.goal'), 'min' => 1]) !!}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {!! Form::text('unit[]', null, ['class' => 'form-control category-unit', 'placeholder' => trans('campaign.validate.unit.unit')]) !!}
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            {!! Form::number('category[goal][1]', null, ['class' => 'form-control category-goal', 'placeholder' => trans('campaign.goal'), 'min' => 1]) !!}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {!! Form::text('category[unit][1]', null, ['class' => 'form-control category-unit', 'placeholder' => trans('campaign.unit')]) !!}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        @if ($errors->has('category'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('category') }}</strong>
+                                        <div>
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                <strong>{{ $errors->first('name') }}</strong>
                                             </span>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +109,7 @@
                                 <label for="start_date" class="col-md-3 control-label">{{ trans('campaign.start_date') }}</label>
 
                                 <div class="col-md-8">
-                                    {!! Form::text('start_date', null, ['class' => 'form-control datetimepicker']) !!}
+                                    {!! Form::text('start_date', null, ['class' => 'form-control datetimepicker', 'placeholder' => trans('campaign.validate.start_date.start_date') ]) !!}
 
                                     @if ($errors->has('start_date'))
                                         <span class="help-block">
@@ -116,7 +123,7 @@
                                 <label for="end_date" class="col-md-3 control-label">{{ trans('campaign.end_date') }}</label>
 
                                 <div class="col-md-8">
-                                    {!! Form::text('end_date', null, ['class' => 'form-control datetimepicker']) !!}
+                                    {!! Form::text('end_date', null, ['class' => 'form-control datetimepicker', 'placeholder' => trans('campaign.validate.end_date.end_date')]) !!}
 
                                     @if ($errors->has('end_date'))
                                         <span class="help-block">

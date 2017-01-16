@@ -20,6 +20,7 @@
     "modernizr": "^3.3.1",
     "bootstrap-material-design": "^4.0.2",
     "bootstrap-material-datetimepicker": "^2.7.1",
-    "typeahead.js": "^0.11.1"
+    "typeahead.js": "^0.11.1",
+    "jquery-validation": "^1.16.0"
   }
 }

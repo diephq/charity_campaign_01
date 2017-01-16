@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -37,18 +38,9 @@ class CommentController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
         if ($request->ajax()){
-
-            $this->validate($request, $this->comment->rules);
-
             $inputs = $request->only([
                 'campaign_id',
                 'name',

@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContributionRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,23 +28,15 @@ class ContributionRequest extends FormRequest
         if (isset($email)) {
             $rulesGuest = [
                 'name' => 'required|max:255',
-                'email' => 'required|email|max:255|unique:users',
+                'email' => 'required|email|max:255',
             ];
         }
 
         $rules = [
+            'text' => 'required|max:255',
             'campaign_id' => 'required|numeric|exists:campaigns,id',
-            'amount' => 'required|amount:amount',
-            'description' => 'required',
         ];
 
         return array_merge($rules, $rulesGuest);
-    }
-
-    public function messages()
-    {
-        return [
-            'amount.amount' => trans('campaign.validate.amount'),
-        ];
     }
 }
