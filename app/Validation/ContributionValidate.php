@@ -8,11 +8,19 @@ class ContributionValidate extends Validator
 {
     public function amount($attribute, $value, $parameters, $validator)
     {
-        foreach ($value as $key => $item) {
+        $count = 0;
+        foreach ($value as $item) {
             if ($item < 0) {
 
                 return false;
             }
+
+            $count += $item;
+        }
+
+        if ($count == 0) {
+
+            return false;
         }
 
         return true;

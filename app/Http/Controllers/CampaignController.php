@@ -61,7 +61,9 @@ class CampaignController extends BaseController
      */
     public function create()
     {
-        return view('campaign.create');
+        $this->dataJson['validateMessage'] = json_encode(trans('campaign.validate'));
+
+        return view('campaign.create', $this->dataJson);
     }
 
     /**
@@ -79,8 +81,11 @@ class CampaignController extends BaseController
             'lattitude',
             'longitude',
             'description',
-            'category',
+            'contribution_type',
+            'goal',
+            'unit',
         ]);
+
         $inputs['description'] = Purifier::clean($inputs['description']);
         $campaign = $this->campaignRepository->createCampaign($inputs);
 

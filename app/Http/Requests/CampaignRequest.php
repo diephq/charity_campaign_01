@@ -31,7 +31,9 @@ class CampaignRequest extends FormRequest
             'image' => ['required', 'mimes:jpg,jpeg,JPEG,png,gif', 'max:2024'],
             'address' => 'required',
             'description' => 'required',
-            'category' => 'required|campaign:category',
+            'contribution_type' => 'required',
+            'goal' => 'required',
+            'unit' => 'required',
         ];
     }
 

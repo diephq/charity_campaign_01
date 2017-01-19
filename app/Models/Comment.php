@@ -19,13 +19,6 @@ class Comment extends Model
         'text',
     ];
 
-    public $rules = [
-        'name' => 'max:255',
-        'email' => 'email|max:255',
-        'text' => 'required|max:255',
-        'campaign_id' => 'required|numeric|exists:campaigns,id',
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);

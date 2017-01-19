@@ -39,6 +39,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
     public function createCampaign($params = [])
     {
         if (empty($params)) {
+
             return false;
         }
 
@@ -58,18 +59,20 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'status' => config('constants.NOT_ACTIVE'),
             ]);
 
-            $goals = $params['category']['goal'];
-            $categories = $params['category']['name'];
-            $units = $params['category']['unit'];
+            $goals = $params['goal'];
+            $contributions = $params['contribution_type'];
+            $units = $params['unit'];
+
             $inputs = [];
             foreach ($goals as $key => $goal) {
-                foreach ($categories as $k => $category)
-                if ($key == $k && $category && $goal && isset($units[$key])) {
-                    $inputs[] = [
-                        'name' => $categories[$key],
-                        'goal' => (int) $goal,
-                        'unit' => $units[$key],
-                    ];
+                foreach ($contributions as $k => $contribution)  {
+                    if ($key == $k && $contribution && $goal && $units[$k]) {
+                        $inputs[] = [
+                            'name' => $contribution[$key],
+                            'goal' => (int) $goal,
+                            'unit' => $units[$key],
+                        ];
+                    }
                 }
             }
 

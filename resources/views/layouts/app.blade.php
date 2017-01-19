@@ -13,7 +13,6 @@
         {{ Html::style('https://cdn.datatables.net/1.10.13/css/dataTables.material.min.css') }}
         {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('bower_components/bootstrap-social/bootstrap-social.css') }}
-        {{ Html::style('css/common.css') }}
         {{ Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') }}
         {{ Html::style('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700') }}
         {{ Html::style('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}

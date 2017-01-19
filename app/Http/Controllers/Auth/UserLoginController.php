@@ -50,15 +50,18 @@ class UserLoginController extends Controller
         $user = $this->userRepository->getUserLogin($request->all());
 
         if (empty($user)) {
+
             return redirect('login')->withErrors(trans('user.not_found'));
         }
 
         if (empty($user->is_active)) {
+
             return redirect()->to('/login')->withErrors(trans('user.not_active'));
         }
 
         if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], $request->get('remember'))) {
-            return redirect('home');
+
+            return redirect('');
         }
 
         return redirect('login')->withErrors(trans('user.login_fail'));
@@ -67,6 +70,7 @@ class UserLoginController extends Controller
     public function logout()
     {
         Auth::logout();
+
         return redirect('/');
     }
 }
