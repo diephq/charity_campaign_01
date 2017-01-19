@@ -61,6 +61,7 @@ class UserController extends BaseController
         $this->dataView['countCampaign'] = $this->campaignRepository->countCampaign($id);
         $this->dataView['following'] = $this->followRepository->following($id);
         $this->dataView['followers'] = $this->followRepository->followers($id);
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)->get();
 
         return view('user.show', $this->dataView);
     }
@@ -87,6 +88,7 @@ class UserController extends BaseController
         $this->dataView['countCampaign'] = $this->campaignRepository->countCampaign($id);
         $this->dataView['following'] = $this->followRepository->following($id);
         $this->dataView['followers'] = $this->followRepository->followers($id);
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)->get();
 
         return view('user.detail', $this->dataView);
     }
@@ -143,8 +145,8 @@ class UserController extends BaseController
         }
 
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
-        // get list user's campaign
-        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id);
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)
+            ->paginate(config('constants.PAGINATE_CAMPAIGN'));;
         $this->dataView['countCampaign'] = $this->campaignRepository->countCampaign($id);
         $this->dataView['following'] = $this->followRepository->following($id);
         $this->dataView['followers'] = $this->followRepository->followers($id);
@@ -156,19 +158,20 @@ class UserController extends BaseController
     {
         try {
             $this->dataView['user'] = $this->user->findOrFail($id);
-            $this->dataView['campaign'] = Campaign::findOrFail($campaignId);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
 
+        $this->dataView['campaign'] = $this->campaignRepository->getDetail($campaignId);
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['user']->id);
-        // Get users joined
-        $this->dataView['campaignUsers'] = $this->userRepository->getUsersInCampaign($campaignId)->paginate(config('constants.PAGINATE'));
-        // get campaign's contribution
-        $this->dataView['contributions'] = $this->contributionRepository->getAllCampaignContributions($campaignId)->paginate(config('constants.PAGINATE'));
+        $this->dataView['campaignUsers'] = $this->userRepository->getUsersInCampaign($campaignId)
+            ->paginate(config('constants.PAGINATE'));
+        $this->dataView['contributions'] = $this->contributionRepository->getAllCampaignContributions($campaignId)
+            ->paginate(config('constants.PAGINATE'));
         $this->dataView['countCampaign'] = $this->campaignRepository->countCampaign($id);
         $this->dataView['following'] = $this->followRepository->following($id);
         $this->dataView['followers'] = $this->followRepository->followers($id);
+        $this->dataView['campaigns'] = $this->campaignRepository->listCampaignOfUser($id)->get();
 
         return view('user.campaign_detail', $this->dataView);
     }

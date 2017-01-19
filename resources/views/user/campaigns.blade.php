@@ -27,44 +27,47 @@
                         <h2 class="block-title-light campaign-title">{{ trans('user.your_campaign') }}</h2>
                     </div>
 
-                    <div class="block-content-full">
-                        <div class="timeline">
-
-                            <table class="table table-striped table-bordered table-hover table-responsive">
+                        <table class="table table-hover table-responsive">
+                            <tr>
+                                <th>{{ trans('campaign.index') }}</th>
+                                <th>{{ trans('campaign.name') }}</th>
+                                <th>{{ trans('campaign.address') }}</th>
+                                <th>{{ trans('campaign.start_date') }}</th>
+                                <th>{{ trans('campaign.end_date') }}</th>
+                                <th>{{ trans('campaign.status') }}</th>
+                                <th>{{ trans('campaign.action') }}</th>
+                            </tr>
+                            <tbody>
+                            @foreach ($campaigns as $key => $campaign)
                                 <tr>
-                                    <th>{{ trans('campaign.index') }}</th>
-                                    <th>{{ trans('campaign.name') }}</th>
-                                    <th>{{ trans('campaign.address') }}</th>
-                                    <th>{{ trans('campaign.start_date') }}</th>
-                                    <th>{{ trans('campaign.end_date') }}</th>
-                                    <th>{{ trans('campaign.status') }}</th>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td><a href="{{ action('UserController@manageCampaign', ['userId' => $user->id, 'campaignId' => $campaign->id]) }}">{{ $campaign->name }}</a></td>
+                                    <td>{{ $campaign->address }}</td>
+                                    <td>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</td>
+                                    <td>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</td>
+                                    <td>
+                                        @if ($campaign->status)
+                                            <span class="badge label-primary">{{ trans('campaign.active') }}</span>
+                                        @else
+                                            <span class="badge label-warning">{{ trans('campaign.close') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div data-campaign-id="{{ $campaign->id }}">
+                                            @if (!$campaign->status)
+                                                {!! Form::submit(trans('campaign.active'), ['class' => 'btn active btn-default active-campaign']) !!}
+                                            @else
+                                                {!! Form::submit(trans('campaign.close'), ['class' => 'btn active btn-default active-campaign']) !!}
+                                            @endif
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tbody>
-                                @foreach ($campaigns as $key => $campaign)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td><a href="{{ action('UserController@manageCampaign', ['userId' => $user->id, 'campaignId' => $campaign->id]) }}">{{ $campaign->name }}</a></td>
-                                        <td>{{ $campaign->address }}</td>
-                                        <td>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</td>
-                                        <td>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</td>
-                                        <td>
-                                            <div data-campaign-id="{{ $campaign->id }}">
-                                                @if (!$campaign->status)
-                                                    {!! Form::submit(trans('campaign.active'), ['class' => 'btn btn-raised btn-success active-campaign']) !!}
-                                                @else
-                                                    {!! Form::submit(trans('campaign.close'), ['class' => 'btn btn-raised btn-success active-campaign']) !!}
-                                                @endif
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
+                            @endforeach
+                            </tbody>
 
-                            </table>
-                            {{ $campaigns->links() }}
-                        </div>
+                        </table>
+                        {{ $campaigns->links() }}
                     </div>
-                </div>
                 @endif
             </div>
         </div>
