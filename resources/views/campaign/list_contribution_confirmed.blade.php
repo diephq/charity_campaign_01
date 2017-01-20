@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">{{ trans('campaign.contribute') }}</h4>
             </div>
             <div class="modal-body">
-                <table id="contribution-confirmed" class="mdl-data-table table-custome" cellspacing="0">
+                <table id="contribution-confirmed" class="mdl-data-table table table-hover table-responsive table-custome" cellspacing="0">
                     <thead>
                         <tr>
                             <th>{{ trans('campaign.contribution.index') }}</th>
@@ -21,35 +21,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($contributionConfirmed as $key => $contribution)
-                        <tr>
-                            <td scope="row"><p>{{ $key + 1 }}</p></td>
-                            @if ($contribution->user)
+                        @foreach ($contributionConfirmed as $key => $contribution)
+                            <tr>
+                                <td scope="row"><p>{{ $key + 1 }}</p></td>
+                                @if ($contribution->user)
+                                    <td>
+                                        <div class="profile_thumb">
+                                            <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                        </div>
+                                    </td>
+                                    <td><p>{{ $contribution->user->name }}</p></td>
+                                    <td><p>{{ $contribution->user->email }}</p></td>
+                                @else
+                                    <td>
+                                        <div class="profile_thumb">
+                                            <img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle">
+                                        </div>
+                                    </td>
+                                    <td><p>{{ $contribution->name }}</p></td>
+                                    <td><p>{{ $contribution->email }}</p></td>
+                                @endif
                                 <td>
-                                    <div class="profile_thumb">
-                                        <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
-                                    </div>
+                                    @foreach ($contribution->categoryContributions as $value)
+                                        <span>{{ $value->category->name }} : {{ $value->amount }}  ({{ $value->category->unit }})</span><br>
+                                    @endforeach
                                 </td>
-                                <td><p>{{ $contribution->user->name }}</p></td>
-                                <td><p>{{ $contribution->user->email }}</p></td>
-                            @else
-                                <td>
-                                    <div class="profile_thumb">
-                                        <img src="{{ config('path.to_avatar_default') }}" alt="avatar" class="img-responsive img-circle">
-                                    </div>
-                                </td>
-                                <td><p>{{ $contribution->name }}</p></td>
-                                <td><p>{{ $contribution->email }}</p></td>
-                            @endif
-                            <td>
-                                @foreach ($contribution->categoryContributions as $value)
-                                    <span>{{ $value->category->name }} : {{ $value->amount }}  ({{ $value->category->unit }})</span><br>
-                                @endforeach
-                            </td>
-                            <td><p>{{ $contribution->description }}</p></td>
-                            <td><p>{{ $contribution->created_at }}</p></td>
-                        </tr>
-                    @endforeach
+                                <td><p>{{ $contribution->description }}</p></td>
+                                <td><p>{{ $contribution->created_at }}</p></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

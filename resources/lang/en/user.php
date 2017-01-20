@@ -39,5 +39,8 @@ return [
     'followers' => 'Followers',
     'you' => 'You',
     'stars' => 'Stars',
-
+    'request_status' => [
+        'waiting' => 'Waiting',
+        'joined' => 'Joined',
+    ]
 ];

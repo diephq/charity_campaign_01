@@ -12,6 +12,7 @@ return [
     'address' => 'Location',
     'description' => 'Description',
     'status' => 'Status',
+    'action' => 'Action',
     'by' => 'By',
     'contribute' => 'Contribute',
     'create_contribute' => 'Create contribute',
@@ -112,7 +113,9 @@ return [
     'message_end_campaign' => 'There are :time before this campaign end.',
     'show_detail' => 'Show detail',
     'confirmed' => 'Confirmed',
+    'waiting' => 'Waiting',
     'unconfirmed' => 'Unconfirmed',
     'search_campaign' => 'Search Campaign',
+    'members' => 'Members',
 
 ];

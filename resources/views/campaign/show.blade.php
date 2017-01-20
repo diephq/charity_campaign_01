@@ -185,8 +185,8 @@
             </div>
 
             <div class="col-md-4 right-panel">
-                <div class="widget">
-                    <div class="widget-extra themed-background-dark">
+                <div class="block">
+                    <div class="block-title themed-background-dark">
                         <h4 class="block-title-light campaign-title">
                             <strong>{{ trans('campaign.value') }}</strong>
                         </h4>
@@ -197,27 +197,27 @@
                                 @foreach ($results as $result)
                                     <li class="media event active fix-float font-size-progress-bar">
                                         <div class="pull-left">
-                                            <span>
-                                                <strong>{{ $result['name'] }}</strong> :
-                                                <span>{{ $result['value'] . '/' . $result['goal'] }}</span>
-                                                <strong>{{ $result['unit'] }}</strong>
-                                            </span>
+                                        <span>
+                                            <strong>{{ $result['name'] }}</strong> :
+                                            <span>{{ $result['value'] . '/' . $result['goal'] }}</span>
+                                            <strong>{{ $result['unit'] }}</strong>
+                                        </span>
                                         </div>
                                     </li>
 
                                     <div class="progress">
                                         @if ($result['progress'] < 100)
                                             <div class="progress-bar progress-bar-danger progress-bar-striped  active"
-                                                role="progressbar"
-                                                aria-valuenow="{{ $result['progress'] }}"
-                                                aria-valuemin="0" aria-valuemax="100"
-                                                style="width:{{ $result['progress'] }}%">
+                                                 role="progressbar"
+                                                 aria-valuenow="{{ $result['progress'] }}"
+                                                 aria-valuemin="0" aria-valuemax="100"
+                                                 style="width:{{ $result['progress'] }}%">
                                                 <span class="show">{{ $result['progress'] }} %</span>
                                             </div>
                                         @else
                                             <div class="progress-bar progress-bar-success progress-bar-striped  active"
-                                                role="progressbar"
-                                                style="width:{{ round(100 / $result['progress'] * 100) }}%">
+                                                 role="progressbar"
+                                                 style="width:{{ round(100 / $result['progress'] * 100) }}%">
                                                 <span class="show">100%</span>
                                             </div>
                                             <div class="progress-bar progress-bar-warning progress-bar-striped  active"
@@ -231,16 +231,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="block">
+                    <div class="widget">
+                        <div class="block-title themed-background-dark">
+                            <h4 class="widget-content-light">
+                                <strong>{{ trans('campaign.list_contribution') }}</strong>
+                            </h4>
+                        </div>
 
-                <div class="widget">
-                    <div class="widget-extra themed-background-dark">
-                        <h4 class="widget-content-light">
-                            <strong>{{ trans('campaign.list_contribution') }}</strong>
-                        </h4>
-                    </div>
-
-                    <div class="widget-extra active-user">
-                            <div class="panel-heading">
+                        <div class="widget-extra active-user">
+                            <div>
                                 <ul class="nav nav-tabs border-tab">
                                     <li class="active"><a href="#confirmed" data-toggle="tab">{{ trans('campaign.confirmed') }}</a></li>
                                     <li><a href="#unconfirmed" data-toggle="tab">{{ trans('campaign.unconfirmed') }}</a></li>
@@ -328,17 +328,19 @@
                                     </div>
                                 </div>
                             </div>
-                        @if ($campaign->status)
-                        <div class="contribution">
-                            {{ Form::button(trans('campaign.contribute'), [
-                                'class' => 'btn btn-raised btn-success',
-                                'data-toggle'=>'modal',
-                                'data-target'=>'.contribute'
-                            ]) }}
+                            @if ($campaign->status)
+                                <div class="contribution">
+                                    {{ Form::button(trans('campaign.contribute'), [
+                                        'class' => 'btn btn-raised btn-success',
+                                        'data-toggle'=>'modal',
+                                        'data-target'=>'.contribute'
+                                    ]) }}
+                                </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

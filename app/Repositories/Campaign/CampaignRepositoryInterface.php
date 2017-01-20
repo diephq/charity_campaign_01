@@ -24,4 +24,8 @@ interface CampaignRepositoryInterface
     public function countCampaign($userId);
 
     public function searchCampaign($keyWords);
+
+    public function getUserCampaigns($userId);
+
+    public function getMembers($id);
 }

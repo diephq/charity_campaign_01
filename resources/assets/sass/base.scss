@@ -8,7 +8,8 @@ html {
 body {
     font-size: $mainContentSize;
     color: #333 !important;
-    font-family: 'Roboto', sans-serif, 'Helvetica', 'Arial';
+    font-family: Georgia,serif !important;
+    background: #F1F3FA;
     font-weight: 300 !important;
     font-size: 14px !important;
 }
@@ -381,5 +382,16 @@ body {
     }
     .error {
         color: red;
+    }
+    .header-section {
+        a {
+            &:hover {
+                color: #fff3e0;
+                text-decoration: none;
+            }
+          .campaign-name-custom {
+                color: #fff;
+          }
+        }
     }
 }

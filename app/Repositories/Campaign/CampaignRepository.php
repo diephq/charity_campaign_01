@@ -146,8 +146,7 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             $query->where('user_id', $userId)
                 ->where('is_owner', config('constants.OWNER'));
             })
-            ->orderBy('id', 'desc')
-            ->paginate(config('constants.PAGINATE_CAMPAIGN'));
+            ->orderBy('id', 'desc');
     }
 
     public function approveOrRemove($params = [])
@@ -247,5 +246,31 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
         }
 
         return $result;
+    }
+
+    public function getUserCampaigns($userId)
+    {
+        if (!$userId) {
+            return false;
+        }
+
+        return $this->model->with(['owner' => function ($query) use ($userId) {
+            $query->where('user_id', $userId)
+                ->where('is_owner', config('constants.OWNER'));
+            }])
+            ->where('status', config('constants.ACTIVATED'))
+            ->orderBy('id', 'desc');
+    }
+
+    public function getMembers($id)
+    {
+        if (!$id) {
+
+            return false;
+        }
+
+        return UserCampaign::where('campaign_id', $id)
+            ->with('user')
+            ->get();
     }
 }

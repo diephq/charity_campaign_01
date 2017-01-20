@@ -32,12 +32,10 @@ Follow.prototype = {
                 {
                     if (data.result.status) {
                         $(thisButton).text(_self.btnUnFollow).prepend(icon);
-                        $(thisButton).removeClass('btn-success');
-                        $(thisButton).addClass('btn-danger');
+                        $(thisButton).attr('class', 'btn btn-raised btn-success follow');
                     } else {
                         $(thisButton).text(_self.btnFollow).prepend(icon);
-                        $(thisButton).removeClass('btn-danger');
-                        $(thisButton).addClass('btn-success');
+                        $(thisButton).attr('class', 'btn active btn-default follow');
                     }
                 }
             });

@@ -82,8 +82,10 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                        <span class="title">{{ trans('campaign.campaigns') }}</span>
-                        <span class="badge">{{ $countCampaign }}</span>
+                        <a href="" data-toggle="modal" data-target="#campaigns">
+                            <span class="title">{{ trans('campaign.campaigns') }}</span>
+                            <span class="badge">{{ $countCampaign }}</span>
+                        </a>
                     </li>
                     <li class="list-group-item">
                         <a href="" data-toggle="modal" data-target="#followingUser">
@@ -129,5 +131,6 @@
 
     @include('layouts.following')
     @include('layouts.follower')
+    @include('layouts.campaigns')
 </div>
 

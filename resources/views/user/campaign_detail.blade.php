@@ -11,7 +11,11 @@
                 '{{ trans('campaign.remove') }}',
                 '{{ action('ContributionController@confirmContribution') }}',
                 '{{ trans('campaign.confirm') }}',
-                '{{ trans('campaign.message_confirm') }}'
+                '{{ trans('campaign.message_confirm') }}',
+                '{{ trans('user.request_status.joined') }}',
+                '{{ trans('user.request_status.waiting') }}',
+                '{{ trans('campaign.confirmed') }}',
+                '{{ trans('campaign.waiting') }}'
             );
             approve.init();
         });
@@ -25,19 +29,37 @@
             @include('user.profile')
 
             <div class="col-md-9 center-panel">
+                <div class="block">
+                    <div class="content-header content-header-media">
+                        <div class="header-section">
+                            <h1>
+                                <a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">
+                                    <span class="campaign-name-custom">{{ $campaign->name }}</span>
+                                </a>
+                            </h1>
+                            <span><i class="glyphicon glyphicon-map-marker"></i> {{ $campaign->address }}</span><br>
+                            <span><i class="glyphicon glyphicon-calendar"></i> {{ date('Y-m-d', strtotime($campaign->start_time))}}</span><br>
+                            <span><i class="glyphicon glyphicon-calendar"></i> {{ date('Y-m-d', strtotime($campaign->start_time)) }}</span>
+                        </div>
+
+                        <img src="{{ $campaign->image->image }}" alt="header image">
+                    </div>
+                </div>
+
                 @if ($campaignUsers->count())
                 <div class="block">
                     <div class="block-title themed-background-dark">
-                        <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.request_join') }}</strong></h2>
+                        <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.members') }}</strong></h2>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover table-responsive table-custome">
+                    <table class="table table-hover table-responsive table-custome">
                         <tr>
                             <th>{{ trans('campaign.index') }}</th>
                             <th>{{ trans('user.avatar') }}</th>
                             <th>{{ trans('user.name') }}</th>
                             <th>{{ trans('user.email') }}</th>
                             <th>{{ trans('user.status') }}</th>
+                            <th>{{ trans('campaign.action') }}</th>
                         </tr>
                         <tbody>
                         @foreach ($campaignUsers as $key => $user)
@@ -51,13 +73,20 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
+                                    @if ($user->userCampaign->status)
+                                        <span class="badge label-primary">{{ trans('user.request_status.joined') }}</span>
+                                    @else
+                                        <span class="badge label-warning">{{ trans('user.request_status.waiting') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
                                     @if (!$user->userCampaign->status)
                                         <div data-campaign-id="{{ $campaign->id }}" data-user-id="{{ $user->id }}">
-                                            {!! Form::submit(trans('campaign.approve'), ['class' => 'btn btn-raised btn-success approve']) !!}
+                                            {!! Form::submit(trans('campaign.approve'), ['class' => 'btn active btn-default approve']) !!}
                                         </div>
                                     @else
                                         <div data-campaign-id="{{ $campaign->id }}" data-user-id="{{ $user->id }}">
-                                            {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-raised btn-success approve']) !!}
+                                            {!! Form::submit(trans('campaign.remove'), ['class' => 'btn active btn-default approve']) !!}
                                         </div>
                                     @endif
                                 </td>
@@ -75,7 +104,7 @@
                         <h2 class="block-title-light campaign-title"><strong>{{ trans('campaign.contribute') }}</strong></h2>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover table-responsive">
+                    <table class="table table-hover table-responsive table-custome">
                         <tr>
                             <th>{{ trans('campaign.contribution.index') }}</th>
                             <th>{{ trans('campaign.contribution.avatar') }}</th>
@@ -84,6 +113,7 @@
                             <th>{{ trans('campaign.contribute') }}</th>
                             <th>{{ trans('campaign.contribution.description') }}</th>
                             <th>{{ trans('campaign.contribution.status') }}</th>
+                            <th>{{ trans('campaign.action') }}</th>
                         </tr>
                         <tbody>
                         @foreach ($contributions as $key => $contribution)
@@ -115,11 +145,18 @@
                                 </td>
                                 <td>{{ $contribution->description }}</td>
                                 <td>
+                                    @if ($contribution->status)
+                                        <span class="badge label-primary">{{ trans('campaign.confirmed') }}</span>
+                                    @else
+                                        <span class="badge label-warning">{{ trans('campaign.waiting') }}</span>
+                                    @endif
+                                </td>
+                                <td>
                                     <div data-contribution-id="{{ $contribution->id }}">
                                     @if (!$contribution->status)
-                                        {!! Form::submit(trans('campaign.confirm'), ['class' => 'btn btn-raised btn-success confirm']) !!}
+                                        {!! Form::submit(trans('campaign.confirm'), ['class' => 'btn active btn-default confirm']) !!}
                                     @else
-                                        {!! Form::submit(trans('campaign.remove'), ['class' => 'btn btn-raised btn-success confirm']) !!}
+                                        {!! Form::submit(trans('campaign.remove'), ['class' => 'btn active btn-default confirm']) !!}
                                     @endif
                                 </td>
                             </tr>

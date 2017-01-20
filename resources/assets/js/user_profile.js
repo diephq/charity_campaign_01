@@ -20,6 +20,7 @@ UserProfile.prototype = {
         _self.followOrUnFollowUser();
         _self.followingUserTable();
         _self.followerUserTable();
+        _self.campaignsTable();
     },
 
     ratingUser: function () {
@@ -109,5 +110,9 @@ UserProfile.prototype = {
     
     followerUserTable: function () {
         $('#tableFollower').DataTable();
+    },
+
+    campaignsTable: function () {
+        $('#tableCampaigns').DataTable();
     }
 };
