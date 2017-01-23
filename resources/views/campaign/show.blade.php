@@ -9,9 +9,8 @@
 
 @section('js')
     @parent
-    {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js') }}
+    {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js') }}/
     {{ Html::script('bower_components/bootstrap-star-rating/js/star-rating.js') }}
-    {{ Html::script('https://www.gstatic.com/charts/loader.js') }}
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
     {{ Html::script('js/contribute.js') }}

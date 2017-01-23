@@ -7,7 +7,6 @@
 
 @section('js')
     @parent
-    {{ Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js') }}
     {{ Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvCSKMKzElwzRaHpcURMmS6J4z4qGP0ZM&libraries=places') }}
     {{ Html::script('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}
     {{ Html::script('bower_components/ckeditor/ckeditor.js') }}

@@ -50,7 +50,7 @@ Approve.prototype = {
                             } else {
                                 $(thisButton).attr('value', _self.btnApprove);
                                 $(thisStatus).html(_self.waiting);
-                                $(thisStatus).attr('class', 'badge label-warning');
+                                $(thisStatus).attr('class', 'badge label-warning-custom');
                             }
                         }
                     });
@@ -88,7 +88,7 @@ Approve.prototype = {
                             } else {
                                 $(thisButton).attr('value', _self.btnConfirm);
                                 $(thisStatus).html(_self.contributeWaiting);
-                                $(thisStatus).attr('class', 'badge label-warning');
+                                $(thisStatus).attr('class', 'badge label-warning-custom');
                             }
                         }
                     });

@@ -30,10 +30,6 @@ Rating.prototype = {
         _self.ratingUser();
         _self.notifyRatingUser();
         _self.initStarUser();
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(function () {
-            _self.drawStuff(_self.options);
-        });
     },
 
     ratingCampaign: function () {
