@@ -301,6 +301,8 @@ body {
     }
     .fix-float {
         display: block;
+        position: relative;
+        z-index: 9999;
     }
     .font-size-progress-bar {
         font-size: 12px;
@@ -334,7 +336,7 @@ body {
         width: 100%;
     }
     .list-group-item {
-        background: #fff;
+        background: #f3f3f3;
         z-index: 100;
     }
     .search-campaign-img {
@@ -393,5 +395,18 @@ body {
                 color: #fff;
           }
         }
+    }
+    .table {
+        thead {
+            tr {
+                th {
+                    padding-top: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .label-warning-custom {
+        color: #2b2928;
     }
 }

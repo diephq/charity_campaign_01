@@ -27,7 +27,7 @@
                                 @if ($campaign->status)
                                     <span class="badge label-primary">{{ trans('campaign.active') }}</span>
                                 @else
-                                    <span class="badge label-warning">{{ trans('campaign.close') }}</span>
+                                    <span class="badge label-warning-custom">{{ trans('campaign.close') }}</span>
                                 @endif
                             </td>
                             <td><span>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</span></td>

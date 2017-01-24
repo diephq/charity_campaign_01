@@ -51,4 +51,15 @@ class Contribution extends Model
             ->with('owner.user')
             ->find($id);
     }
+
+    public function contribution($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        return CategoryContribution::where('contribution_id', $id)
+            ->with('category', 'contribution')
+            ->get();
+    }
 }

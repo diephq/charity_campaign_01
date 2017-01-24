@@ -76,7 +76,7 @@
                                     @if ($user->userCampaign->status)
                                         <span class="badge label-primary">{{ trans('user.request_status.joined') }}</span>
                                     @else
-                                        <span class="badge label-warning">{{ trans('user.request_status.waiting') }}</span>
+                                        <span class="badge label-warning-custom">{{ trans('user.request_status.waiting') }}</span>
                                         @endif
                                     </td>
                                     <td>
@@ -148,7 +148,7 @@
                                     @if ($contribution->status)
                                         <span class="badge label-primary">{{ trans('campaign.confirmed') }}</span>
                                     @else
-                                        <span class="badge label-warning">{{ trans('campaign.waiting') }}</span>
+                                        <span class="badge label-warning-custom">{{ trans('campaign.waiting') }}</span>
                                     @endif
                                 </td>
                                 <td>

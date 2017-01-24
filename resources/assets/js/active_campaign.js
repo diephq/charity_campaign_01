@@ -39,7 +39,7 @@ Active.prototype = {
                             } else {
                                 $(thisButton).attr('value', _self.btnActive);
                                 $(thisStatus).html(_self.btnClose);
-                                $(thisStatus).attr('class', 'badge label-warning');
+                                $(thisStatus).attr('class', 'badge label-warning-custom');
                             }
                         }
                     });
