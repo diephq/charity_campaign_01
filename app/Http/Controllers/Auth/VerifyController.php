@@ -27,7 +27,7 @@ class VerifyController extends Controller
         $this->userRepository->verifyUser($user->id);
 
         if (!Auth::login($user)) {
-            return redirect('/home');
+            return redirect('/');
         } else {
             return redirect()->to(url('/'))->withMessage(trans('user.register.error'));
         }

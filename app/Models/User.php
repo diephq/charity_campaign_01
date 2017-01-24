@@ -69,18 +69,6 @@ class User extends Authenticatable
         ];
     }
 
-
-    /**
-     * Set the user's password.
-     *
-     * @param  string  $password
-     * @return void
-     */
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
     public function getAvatarAttribute($value)
     {
         if (empty($value)) {

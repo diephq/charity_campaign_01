@@ -160,7 +160,7 @@
                                                     <li class="">
                                                         @if (auth()->id() != $user->id)
                                                             @if (Auth::guest())
-                                                                <a class="btn btn-raised btn-success"
+                                                                <a class="btn active btn-default"
                                                                    href="{{ url('/login') }}"><i class="fa fa-users"></i> Follow</a>
                                                             @else
                                                                 <div data-user-id="{{ $user->id }}">
