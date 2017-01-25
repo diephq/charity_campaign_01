@@ -9,12 +9,12 @@
 
 @section('js')
     @parent
-    {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js') }}/
+    {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js') }}
     {{ Html::script('bower_components/bootstrap-star-rating/js/star-rating.js') }}
     {{ Html::script('js/comment.js') }}
     {{ Html::script('js/rating.js') }}
     {{ Html::script('js/contribute.js') }}
-    {{ Html::script('http://maps.google.com/maps/api/js?sensor=true') }}
+    {{ Html::script('http://maps.google.com/maps/api/js?key=AIzaSyDluWcImjhXgQDLQcDvGi3Glu1TOYG6oew') }}
     {{ Html::script('js/helpers/gmaps.min.js') }}
 
     <script type="text/javascript">

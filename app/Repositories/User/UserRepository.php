@@ -39,7 +39,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $params = [
             'name' => $data['name'],
             'email' => $email,
-            'password' => $data['password'],
+            'password' => bcrypt($data['password']),
         ];
 
         $user = $this->model->create($params);

@@ -302,7 +302,6 @@ body {
     .fix-float {
         display: block;
         position: relative;
-        z-index: 9999;
     }
     .font-size-progress-bar {
         font-size: 12px;
@@ -409,4 +408,5 @@ body {
     .label-warning-custom {
         color: #2b2928;
     }
+
 }

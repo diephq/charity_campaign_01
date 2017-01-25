@@ -43,16 +43,16 @@
                         <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="col-md-4">
-                                    {{ $category->name }}
+                                    <span>{{ $category->name }}</span>
                                 </div>
                                 <div class="col-md-8 category">
                                     <div class="input-group">
-                                        <div class="col-md-10">
-                                            {!! Form::number('amount[' . $category->id . ']', '0', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 0]) !!}
+                                        <div class="col-md-8">
+                                            {!! Form::number('amount[' . $category->id . ']', '', ['class' => 'form-control', 'placeholder' => trans('campaign.amount'), 'min' => 0]) !!}
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <label for="name" class="pull-right control-label">{{ $category->unit }}</label>
+                                        <div class="col-md-4">
+                                            <p class="pull-right"><span>{{ $category->unit }}</span></p>
                                         </div>
 
                                         @if ($errors->has('amount'))
