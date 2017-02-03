@@ -62,9 +62,8 @@
 
                                             <div class="row push">
                                                 <div class="col-sm-6 col-md-6">
-                                                    <div class="col-sm-6 col-md-6">
-                                                        <a href="{{ $campaign->owner->user->avatar }}"
-                                                           data-toggle="lightbox-image" class="profile_thumb">
+                                                    <div class="col-sm-6 col-md-6 profile_thumb">
+                                                        <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}">
                                                             <img src="{{ $campaign->owner->user->avatar }}"
                                                                  class="img-responsive img-circle" alt="image">
                                                         </a>
@@ -80,7 +79,7 @@
                                             <small>{{ trans('campaign.address') }}</small>
                                         </div>
                                         <div class="timeline-content">
-                                            <p class="push-bit"><a href="#"><strong>{{{ $campaign->address }}}</strong></a>
+                                            <p class="push-bit"><strong>{{{ $campaign->address }}}</strong>
                                             </p>
                                         </div>
                                     </li>
@@ -108,12 +107,6 @@
                                            data-original-title="Comments">
                                             <i class="gi gi-comments"></i>
                                             <span>{{ $campaign->countComment($campaign->id) }}</span>
-                                        </a>
-                                    </div>
-                                    <div class="timeline-controls-item">
-                                        <a href="javascript:void(0)" class="facebook" data-toggle="tooltip" title=""
-                                           data-original-title="Share facebook">
-                                            <i class="fa fa-facebook-square"></i>
                                         </a>
                                     </div>
                                 </div>

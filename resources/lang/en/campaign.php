@@ -117,5 +117,7 @@ return [
     'unconfirmed' => 'Unconfirmed',
     'search_campaign' => 'Search Campaign',
     'members' => 'Members',
-
+    'contributor' => 'Contributor',
+    'progress' => 'Progress',
+    'activities' => 'Activities',
 ];

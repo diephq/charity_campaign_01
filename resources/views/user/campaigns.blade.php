@@ -27,7 +27,7 @@
                         <h2 class="block-title-light campaign-title">{{ trans('user.your_campaign') }}</h2>
                     </div>
 
-                        <table class="table table-hover table-responsive">
+                        <table class="table table-hover table-responsive table-custome">
                             <tr>
                                 <th>{{ trans('campaign.index') }}</th>
                                 <th>{{ trans('campaign.name') }}</th>

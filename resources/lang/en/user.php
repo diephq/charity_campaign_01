@@ -42,5 +42,7 @@ return [
     'request_status' => [
         'waiting' => 'Waiting',
         'joined' => 'Joined',
-    ]
+    ],
+    'please_verify_email' => 'Please verify email before login',
+    'home' => 'Home',
 ];

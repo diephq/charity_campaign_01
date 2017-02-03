@@ -28,7 +28,7 @@
     </script>
 @stop
 
-<div class="col-md-3 left-panel">
+<div class="col col-md-3 left-panel">
     <div class="widget user-info">
         <div class="widget-extra themed-background-dark">
             <h3 class="widget-content-light">
@@ -58,9 +58,9 @@
                             <div class="profile-userbuttons">
                                 <div data-user-id="{{ $user->id }}">
                                     @if ($follow && $follow->status)
-                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-danger' , 'id' => 'follow']) !!}
+                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.un_follow'), ['class' => 'btn btn-raised btn-success' , 'id' => 'follow']) !!}
                                     @else
-                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.follow'), ['class' => 'btn btn-raised btn-success', 'id' => 'follow']) !!}
+                                        {!! Form::button('<i class="fa fa-users"></i>' . trans('user.follow'), ['class' => 'btn btn-raised btn-default', 'id' => 'follow']) !!}
                                     @endif
                                 </div>
                             </div>

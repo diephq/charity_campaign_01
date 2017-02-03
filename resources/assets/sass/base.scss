@@ -37,6 +37,13 @@ body {
     #page-container {
 
     }
+
+    @media (max-width: 768px) {
+        #main-container {
+            margin: 0 !important;
+        }
+    }
+
     #main-container {
         margin: 0 $pageMarginLeft;
         
@@ -302,6 +309,7 @@ body {
     .fix-float {
         display: block;
         position: relative;
+        z-index: 9999;
     }
     .font-size-progress-bar {
         font-size: 12px;
@@ -334,9 +342,8 @@ body {
     .twitter-typeahead {
         width: 100%;
     }
-    .list-group-item {
-        background: #f3f3f3;
-        z-index: 100;
+    .custom-li-hover {
+        background: #d6d4d4;
     }
     .search-campaign-img {
         float: left;
@@ -409,4 +416,66 @@ body {
         color: #2b2928;
     }
 
+    .push-bit {
+      margin-bottom: 6px !important;
+    }
+    .push {
+        margin-bottom: 3px !important;
+    }
+    .contributor {
+        overflow: auto;
+    }
+    #note {
+        margin: 0 $pageMarginLeft;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        right: 0;
+        opacity: 0.9;
+        font-weight: bold;
+        border-radius: 0;
+        display: block;
+        transform: translateY(-54px);
+        animation: slideDown 5s 1s 1 ease;
+        -webkit-transform: translateY(-54px);
+        -webkit-animation: slideDown 5s 1s 1 ease;
+        -moz-transform:    translateY(-54px);
+        -moz-animation:    slideDown 5s 1s 1 ease ;
+    }
+
+    @keyframes slideDown {
+        0%, 100% { transform: translateY(-54px); }
+        10%, 90% { transform: translateY(0px); }
+    }
+
+    @-webkit-keyframes slideDown {
+        0%, 100% { -webkit-transform: translateY(-54px); }
+        10%, 90% { -webkit-transform: translateY(0px); }
+    }
+    @-moz-keyframes slideDown {
+        0%, 100% { -moz-transform: translateY(-54px); }
+        10%, 90% { -moz-transform: translateY(0px); }
+    }
+
+    .footer {
+        background: #000;
+        color: #fff;
+        width: 100%;
+
+        .footer-left img {
+            width: 30px;
+            height: 30px;
+        }
+
+        p {
+            float: left;
+        }
+    }
+    .fa-exclamation-triangle {
+        color: red;
+    }
 }
+.modal-content {
+    margin-top: 70px;
+}
+

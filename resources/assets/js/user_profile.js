@@ -92,12 +92,12 @@ UserProfile.prototype = {
                 {
                     if (data.result.status) {
                         $("#follow").text(_self.btnUnFollow).prepend(icon);
-                        $("#follow").removeClass('btn-success');
-                        $("#follow").addClass('btn-danger');
+                        $("#follow").removeClass('btn-default');
+                        $("#follow").addClass('btn-success');
                     } else {
                         $("#follow").text(_self.btnFollow).prepend(icon);
-                        $("#follow").removeClass('btn-danger');
-                        $("#follow").addClass('btn-success');
+                        $("#follow").removeClass('btn-success');
+                        $("#follow").addClass('btn-default');
                     }
                 }
             });
