@@ -15,7 +15,7 @@
                     <img src="{{ Auth()->user()->avatar }}" alt="avatar"> <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                    <li><a href="{{ action('UserController@show', ['id' => Auth::user()->id]) }}" ><span class="glyphicon glyphicon-user"></span> {{ trans('user.your_profile') }}</a></li>
+                    <li><a href="{{ action('UserController@show', ['id' => Auth::user()->id]) }}" ><span class="glyphicon glyphicon-user"></span> {{ trans('user.home') }}</a></li>
                     <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> {{ trans('message.logout') }}</a></li>
                 </ul>
             </li>

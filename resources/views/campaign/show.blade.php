@@ -112,9 +112,8 @@
                                             <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}"><strong>{{ $campaign->owner->user->name }}</strong></a>
                                         </p>
                                         <div class="row push">
-                                            <div class="col-sm-6 col-md-6">
-                                                <a href="{{ $campaign->owner->user->avatar }}"
-                                                   data-toggle="lightbox-image" class="profile_thumb">
+                                            <div class="col-sm-6 col-md-6 profile_thumb">
+                                                <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}">
                                                     <img src="{{ $campaign->owner->user->avatar }}"
                                                          class="img-responsive img-circle" alt="image">
                                                 </a>
@@ -146,7 +145,7 @@
                                         <small>{{ trans('campaign.address') }}</small>
                                     </div>
                                     <div class="timeline-content">
-                                        <p class="push-bit"><a href="#"><strong>{{{ $campaign->address }}}</strong></a>
+                                        <p class="push-bit"><strong>{{{ $campaign->address }}}</strong>
                                         </p>
                                         <div id="gmap-timeline-ID" class="gmap gmap-timeline"
                                              data-lat="{{ $campaign->lat }}" data-lng="{{ $campaign->lng }}"
@@ -183,11 +182,15 @@
                 </div>
             </div>
 
+            @include('campaign.create_contribution')
+            @include('campaign.list_contribution_confirmed')
+            @include('campaign.list_contribution_unconfirmed')
+
             <div class="col-md-4 right-panel">
                 <div class="block">
                     <div class="block-title themed-background-dark">
                         <h4 class="block-title-light campaign-title">
-                            <strong>{{ trans('campaign.value') }}</strong>
+                            <strong>{{ trans('campaign.progress') }}</strong>
                         </h4>
                     </div>
                     <div class="widget-extra">
@@ -230,11 +233,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="block">
+                <div class="block contributor">
                     <div class="widget">
                         <div class="block-title themed-background-dark">
                             <h4 class="widget-content-light">
-                                <strong>{{ trans('campaign.list_contribution') }}</strong>
+                                <strong>{{ trans('campaign.contributor') }}</strong>
                             </h4>
                         </div>
 
@@ -328,7 +331,7 @@
                                 </div>
                             </div>
                             @if ($campaign->status)
-                                <div class="contribution">
+                                <div class="contribution pull-right">
                                     {{ Form::button(trans('campaign.contribute'), [
                                         'class' => 'btn btn-raised btn-success',
                                         'data-toggle'=>'modal',
@@ -339,12 +342,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
-    @include('campaign.create_contribution')
-    @include('campaign.list_contribution_confirmed')
-    @include('campaign.list_contribution_unconfirmed')
-@stop
+@endsection

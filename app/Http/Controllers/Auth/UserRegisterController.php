@@ -47,7 +47,8 @@ class UserRegisterController extends Controller
             return redirect('/register')->withErrors(['error'=> trans('user.register.error')]);
         }
 
-        return redirect('/login');
+        return redirect('/login')
+            ->with(['alert-success' => trans('user.please_verify_email')]);
 
     }
 

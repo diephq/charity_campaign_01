@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">{{ trans('user.following') }}</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ trans('campaign.campaigns') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,9 +13,9 @@
                     <tr>
                         <th>{{ trans('campaign.name') }}</th>
                         <th>{{ trans('campaign.address') }}</th>
-                        <th>{{ trans('campaign.status') }}</th>
                         <th>{{ trans('campaign.start_date') }}</th>
                         <th>{{ trans('campaign.end_date') }}</th>
+                        <th>{{ trans('campaign.status') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,6 +23,8 @@
                         <tr>
                             <td><a href="{{ action('CampaignController@show', ['id' => $campaign->id]) }}">{{ $campaign->name }}</a></td>
                             <td>{{ $campaign->address }}</td>
+                            <td><span>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</span></td>
+                            <td><span>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</span></td>
                             <td>
                                 @if ($campaign->status)
                                     <span class="badge label-primary">{{ trans('campaign.active') }}</span>
@@ -30,8 +32,6 @@
                                     <span class="badge label-warning-custom">{{ trans('campaign.close') }}</span>
                                 @endif
                             </td>
-                            <td><span>{{{ date('Y-m-d', strtotime($campaign->start_time)) }}}</span></td>
-                            <td><span>{{{ date('Y-m-d', strtotime($campaign->end_time)) }}}</span></td>
                         </tr>
                     @endforeach
                     </tbody>

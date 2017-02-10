@@ -22,6 +22,9 @@
 <div id="page-wrapper">
     <div id="page-container">
         <div id="main-container">
+
+            @include('layouts.alert')
+
             @yield('content')
         </div>
     </div>
