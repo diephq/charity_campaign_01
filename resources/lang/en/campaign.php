@@ -120,4 +120,6 @@ return [
     'contributor' => 'Contributor',
     'progress' => 'Progress',
     'activities' => 'Activities',
+    'users' => 'users',
+
 ];

@@ -30,6 +30,8 @@ Rating.prototype = {
         _self.ratingUser();
         _self.notifyRatingUser();
         _self.initStarUser();
+        _self.userRatingTable();
+        _self.memberTable();
     },
 
     ratingCampaign: function () {
@@ -170,5 +172,13 @@ Rating.prototype = {
         };
         var chart = new google.visualization.BarChart(document.getElementById("top_x_div"));
         chart.draw(view, options);
+    },
+
+    userRatingTable: function () {
+        $('#tableUserRating').DataTable();
+    },
+
+    memberTable: function () {
+        $('#tableMember').DataTable();
     }
 };

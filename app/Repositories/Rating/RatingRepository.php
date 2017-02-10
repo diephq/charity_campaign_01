@@ -198,4 +198,16 @@ class RatingRepository extends BaseRepository implements RatingRepositoryInterfa
 
         return User::find($userId)->update(['star' => $data]);
     }
+
+    public function listUserRating($userId)
+    {
+        if (empty($userId)) {
+            return [];
+        }
+
+        return $this->model->where('target_id', $userId)
+            ->with('user')
+            ->get();
+    }
+
 }

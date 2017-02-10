@@ -45,4 +45,6 @@ return [
     ],
     'please_verify_email' => 'Please verify email before login',
     'home' => 'Home',
+    'users' => 'Users',
+
 ];

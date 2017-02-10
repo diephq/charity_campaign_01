@@ -17,4 +17,9 @@ class Rating extends Model
         'target_id',
         'target_type',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

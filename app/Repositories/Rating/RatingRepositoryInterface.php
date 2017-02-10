@@ -14,4 +14,6 @@ interface RatingRepositoryInterface
     public function ratingUser($params = []);
 
     public function averageRatingUser($targetId);
+
+    public function listUserRating($userId);
 }
