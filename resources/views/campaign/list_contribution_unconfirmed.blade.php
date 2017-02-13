@@ -27,10 +27,18 @@
                                 @if ($contribution->user)
                                     <td>
                                         <div class="profile_thumb">
-                                            <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                            <a href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                                <img src="{{ $contribution->user->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                            </a>
                                         </div>
                                     </td>
-                                    <td><p>{{ $contribution->user->name }}</p></td>
+                                    <td>
+                                        <div class="profile_thumb">
+                                            <a href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                                <p>{{ $contribution->user->name }}</p>
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td><p>{{ $contribution->user->email }}</p></td>
                                 @else
                                     <td>

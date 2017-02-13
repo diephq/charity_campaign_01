@@ -128,6 +128,7 @@ class CampaignController extends BaseController
         $this->dataView['averageRankingUser'] = $this->ratingRepository->averageRatingUser($this->dataView['campaign']->owner->user_id);
         $this->dataView['contributionConfirmed'] = $this->contributionRepository->getUserContributionConfirmed($id);
         $this->dataView['contributionUnConfirmed'] = $this->contributionRepository->getUserContributionUnConfirmed($id);
+        $this->dataView['userRatings'] = $this->ratingRepository->listUserRating($this->dataView['campaign']->owner->user_id);
 
         return view('campaign.show', $this->dataView);
     }

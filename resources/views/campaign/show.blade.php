@@ -63,25 +63,6 @@
                 <div class="block">
                     <div class="block-title themed-background-dark">
                         <h2 class="block-title-light campaign-title"><strong>{{{ $campaign->name }}}</strong></h2>
-                        <div class="pull-right request-join">
-                            @if ($campaign->status)
-                                @if (Auth::user())
-                                    {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
-                                    {!! Form::hidden('campaign_id', $campaign->id) !!}
-                                    @if (empty($userCampaign))
-                                        {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
-                                    @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
-                                        {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
-                                    @elseif ($userCampaign->status && empty($userCampaign->is_owner))
-                                        {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
-                                    @endif
-                                    {!! Form::close() !!}
-                                @else
-                                    <a href="{{ action('Auth\UserLoginController@getLogin') }}"
-                                       class="btn btn-raised btn-success join">{{ trans('campaign.request_join') }}</a>
-                                @endif
-                            @endif
-                        </div>
                     </div>
                     <div class="block-content-full">
                         <div class="timeline">
@@ -134,6 +115,7 @@
                                                 <div class="reviews-stats"> {{ trans('campaign.total') }}
                                                     <span class="glyphicon glyphicon-user"></span>
                                                     <span class="reviews-num-user">{{ $averageRankingUser['amount'] }}</span>
+                                                    <a href=".list-user-rating" data-toggle="modal" data-target=".list-user-rating">{{ trans('campaign.users') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,6 +132,17 @@
                                         <div id="gmap-timeline-ID" class="gmap gmap-timeline"
                                              data-lat="{{ $campaign->lat }}" data-lng="{{ $campaign->lng }}"
                                              data-address="{{ $campaign->address }}"></div>
+                                    </div>
+                                </li>
+                                <li class="active">
+                                    <div class="timeline-icon"><i class="fa fa-user"></i></div>
+                                    <div class="timeline-time">
+                                        <small>{{ trans('campaign.members') }}</small>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <p class="push-bit">
+                                            <a href=".list-members" data-toggle="modal" data-target=".list-members">{{ trans('campaign.members') }}</a>
+                                        </p>
                                     </div>
                                 </li>
                                 <li class="active">
@@ -185,6 +178,8 @@
             @include('campaign.create_contribution')
             @include('campaign.list_contribution_confirmed')
             @include('campaign.list_contribution_unconfirmed')
+            @include('layouts.members')
+            @include('layouts.user_rating')
 
             <div class="col-md-4 right-panel">
                 <div class="block">
@@ -233,6 +228,38 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="block">
+                    <div class="block-title themed-background-dark">
+                        <h4 class="block-title-light campaign-title">
+                            <strong>{{ trans('campaign.action') }}</strong>
+                        </h4>
+                    </div>
+                    <div class="widget-extra">
+                        <div class="timeline">
+                            <div class="request-join">
+                                @if ($campaign->status)
+                                    @if (Auth::user())
+                                        {!! Form::open(['method' => 'POST', 'id' => 'formRequest']) !!}
+                                        {!! Form::hidden('campaign_id', $campaign->id) !!}
+                                        @if (empty($userCampaign))
+                                            {!! Form::submit(trans('campaign.request_join'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                        @elseif (empty($userCampaign->status) && empty($userCampaign->is_owner))
+                                            {!! Form::submit(trans('campaign.request_sent'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                        @elseif ($userCampaign->status && empty($userCampaign->is_owner))
+                                            {!! Form::submit(trans('campaign.leave_campaign'), ['class' => 'btn btn-raised btn-success joinOrLeave']) !!}
+                                        @endif
+                                        {!! Form::close() !!}
+                                    @else
+                                        <a href="{{ action('Auth\UserLoginController@getLogin') }}"
+                                           class="btn btn-raised btn-success join">{{ trans('campaign.request_join') }}</a>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="block contributor">
                     <div class="widget">
                         <div class="block-title themed-background-dark">

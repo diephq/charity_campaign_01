@@ -266,10 +266,11 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
     {
         if (!$id) {
 
-            return false;
+            return [];
         }
 
         return UserCampaign::where('campaign_id', $id)
+            ->where('is_owner', config('constants.NOT_OWNER'))
             ->with('user')
             ->get();
     }

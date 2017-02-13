@@ -23,11 +23,15 @@
                             <td scope="row">{{ $key + 1 }}</td>
                             <td>
                                 <div class="profile_thumb">
-                                    <img src="{{ $value->following->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                    <a href="{{ action('UserController@show', ['id' => $value->following->id]) }}">
+                                        <img src="{{ $value->following->avatar }}" alt="avatar" class="img-responsive img-circle">
+                                    </a>
                                 </div>
                             </td>
                             <td>
-                                <p>{{ $value->following->name }}</p>
+                                <a href="{{ action('UserController@show', ['id' => $value->following->id]) }}">
+                                    <p>{{ $value->following->name }}</p>
+                                </a>
                             </td>
                             <td>
                                 <p>{{ $value->following->email }}</p>
