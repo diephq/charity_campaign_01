@@ -21,6 +21,8 @@ use App\Repositories\Follow\FollowRepository;
 use App\Repositories\Follow\FollowRepositoryInterface;
 use App\Repositories\Action\ActionRepository;
 use App\Repositories\Action\ActionRepositoryInterface;
+use App\Repositories\Message\MessageRepository;
+use App\Repositories\Message\MessageRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,5 +52,6 @@ class AppServiceProvider extends ServiceProvider
         App::bind(RatingRepositoryInterface::class, RatingRepository::class);
         App::bind(FollowRepositoryInterface::class, FollowRepository::class);
         App::bind(ActionRepositoryInterface::class, ActionRepository::class);
+        App::bind(MessageRepositoryInterface::class, MessageRepository::class);
     }
 }
