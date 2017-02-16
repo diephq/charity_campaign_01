@@ -67,14 +67,14 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>
                                     <div class="profile_thumb">
-                                        <a href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                        <a href="{{ action('UserController@show', ['id' => $user->id]) }}">
                                             <img src="{{ $user->avatar }}" alt="avatar" class="img-responsive img-circle">
                                         </a>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="profile_thumb">
-                                        <a href="{{ action('UserController@show', ['id' => $contribution->user->id]) }}">
+                                        <a href="{{ action('UserController@show', ['id' => $user->id]) }}">
                                             <p>{{ $user->name }}</p>
                                         </a>
                                     </div>

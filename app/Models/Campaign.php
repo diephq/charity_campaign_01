@@ -109,4 +109,9 @@ class Campaign extends Model
             ->with('owner.user')
             ->find($id);
     }
+
+    public function group()
+    {
+        return $this->hasOne(Group::class);
+    }
 }
