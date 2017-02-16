@@ -15,5 +15,6 @@ elixir(function (mix) {
         'resources/assets/css/plugins.css',
         'resources/assets/css/main.css',
         'resources/assets/css/themes.css',
+        'resources/assets/css/chat.css'
     ], 'public/css/templates.css');
 });

@@ -16,6 +16,7 @@
     {{ Html::script('js/contribute.js') }}
     {{ Html::script('http://maps.google.com/maps/api/js?key=AIzaSyDluWcImjhXgQDLQcDvGi3Glu1TOYG6oew') }}
     {{ Html::script('js/helpers/gmaps.min.js') }}
+    {{ Html::script('js/chat.js') }}
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -367,9 +368,12 @@
                                 </div>
                             @endif
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('layouts.chat')
 @endsection
+

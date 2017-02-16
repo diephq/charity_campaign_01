@@ -18,10 +18,12 @@
         {{ Html::style('css/app.css') }}
         {{ Html::style('bower_components/bootstrap-material-design/dist/bootstrap-material-design.css') }}
         {{ Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') }}
+        {{ Html::style('css/chat.css') }}
     @show
 
 </head>
 <body>
+
     <div id="page-wrapper">
         <div id="page-container">
             <div id="main-container">

@@ -1,6 +1,9 @@
 <?php
 namespace App\Repositories\Campaign;
 
+use App\Models\Group;
+use App\Models\GroupMember;
+use App\Models\Message;
 use Auth;
 use Input;
 use App\Models\Campaign;
@@ -10,6 +13,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
 use DB;
 use Illuminate\Container\Container;
+use \Carbon\Carbon;
 
 class CampaignRepository extends BaseRepository implements CampaignRepositoryInterface
 {
@@ -88,6 +92,16 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
                 'status' => config('constants.ACTIVATED'),
             ]);
 
+            $group = $campaign->group()->create([
+                'name' => $params['name'],
+            ]);
+
+            GroupMember::create([
+                'user_id' => auth()->id(),
+                'group_id' => $group->id,
+                'latest' => Carbon::now(),
+            ]);
+
             $campaign->save();
 
             DB::commit();
@@ -120,11 +134,36 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return false;
         }
 
-        if ($userCampaign = $this->checkUserCampaign($params)) {
-            return $userCampaign->delete();
-        }
+        // get group chat
+        $group = Group::where('campaign_id', $params['campaign_id'])->first();
 
-        return UserCampaign::create($params);
+        DB::beginTransaction();
+        try {
+            if ($userCampaign = $this->checkUserCampaign($params)) {
+
+                // remove group chat
+                $member = GroupMember::where([
+                    'user_id' => $userCampaign->user_id,
+                    'group_id' => $group->id,
+                ])->first();
+
+                $member->delete();
+                $userCampaign->delete();
+                DB::commit();
+
+                return true;
+            }
+
+            $userCampaign = UserCampaign::create($params);
+
+            DB::commit();
+
+            return $userCampaign;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return false;
+        }
     }
 
     public function checkUserCampaign($params = [])
@@ -161,18 +200,49 @@ class CampaignRepository extends BaseRepository implements CampaignRepositoryInt
             return false;
         }
 
-        if (!$userCampaign->status) {
-            // approve
-            $userCampaign->status = config('constants.ACTIVATED');
+        DB::beginTransaction();
+        try {
+            if (!$userCampaign->status) {
+                // approve
+                $userCampaign->status = config('constants.ACTIVATED');
+                $userCampaign->save();
+
+                // get group chat
+                $group = Group::where('campaign_id', $userCampaign->campaign_id)->first();
+
+                // add group chat
+                GroupMember::create([
+                    'user_id' => $userCampaign->user_id,
+                    'group_id' => $group->id,
+                    'latest' => Carbon::now(),
+                ]);
+
+                DB::commit();
+
+                return $userCampaign;
+            }
+
+            // get group chat
+            $group = Group::where('campaign_id', $userCampaign->campaign_id)->first();
+
+            // remove group chat
+            $member = GroupMember::where([
+                'user_id' => $userCampaign->user_id,
+                'group_id' => $group->id,
+            ])->first();
+
+            $member->delete();
+
+            $userCampaign->status = config('constants.NOT_ACTIVE');
             $userCampaign->save();
+            DB::commit();
 
             return $userCampaign;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return false;
         }
-
-        $userCampaign->status = config('constants.NOT_ACTIVE');
-        $userCampaign->save();
-
-        return $userCampaign;
     }
 
     public function activeOrCloseCampaign($params = [])

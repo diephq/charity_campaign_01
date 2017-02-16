@@ -17,6 +17,9 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "es6-promise": "^4.0.5"
+    "es6-promise": "^4.0.5",
+    "express": "^4.14.1",
+    "redis": "^2.6.5",
+    "socket.io": "^1.7.2"
   }
 }
