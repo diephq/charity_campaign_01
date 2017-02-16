@@ -10,13 +10,13 @@
                     {{ trans('message.company.name') }} <br>{{ trans('message.reserved') }}
                 </p>
                 <p>
-                    <a href="https://www.facebook.com/FramgiaVietnam" target="_blank" class="btn btn-primary">
+                    <a href="https://www.facebook.com/FramgiaVietnam" target="_blank" class="btn btn-raised btn-primary">
                         <span><i class="fa fa-facebook" aria-hidden="true"></i></span>
                     </a>
-                    <a href="https://github.com/framgia" target="_blank" class="btn btn-warning">
+                    <a href="https://github.com/framgia" target="_blank" class="btn btn-raised btn-warning">
                         <span><i class="fa fa-github" aria-hidden="true"></i></span>
                     </a>
-                    <a href="https://www.linkedin.com/company/framgia-vietnam" target="_blank" class="btn btn-success">
+                    <a href="https://www.linkedin.com/company/framgia-vietnam" target="_blank" class="btn btn-raised btn-success">
                         <span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
                     </a>
                 </p>
