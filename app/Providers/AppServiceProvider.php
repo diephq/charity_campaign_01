@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App;
+use Session;
+use Illuminate\Support\ServiceProvider;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Campaign\CampaignRepositoryInterface;
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Session::put('locale', 'vi');
+
         Validator::extendImplicit('campaign', 'App\Validation\CampaignValidate@campaign');
         Validator::extendImplicit('amount', 'App\Validation\ContributionValidate@amount');
     }

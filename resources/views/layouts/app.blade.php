@@ -19,6 +19,8 @@
         {{ Html::style('bower_components/bootstrap-material-design/dist/bootstrap-material-design.css') }}
         {{ Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') }}
         {{ Html::style('css/chat.css') }}
+        {!! Html::style('bower_components/ms-Dropdown/css/msdropdown/dd.css') !!}
+        {!! Html::style('bower_components/ms-Dropdown/css/msdropdown/flags.css') !!}
     @show
 
 </head>
@@ -50,6 +52,10 @@
         {{ Html::script('https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js') }}
         {{ Html::script('bower_components/typeahead.js/dist/typeahead.bundle.min.js') }}
         {{ Html::script('js/search.js') }}
+
+        <!-- DROPDOWN: multiple language -->
+        {!! Html::script('bower_components/ms-Dropdown/js/msdropdown/jquery.dd.min.js') !!}
+        {{ Html::script('js/multiple_language.js') }}
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
