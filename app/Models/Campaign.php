@@ -103,6 +103,11 @@ class Campaign extends Model
         return Comment::where('campaign_id', $id)->count();
     }
 
+    public function group()
+    {
+        return $this->hasOne(Group::class);
+    }
+
     public function campaign($id)
     {
         return Campaign::with('image')
@@ -110,8 +115,8 @@ class Campaign extends Model
             ->find($id);
     }
 
-    public function group()
+    public function checkMemberOfCampaignByUserId($userId)
     {
-        return $this->hasOne(Group::class);
+        return $this->userCampaigns->pluck('id', 'user_id')->has($userId);
     }
 }

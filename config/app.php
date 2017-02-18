@@ -124,6 +124,11 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    'key_program' => [
+        'socket_host' => env('SOCKET_HOST', 'http://localhost'),
+        'socket_port' => env('SOCKET_PORT', '8890'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -217,7 +222,6 @@ return [
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,
