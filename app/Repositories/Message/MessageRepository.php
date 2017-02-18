@@ -13,4 +13,21 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
     {
         return Message::class;
     }
+
+    public function createMessage($inputs)
+    {
+        if (empty($inputs)) {
+            return false;
+        }
+
+        $fillable = $this->model->getFillable();
+        $inputs = array_only($inputs, $fillable);
+
+        return $this->model->create($inputs);
+    }
+
+    public function getMessagesByGroupId($groupId)
+    {
+        return $this->model->where('group_id', $groupId)->get();
+    }
 }

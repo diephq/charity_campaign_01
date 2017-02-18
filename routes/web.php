@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::resource('campaign-chat', 'CampaignChatController');
+
 Route::get('register',[
     'as' => 'register' ,
     'uses' => 'Auth\UserRegisterController@getRegister',

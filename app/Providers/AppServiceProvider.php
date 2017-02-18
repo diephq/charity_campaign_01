@@ -23,6 +23,8 @@ use App\Repositories\Action\ActionRepository;
 use App\Repositories\Action\ActionRepositoryInterface;
 use App\Repositories\Message\MessageRepository;
 use App\Repositories\Message\MessageRepositoryInterface;
+use App\Repositories\Group\GroupRepository;
+use App\Repositories\Group\GroupRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,5 +55,6 @@ class AppServiceProvider extends ServiceProvider
         App::bind(FollowRepositoryInterface::class, FollowRepository::class);
         App::bind(ActionRepositoryInterface::class, ActionRepository::class);
         App::bind(MessageRepositoryInterface::class, MessageRepository::class);
+        App::bind(GroupRepositoryInterface::class, GroupRepository::class);
     }
 }

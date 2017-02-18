@@ -11,7 +11,10 @@ use App\Models\Campaign;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Message\MessageRepositoryInterface;
+use App\Repositories\Group\GroupRepositoryInterface;
 use Validator;
+use App\Models\User;
 use App\Services\Purifier;
 
 class CampaignController extends BaseController
@@ -24,6 +27,8 @@ class CampaignController extends BaseController
     protected $ratingRepository;
     protected $categoryCampaignRepository;
     protected $userRepository;
+    protected $messageRepository;
+    protected $groupRepository;
 
     public function __construct(
         CampaignRepositoryInterface $campaignRepository,
@@ -31,7 +36,9 @@ class CampaignController extends BaseController
         CategoryRepositoryInterface $categoryRepository,
         ContributionRepositoryInterface $contributionRepository,
         RatingRepositoryInterface $ratingRepository,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        MessageRepositoryInterface $messageRepository,
+        GroupRepositoryInterface $groupRepository
     ) {
         $this->campaignRepository = $campaignRepository;
         $this->campaign = $campaign;
@@ -39,6 +46,8 @@ class CampaignController extends BaseController
         $this->contributionRepository = $contributionRepository;
         $this->ratingRepository = $ratingRepository;
         $this->userRepository = $userRepository;
+        $this->messageRepository = $messageRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -129,6 +138,13 @@ class CampaignController extends BaseController
         $this->dataView['contributionConfirmed'] = $this->contributionRepository->getUserContributionConfirmed($id);
         $this->dataView['contributionUnConfirmed'] = $this->contributionRepository->getUserContributionUnConfirmed($id);
         $this->dataView['userRatings'] = $this->ratingRepository->listUserRating($this->dataView['campaign']->owner->user_id);
+        $groupId = $this->groupRepository->getGroupIdByCampaignId($id);
+
+        if ($groupId) {
+            $this->dataView['messages'] = $this->messageRepository->getMessagesByGroupId($groupId);
+        }
+
+        $this->dataView['groupName'] = $this->groupRepository->getGroupNameByCampaignId($id);
 
         return view('campaign.show', $this->dataView);
     }

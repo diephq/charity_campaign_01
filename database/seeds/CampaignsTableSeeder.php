@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Group;
 use App\Models\Campaign;
 use App\Models\Image;
 use App\Models\UserCampaign;
@@ -30,6 +31,11 @@ class CampaignsTableSeeder extends Seeder
                 'campaign_id' => $campaign->id,
                 'is_owner' => 1,
                 'status' => 1,
+            ]);
+
+            Group::create([
+                'campaign_id' => $campaign->id,
+                'name' => $faker->word,
             ]);
         });
     }
