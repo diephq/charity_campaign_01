@@ -20,6 +20,23 @@
                 </ul>
             </li>
         @endif
+        <li>
+            <div class="hide_language" data-route="{{ url('language') }}" data-token="{{ csrf_token() }}"></div>
+            <div class="multiple-lang">
+                <select name="lang" id="countries" class="form-control btn-multiple-language">
+                    <option value='en' {{ Session::get('locale') == 'en' ? 'selected' : '' }}
+                    data-image="{{ asset('bower_components/ms-Dropdown/images/msdropdown/icons/blank.gif') }}"
+                            data-imagecss="flag england" data-title="{{ config('settings.language.en') }}">
+                        {{ config('settings.language.en') }}
+                    </option>
+                    <option value='vi' {{ Session::get('locale') == 'vi' ? 'selected' : '' }}
+                    data-image="{{ asset('bower_components/ms-Dropdown/images/msdropdown/icons/blank.gif') }}"
+                            data-imagecss="flag vn" data-title="{{ config('settings.language.vi') }}">
+                        {{ config('settings.language.vi') }}
+                    </option>
+                </select>
+            </div>
+        </li>
     </ul>
     <ul class="nav navbar-nav-custom">
         <li>

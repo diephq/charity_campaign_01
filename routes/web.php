@@ -17,6 +17,10 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('campaign-chat', 'CampaignChatController');
 
+Route::resource('language', 'MultipleLanguageController', [
+    'only' => ['store']
+]);
+
 Route::get('register',[
     'as' => 'register' ,
     'uses' => 'Auth\UserRegisterController@getRegister',
