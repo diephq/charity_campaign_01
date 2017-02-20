@@ -16,7 +16,6 @@
         {{ Html::style('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
         {{ Html::style('css/templates.css') }}
         {{ Html::style('css/app.css') }}
-        {{ Html::style('bower_components/bootstrap-material-design/dist/bootstrap-material-design.css') }}
         {{ Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') }}
         {{ Html::style('css/chat.css') }}
         {!! Html::style('bower_components/ms-Dropdown/css/msdropdown/dd.css') !!}
@@ -47,6 +46,8 @@
         {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
         {{ Html::script('js/plugins.js') }}
         {{ Html::script('js/app.js') }}
+        {{ Html::script('js/new-app.js') }}
+        {{ Html::script('js/new-plugins.js') }}
         {{ Html::script('js/base.js') }}
         {{ Html::script('https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js') }}
         {{ Html::script('https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js') }}
