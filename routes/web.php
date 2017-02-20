@@ -93,3 +93,7 @@ Route::post('comment/create', 'CommentController@store');
 Route::post('request-join', 'CampaignController@joinOrLeaveCampaign');
 
 Route::get('campaign/search', 'CampaignController@searchCampaign');
+
+Route::get('/event', function () {
+    return view('event.index');
+});
