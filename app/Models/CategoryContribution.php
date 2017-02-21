@@ -15,6 +15,7 @@ class CategoryContribution extends Model
         'category_id',
         'contribution_id',
         'amount',
+        'expense',
     ];
 
     protected $table = 'categories_contributions';

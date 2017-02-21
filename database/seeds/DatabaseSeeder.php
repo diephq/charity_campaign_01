@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LikesTableSeeder::class);
         $this->call(CategoryContributionsTableSeeder::class);
         $this->call(RelationshipsTableSeeder::class);
+        $this->call(EventsTableSeeder::class);
+        $this->call(SchedulesTableSeeder::class);
         Model::reguard();
     }
 }
