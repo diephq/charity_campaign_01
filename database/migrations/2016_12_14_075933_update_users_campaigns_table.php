@@ -27,7 +27,7 @@ class UpdateUsersCampaignsTable extends Migration
     public function down()
     {
         Schema::table('users_campaigns', function (Blueprint $table) {
-            $table->boolean('is_owner')->nullable();
+            $table->boolean('is_owner')->nullable()->change();
             $table->dropColumn('status');
         });
     }
