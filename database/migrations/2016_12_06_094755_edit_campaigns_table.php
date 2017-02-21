@@ -28,7 +28,7 @@ class EditCampaignsTable extends Migration
     {
         Schema::table('campaigns', function (Blueprint $table) {
             $table->integer('image_id');
-            $table->string('description');
+            $table->string('description')->change();
         });
     }
 }

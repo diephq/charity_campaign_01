@@ -28,7 +28,7 @@ class UpdateCommentTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->integer('user_id');
+            $table->integer('user_id')->change();
             $table->dropColumn(['name', 'email']);
         });
     }
