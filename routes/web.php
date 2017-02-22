@@ -99,3 +99,7 @@ Route::get('campaign/search', 'CampaignController@searchCampaign');
 });*/
 
 Route::resource('event', 'EventController');
+
+Route::get('/home', function () {
+    return view('home.home');
+});

@@ -20,6 +20,9 @@
         {{ Html::style('css/chat.css') }}
         {!! Html::style('bower_components/ms-Dropdown/css/msdropdown/dd.css') !!}
         {!! Html::style('bower_components/ms-Dropdown/css/msdropdown/flags.css') !!}
+        {{ Html::style('css/new-plugins.css') }}
+        {{ Html::style('css/new-themes.css') }}
+        {{ Html::style('css/new-main.css') }}
     @show
 
 </head>

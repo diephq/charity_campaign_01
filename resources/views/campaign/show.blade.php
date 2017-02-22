@@ -17,7 +17,7 @@
     {{ Html::script('js/contribute.js') }}
     {{ Html::script('http://maps.google.com/maps/api/js?key=AIzaSyDluWcImjhXgQDLQcDvGi3Glu1TOYG6oew') }}
     {{ Html::script('js/helpers/gmaps.min.js') }}
-    {{ Html::script('https://cdn.socket.io/socket.io-1.3.4.js') }}
+    {!! Html::script('bower_components/socket.io-client/dist/socket.io.min.js') !!}
     {{ Html::script('js/chat.js') }}
     {{ Html::script('js/comment_socket.js') }}
     {{ Html::script('js/contributions_socket.js') }}

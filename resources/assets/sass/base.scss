@@ -45,8 +45,6 @@ body {
     }
 
     #main-container {
-        margin: 0 $pageMarginLeft;
-        
         .panel-title {
             font-size: $titleFontSize;
         }
@@ -489,4 +487,19 @@ body {
     height: 25px !important;
     min-width: 0;
 }
+.form-search {
+    margin-left: 25px;
+    form {
+        display: table-cell;
+        .form-group {
+            display: inline-block;
+            .col-md-6 {
+                padding-right: 0;
+            }
+        }
+    }
+}
 
+nav {
+    margin-top: 10px;
+}
