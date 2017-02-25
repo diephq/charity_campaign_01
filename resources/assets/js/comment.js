@@ -24,13 +24,6 @@ Comment.prototype = {
                 type: "POST",
                 url: _self.url,
                 data: $("#formComment").serialize(),
-                success: function(data)
-                {
-                    if (data.success) {
-                        $('#text').val('');
-                        $('.media-list').prepend(data.html);
-                    }
-                },
                 error: function (errors) {
                     var arrayErrors = errors.responseJSON;
                     var errorsHtml = '<div class="alert alert-danger">';
