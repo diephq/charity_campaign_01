@@ -13,6 +13,13 @@ class EventsTableSeeder extends Seeder
     public function run()
     {
         Event::truncate();
-        factory(Event::class, 10)->create();
+
+        factory(Event::class, 20)->create()->each(function ($event) {
+            foreach (range(1, 6) as $key) {
+                $event->images()->create([
+                    'image' => 'event.jpg',
+                ]);
+            }
+        });
     }
 }

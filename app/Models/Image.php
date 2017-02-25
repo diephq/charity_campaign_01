@@ -13,11 +13,15 @@ class Image extends Model
      */
     protected $fillable = [
         'image',
-        'campaign_id',
     ];
+
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 
     public function getImageAttribute($value)
     {
-        return config('path.campaign') . $value;
+        return config('path.images') . $value;
     }
 }

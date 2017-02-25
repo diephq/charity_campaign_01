@@ -57,6 +57,7 @@
         <!-- DROPDOWN: multiple language -->
         {!! Html::script('bower_components/ms-Dropdown/js/msdropdown/jquery.dd.min.js') !!}
         {{ Html::script('js/multiple_language.js') }}
+        {{ Html::script('js/share_social.js') }}
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {

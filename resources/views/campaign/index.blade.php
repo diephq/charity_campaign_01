@@ -65,7 +65,7 @@
                                                     <div class="col-sm-6 col-md-6 profile_thumb">
                                                         <a href="{{ action('UserController@show', ['id' => $campaign->owner->user->id]) }}">
                                                             <img src="{{ $campaign->owner->user->avatar }}"
-                                                                 class="img-responsive img-circle" alt="image">
+                                                                class="img-responsive img-circle" alt="image">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -122,7 +122,7 @@
                     <div class="widget">
                         <div class="block-title themed-background-dark">
                             <h4 class="widget-content-light">
-                                <strong>Top users</strong>
+                                <strong>{{ trans('user.top_user') }}</strong>
                             </h4>
                         </div>
                         <div class="widget-extra active-user">

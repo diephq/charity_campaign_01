@@ -46,4 +46,5 @@ return [
     'please_verify_email' => 'Vui lòng xác nhận tài khoản trưóc khi đăng nhập',
     'home' => 'Trang chủ',
     'users' => 'Những ngưòi dùng',
+    'top_user' => 'Xếp hạng người dùng',
 ];
