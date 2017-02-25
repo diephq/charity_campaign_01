@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use LRedis;
 use Illuminate\Http\Request;
 use App\Models\Contribution;
 use App\Repositories\Contribution\ContributionRepositoryInterface;
@@ -54,6 +55,21 @@ class ContributionController extends Controller
             ]);
 
             $result = $this->contributionRepository->createContribution($input);
+            $contributionUnConfirmed = $this->contributionRepository->getUserContributionUnConfirmed($input['campaign_id']);
+
+            $dataContributions = [
+                'html' => view('layouts.contributions_unconfirm', [
+                    'contributionUnConfirmed' => $contributionUnConfirmed
+                ])->render(),
+                'html_model' => view('campaign.list_contribution_unconfirmed', [
+                    'contributionUnConfirmed' => $contributionUnConfirmed
+                ])->render(),
+                'campaign_id' => $input['campaign_id'],
+                'success' => true,
+            ];
+
+            $redis = LRedis::connection();
+            $redis->publish('contributions_unconfirm', json_encode($dataContributions));
 
             if ($result) {
                 return response()->json([
