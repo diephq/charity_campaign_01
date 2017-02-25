@@ -31,6 +31,12 @@ class CampaignChatController extends Controller
                 'content',
             ]);
 
+            if (!trim($inputs['content'])) {
+                return response()->json([
+                    'success' => false
+                ]);
+            }
+
             $groupId = $this->groupRepository->getGroupIdByCampaignId($inputs['campaign_id']);
             $currentUser = auth()->user();
 

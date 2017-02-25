@@ -19,6 +19,7 @@
     {{ Html::script('js/helpers/gmaps.min.js') }}
     {{ Html::script('https://cdn.socket.io/socket.io-1.3.4.js') }}
     {{ Html::script('js/chat.js') }}
+    {{ Html::script('js/comment_socket.js') }}
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -66,6 +67,10 @@
     <meta property="og:description" content="{{ $campaign->description }}" />
     <meta property="og:image" content="{{ $campaign->image->image }}" />
     <div id="page-content">
+        <div class="hide-comment" data-campaign-id="{{ $campaign->id }}"
+            data-host="{{ config('app.key_program.socket_host') }}"
+            data-port="{{ config('app.key_program.socket_port') }}">
+        </div>
         <div class="hide" data-token="{{ csrf_token() }}"></div>
         <div class="row">
             <div class="col-md-8 center-panel">
