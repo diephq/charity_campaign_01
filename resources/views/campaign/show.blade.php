@@ -59,6 +59,12 @@
 @stop
 
 @section('content')
+    <meta property="fb:app_id" content="708640145978561"/>
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ URL::action('CampaignController@show', $campaign->id) }}" />
+    <meta property="og:title" content="{{ $campaign->name }}" />
+    <meta property="og:description" content="{{ $campaign->description }}" />
+    <meta property="og:image" content="{{ $campaign->image->image }}" />
     <div id="page-content">
         <div class="hide" data-token="{{ csrf_token() }}"></div>
         <div class="row">
@@ -173,6 +179,15 @@
                             </ul>
                         </div>
                         <hr>
+                        <div class="form-group col-lg-12 div-like-share">
+                            <div class="fb-like"
+                                data-href="{{ URL::action('CampaignController@show', $campaign->id) }}"
+                                data-layout="standard" data-action="like"
+                                data-size="small" data-show-faces="true"
+                                data-share="true">
+                            </div>
+                        </div>
+                        <hr>
                         @include('campaign.comment')
                     </div>
                 </div>
@@ -185,52 +200,77 @@
             @include('layouts.user_rating')
 
             <div class="col-md-4 right-panel">
-                <div class="block">
-                    <div class="block-title themed-background-dark">
-                        <h4 class="block-title-light campaign-title">
-                            <strong>{{ trans('campaign.progress') }}</strong>
-                        </h4>
-                    </div>
-                    <div class="widget-extra">
-                        <div class="timeline">
-                            <ul class="">
-                                @foreach ($results as $result)
-                                    <li class="media event active fix-float font-size-progress-bar">
-                                        <div class="pull-left">
-                                        <span>
-                                            <strong>{{ $result['name'] }}</strong> :
-                                            <span>{{ $result['value'] . '/' . $result['goal'] }}</span>
-                                            <strong>{{ $result['unit'] }}</strong>
-                                        </span>
-                                        </div>
-                                    </li>
-
-                                    <div class="progress">
-                                        @if ($result['progress'] < 100)
-                                            <div class="progress-bar progress-bar-danger progress-bar-striped  active"
-                                                 role="progressbar"
-                                                 aria-valuenow="{{ $result['progress'] }}"
-                                                 aria-valuemin="0" aria-valuemax="100"
-                                                 style="width:{{ $result['progress'] }}%">
-                                                <span class="show">{{ $result['progress'] }} %</span>
+                @if ($campaign->events->count())
+                    <div class="block">
+                        <div class="block-title themed-background-dark">
+                            <h4 class="block-title-light campaign-title">
+                                <strong>{{ trans('campaign.event') }}</strong>
+                            </h4>
+                        </div>
+                        <div class="widget-extra">
+                            <div class="timeline">
+                                <ul class="">
+                                    @foreach ($campaign->events as $event)
+                                        <li class="media event active fix-float font-size-progress-bar">
+                                            <div class="pull-left">
+                                                <span class="label label-default">{{ $loop->index + 1 }}</span> <a href="{{ URL::action('EventController@show', $event->id) }}">{{ $event->title }}</a>
                                             </div>
-                                        @else
-                                            <div class="progress-bar progress-bar-success progress-bar-striped  active"
-                                                 role="progressbar"
-                                                 style="width:{{ round(100 / $result['progress'] * 100) }}%">
-                                                <span class="show">100%</span>
-                                            </div>
-                                            <div class="progress-bar progress-bar-warning progress-bar-striped  active"
-                                                 style="width:{{ 100 - round(100 / $result['progress'] * 100) }}%">
-                                                <span class="show">{{ $result['progress'] - 100 }}%</span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
+                @if ($results)
+                    <div class="block">
+                        <div class="block-title themed-background-dark">
+                            <h4 class="block-title-light campaign-title">
+                                <strong>{{ trans('campaign.progress') }}</strong>
+                            </h4>
+                        </div>
+                        <div class="widget-extra">
+                            <div class="timeline">
+                                <ul class="">
+                                    @foreach ($results as $result)
+                                        <li class="media event active fix-float font-size-progress-bar">
+                                            <div class="pull-left">
+                                            <span>
+                                                <strong>{{ $result['name'] }}</strong> :
+                                                <span>{{ $result['value'] . '/' . $result['goal'] }}</span>
+                                                <strong>{{ $result['unit'] }}</strong>
+                                            </span>
+                                            </div>
+                                        </li>
+
+                                        <div class="progress">
+                                            @if ($result['progress'] < 100)
+                                                <div class="progress-bar progress-bar-danger progress-bar-striped  active"
+                                                     role="progressbar"
+                                                     aria-valuenow="{{ $result['progress'] }}"
+                                                     aria-valuemin="0" aria-valuemax="100"
+                                                     style="width:{{ $result['progress'] }}%">
+                                                    <span class="show">{{ $result['progress'] }} %</span>
+                                                </div>
+                                            @else
+                                                <div class="progress-bar progress-bar-success progress-bar-striped  active"
+                                                     role="progressbar"
+                                                     style="width:{{ round(100 / $result['progress'] * 100) }}%">
+                                                    <span class="show">100%</span>
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning progress-bar-striped  active"
+                                                     style="width:{{ 100 - round(100 / $result['progress'] * 100) }}%">
+                                                    <span class="show">{{ $result['progress'] - 100 }}%</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="block">
                     <div class="block-title themed-background-dark">

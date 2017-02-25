@@ -121,5 +121,7 @@ return [
     'progress' => 'Progress',
     'activities' => 'Activities',
     'users' => 'users',
+    'event' => 'Events',
+    'schedules' => 'Schedules',
 
 ];

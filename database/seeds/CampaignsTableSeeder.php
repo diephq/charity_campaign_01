@@ -21,8 +21,7 @@ class CampaignsTableSeeder extends Seeder
         static $userIds;
 
         factory(Campaign::class, 20)->create()->each(function ($campaign) use ($faker, $userIds) {
-            Image::create([
-                'campaign_id' => $campaign->id,
+            $campaign->image()->create([
                 'image' => 'campaign.png',
             ]);
 

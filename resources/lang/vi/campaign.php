@@ -121,5 +121,7 @@ return [
     'progress' => 'Tiến độ',
     'activities' => 'Hoạt động',
     'users' => 'Người dùng',
+    'event' => 'Sự kiện',
+    'schedules' => 'Kế hoạch - Lịch trình',
 
 ];

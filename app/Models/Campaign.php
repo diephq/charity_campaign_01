@@ -60,7 +60,7 @@ class Campaign extends Model
 
     public function image()
     {
-        return $this->hasOne(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     public function owner()
@@ -106,6 +106,11 @@ class Campaign extends Model
     public function group()
     {
         return $this->hasOne(Group::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
     }
 
     public function campaign($id)
