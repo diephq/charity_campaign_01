@@ -16,3 +16,23 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:api');
+
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:api');
+
+
+for ($i=0; $i < ; $i++) {
+    # code...
+}
+
+
+for ($i=0; $i < ; $i++) {
+    # code...
+}
